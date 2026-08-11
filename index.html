@@ -174,35 +174,32 @@
   .section-note{ text-align:right; font-size: 15px; color: var(--ink-dim); line-height: 1.6; max-width: 300px; padding-top: 10px; flex-shrink:0; }
 
   /* ================= SCREEN 2 — EXPERIENCE (fan) ================= */
-  #experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
-  .stage{ position:relative; flex:1; display:flex; align-items:center; justify-content:center; margin-top: 40px; padding: 0 20px 60px; }
-  .cards{ position:relative; display:flex; align-items:center; justify-content:center; width:100%; max-width: 1180px; }
+experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
+  .stage{ position:relative; flex:1; display:flex; align-items:center; justify-content:center; margin-top: 40px; padding: 0 20px 60px; width: 100%; }
+  .cards{ position:relative; display:flex; align-items:center; justify-content:center; width:100%; max-width: 1200px; }
 
-  /* every card shares the synergium-style treatment: dark glass body, glowing
-     accent border, corner-cut silhouette, uppercase italic title — only the
-     accent color changes per card, taken from the palette in :root */
   .card{
-    --accent-bright:#c9c9d2; --accent-soft: rgba(255,255,255,0.10); --accent-line: rgba(255,255,255,0.28); --accent-glow: rgba(255,255,255,0.16);
-    position:relative; width: 246px; aspect-ratio: 210/430; border-radius: 22px;
+    --accent-bright:#c9c9d2; --accent-soft: rgba(255,255,255,0.04); --accent-line: rgba(255,255,255,0.15); --accent-glow: rgba(255,255,255,0.04);
+    position:relative; width: 270px; min-height: 420px; border-radius: 22px;
     background: linear-gradient(180deg, #121216, #030304 88%);
-    border: 1px solid var(--accent-line); padding: 22px; display:flex; flex-direction:column;
+    border: 1px solid var(--accent-line); padding: 26px 22px; display:flex; flex-direction:column;
     justify-content:space-between; overflow:hidden; flex-shrink:0; cursor: pointer;
-    box-shadow: 0 0 0 1px var(--accent-soft), 0 0 30px var(--accent-glow), 0 30px 60px -20px rgba(0,0,0,0.7);
-    clip-path: polygon(0 16px, 16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+    box-shadow: 0 0 0 1px var(--accent-soft), 0 0 12px var(--accent-glow), 0 20px 40px -20px rgba(0,0,0,0.8);
     transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
   }
-  .cards .card:not(:first-child){ margin-left: -6px; }
-  .card:not(.selected):hover{ transform: translateY(-14px) !important; }
-  .card.selected{ box-shadow: 0 0 0 1px var(--accent-line), 0 0 44px var(--accent-glow), 0 40px 80px -20px rgba(0,0,0,0.78) !important; z-index: 20 !important; }
+  .cards .card:not(:first-child){ margin-left: -50px; }
+  
+  .card:not(.selected):hover{ transform: translateY(-14px) !important; z-index: 20; }
+  .card.selected{ box-shadow: 0 0 0 1px var(--accent-line), 0 0 18px var(--accent-glow), 0 30px 60px -20px rgba(0,0,0,0.85) !important; z-index: 25 !important; }
 
-  .card .period{ font-size: 11.5px; color: var(--accent-bright); background: var(--accent-soft); border: 1px solid var(--accent-line); display:inline-block; padding: 5px 10px; border-radius: 20px; align-self:flex-start; white-space:nowrap; }
-  .card .role{ font-size: 13px; color: var(--accent-bright); margin-top: 6px; opacity:.9; }
-  .card .title{ font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; line-height:1.15; font-style: italic; text-transform: uppercase; color:#f5f5f8; text-shadow: 0 0 16px var(--accent-glow); }
-  .card .brand{ font-weight: 700; font-size: 15px; letter-spacing: 0.02em; color: var(--accent-bright); }
+  .card .period{ font-size: 11px; color: var(--accent-bright); background: var(--accent-soft); border: 1px solid var(--accent-line); display:inline-block; padding: 5px 10px; border-radius: 20px; align-self:flex-start; white-space:nowrap; }
+  .card .role{ font-size: 13px; color: var(--accent-bright); margin-top: 6px; opacity:.85; }
+  .card .title{ font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; line-height:1.15; font-style: italic; text-transform: uppercase; color:#f5f5f8; }
+  .card .brand{ font-weight: 700; font-size: 14px; letter-spacing: 0.02em; color: var(--accent-bright); }
 
-  .card-footer{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .card-footer{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top: 20px; }
   .details-btn{
-    display:none; align-items:center; gap:4px; font-size: 11.5px; font-weight:600; white-space:nowrap;
+    display:none; align-items:center; gap:4px; font-size: 11px; font-weight:600; white-space:nowrap;
     padding: 7px 12px; border-radius: 20px; background: var(--accent-soft);
     border: 1px solid var(--accent-line); color:#fff; cursor:pointer;
     transition: background .2s ease, transform .2s ease; opacity:0;
@@ -211,38 +208,33 @@
   .details-btn:hover{ background: var(--accent-line); transform: translateY(-1px); }
   @keyframes btnIn{ from{ opacity:0; transform: translateY(4px); } to{ opacity:1; transform:none; } }
 
-  .card-1{ --accent-bright:#c3b8ff; --accent-soft: rgba(139,120,255,0.14); --accent-line: rgba(139,120,255,0.4); --accent-glow: rgba(139,120,255,0.28); transform: rotate(-7deg) translateY(26px); z-index:1; }
-  .card-2{ --accent-bright:#8fffb8; --accent-soft: rgba(94,255,154,0.14); --accent-line: rgba(94,255,154,0.42); --accent-glow: rgba(94,255,154,0.3); transform: rotate(-3.5deg) translateY(6px); z-index:2; }
-  .card-3{ --accent-bright:#9dc4ff; --accent-soft: rgba(90,150,255,0.14); --accent-line: rgba(90,150,255,0.4); --accent-glow: rgba(90,150,255,0.28); transform: rotate(0deg) translateY(-16px); z-index:3; }
-  /* dark scrim so text always reads over the bright moon art below */
-  .card-3::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background: linear-gradient(180deg, rgba(3,4,8,0.7) 0%, rgba(3,4,8,0.55) 42%, rgba(3,4,8,0.2) 62%, rgba(3,4,8,0.55) 100%); }
-  .card-4{ --accent-bright:#ffb08c; --accent-soft: rgba(201,83,43,0.16); --accent-line: rgba(201,83,43,0.42); --accent-glow: rgba(201,83,43,0.3); transform: rotate(3.5deg) translateY(6px); z-index:2; }
-  .card-5{ --accent-bright:#d4d6de; --accent-soft: rgba(200,205,220,0.12); --accent-line: rgba(200,205,220,0.3); --accent-glow: rgba(200,205,220,0.2); transform: rotate(7deg) translateY(26px); z-index:1; }
+  /* Очень нежная, мягкая палитра акцентов для карточек */
+  .card-1{ --accent-bright:#ffb3c6; --accent-soft: rgba(255,179,198,0.05); --accent-line: rgba(255,179,198,0.18); --accent-glow: rgba(255,179,198,0.06); transform: rotate(-12deg) translateY(32px); z-index:1; }
+  .card-2{ --accent-bright:#c3b8ff; --accent-soft: rgba(139,120,255,0.05); --accent-line: rgba(139,120,255,0.18); --accent-glow: rgba(139,120,255,0.06); transform: rotate(-7deg) translateY(10px); z-index:2; }
+  .card-3{ --accent-bright:#ffb08c; --accent-soft: rgba(201,83,43,0.05); --accent-line: rgba(201,83,43,0.18); --accent-glow: rgba(201,83,43,0.06); transform: rotate(-2deg) translateY(-4px); z-index:3; }
+  .card-4{ --accent-bright:#8fffb8; --accent-soft: rgba(94,255,154,0.05); --accent-line: rgba(94,255,154,0.18); --accent-glow: rgba(94,255,154,0.06); transform: rotate(2deg) translateY(-4px); z-index:4; }
+  .card-5{ --accent-bright:#9dc4ff; --accent-soft: rgba(90,150,255,0.05); --accent-line: rgba(90,150,255,0.18); --accent-glow: rgba(90,150,255,0.06); transform: rotate(7deg) translateY(10px); z-index:5; }
+  .card-5::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background: linear-gradient(180deg, rgba(3,4,8,0.7) 0%, rgba(3,4,8,0.55) 42%, rgba(3,4,8,0.2) 62%, rgba(3,4,8,0.55) 100%); }
+  .card-6{ --accent-bright:#d4d6de; --accent-soft: rgba(200,205,220,0.04); --accent-line: rgba(200,205,220,0.15); --accent-glow: rgba(200,205,220,0.05); transform: rotate(12deg) translateY(32px); z-index:6; }
 
-  .card-1.selected{ transform: rotate(-7deg) translateY(2px) scale(1.05) !important; }
-  .card-2.selected{ transform: rotate(-3.5deg) translateY(-16px) scale(1.05) !important; }
-  .card-3.selected{ transform: rotate(0deg) translateY(-36px) scale(1.05) !important; }
-  .card-4.selected{ transform: rotate(3.5deg) translateY(-16px) scale(1.05) !important; }
-  .card-5.selected{ transform: rotate(7deg) translateY(2px) scale(1.05) !important; }
+  .card-1.selected{ transform: rotate(-12deg) translateY(-10px) scale(1.05) !important; }
+  .card-2.selected{ transform: rotate(-7deg) translateY(-16px) scale(1.05) !important; }
+  .card-3.selected{ transform: rotate(-2deg) translateY(-30px) scale(1.05) !important; }
+  .card-4.selected{ transform: rotate(2deg) translateY(-30px) scale(1.05) !important; }
+  .card-5.selected{ transform: rotate(7deg) translateY(-16px) scale(1.05) !important; }
+  .card-6.selected{ transform: rotate(12deg) translateY(-10px) scale(1.05) !important; }
 
-  .card-1 .art{ position:absolute; inset:0; background: radial-gradient(circle at 30% 25%, var(--accent-glow), transparent 55%); }
-  .card-2 .art{ position:absolute; inset:0;
-    background: radial-gradient(circle at 75% 12%, var(--accent-glow), transparent 55%),
-      radial-gradient(circle at 10% 90%, rgba(94,255,154,0.14), transparent 50%); }
-  .card-3 .art{ position:absolute; left:-25%; right:-15%; bottom:-18%; top:56%; border-radius: 50% 50% 0 0 / 60% 60% 0 0;
-    background: radial-gradient(circle at 35% 25%, #c3d3ea 0%, #8398b8 18%, #34455f 42%, #0b1220 70%);
-    box-shadow: inset -20px -10px 60px rgba(0,0,0,0.55); opacity:0.85; }
-  .card-3 .art::after{ content:''; position:absolute; left:10%; top:8%; width:34%; height:22%; background: rgba(255,255,255,0.4); border-radius: 50%; filter: blur(10px); }
-  .card-4 .art{ position:absolute; right:-6%; bottom:-4%; width:78%; height:46%;
-    background: linear-gradient(135deg, var(--accent-glow), transparent 60%);
-    clip-path: polygon(20% 100%, 0% 55%, 30% 20%, 55% 0%, 70% 30%, 100% 15%, 100% 100%); }
-  .card-5 .art{ position:absolute; right:-18%; bottom:-14%; width:70%; height:52%; border-radius: 50%;
-    background: radial-gradient(circle at 60% 35%, var(--accent-glow), transparent 60%); border: 10px solid rgba(255,255,255,0.10); }
+  .card-1 .art{ position:absolute; right:-10%; top:-10%; width:70%; height:50%; background: radial-gradient(circle, var(--accent-glow), transparent 70%); border-radius:50%; }
+  .card-2 .art{ position:absolute; inset:0; background: radial-gradient(circle at 30% 25%, var(--accent-glow), transparent 55%); }
+  .card-3 .art{ position:absolute; right:-6%; bottom:-4%; width:78%; height:46%; background: linear-gradient(135deg, var(--accent-glow), transparent 60%); clip-path: polygon(20% 100%, 0% 55%, 30% 20%, 55% 0%, 70% 30%, 100% 15%, 100% 100%); }
+  .card-4 .art{ position:absolute; inset:0; background: radial-gradient(circle at 75% 12%, var(--accent-glow), transparent 55%), radial-gradient(circle at 10% 90%, rgba(94,255,154,0.06), transparent 50%); }
+  .card-5 .art{ position:absolute; left:-25%; right:-15%; bottom:-18%; top:56%; border-radius: 50% 50% 0 0 / 60% 60% 0 0; background: radial-gradient(circle at 35% 25%, #c3d3ea 0%, #8398b8 18%, #34455f 42%, #0b1220 70%); box-shadow: inset -20px -10px 60px rgba(0,0,0,0.55); opacity:0.6; }
+  .card-5 .art::after{ content:''; position:absolute; left:10%; top:8%; width:34%; height:22%; background: rgba(255,255,255,0.2); border-radius: 50%; filter: blur(10px); }
+  .card-6 .art{ position:absolute; right:-18%; bottom:-14%; width:70%; height:52%; border-radius: 50%; background: radial-gradient(circle at 60% 35%, var(--accent-glow), transparent 60%); border: 10px solid rgba(255,255,255,0.05); }
 
-  .card-body{ position:relative; z-index:2; }
-  .card-list{ margin-top: 14px; list-style:none; font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.85; }
-  .card-list li{ position:relative; padding-left: 16px; }
+  .card-body{ position:relative; z-index:2; flex-grow: 1; display:flex; flex-direction:column; }
+  .card-list{ margin-top: 16px; list-style:none; font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.6; flex-grow:1; }
+  .card-list li{ position:relative; padding-left: 14px; margin-bottom: 6px;}
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
 
   /* ================= SCREEN 3 — PORTFOLIO (flat row) ================= */
@@ -580,8 +572,9 @@
       <div class="about-photo"><img src="profile.jpg" alt="Фото Владимира"></div>
       <div class="about-copy">
         <div class="eyebrow"><span></span>Обо мне</div>
-        <h2>Специализируюсь на создании промо-материалов, сильных презентаций, рекламных креативов для статики и видео, а также визуализации данных.</h2>
-        <p>В работе активно внедряю нейросети и инструменты автоматизации, экспериментируя с темами: от строгой корпоративной аналитики до выразительной ретро-эстетики.</p>
+        <h2>Создаю дизайн, который работает на результат</h2>
+        <p>Я коммерческий дизайнер. Специализируюсь на создании промо-материалов, сильных презентаций, рекламных креативов для статики и видео, а также визуализации данных.
+          В работе активно внедряю нейросети и инструменты автоматизации, экспериментируя с темами: от строгой корпоративной аналитики до выразительной ретро-эстетики.</p>
         <div class="about-facts">
           <div><b>8+</b><span>лет профессионально ломаю пиксели</span></div>
           <div><b>5</b><span>мест, где меня терпели</span></div>
