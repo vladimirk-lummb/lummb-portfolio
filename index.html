@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lummb — Портфолио</title>
+<style>
+  :root{
+    --bg: #08080a;
+    --ink: #f4f4f2;
+    --ink-dim: #9a9a9e;
+    --ink-faint: #63636a;
+    --line: rgba(255,255,255,0.09);
+    --nav-h: 84px;
+
+    --purple-1: #4b3fb0; --purple-2: #2a2270;
+    --rust-1: #c9532b;   --rust-2: #7a2a12;
+    --green-1: #1f4d3d;  --green-2: #0c211a;
+    --slate-1: #3d4046;  --slate-2: #23252a;
+    --blue-1: #2f4f8f;   --blue-2: #15243f;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+      "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; }
+
+  :focus-visible{ outline: 2px solid #7c8cff; outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  /* ---------- fixed nav ---------- */
+  nav{
+    position: fixed; top:0; left:0; right:0; height: var(--nav-h);
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 0 56px 0 48px; z-index: 100;
+    background: rgba(8,8,10,0.5);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  nav.scrolled{ border-bottom-color: var(--line); background: rgba(8,8,10,0.78); }
+
+  .logo{ font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .nav-links{ display:flex; gap:40px; list-style:none; }
+  .nav-links li{
+    position:relative; font-size:14px; color: var(--ink-dim); cursor:pointer;
+    padding: 30px 0 26px; transition: color .2s ease; background:none; border:none;
+  }
+  .nav-links li:hover{ color: var(--ink); }
+  .nav-links li.active{ color: var(--ink); }
+  .nav-links li.active::after{
+    content:''; position:absolute; left:50%; bottom:22px; width:4px; height:4px;
+    border-radius:50%; background: var(--ink); transform: translateX(-50%);
+  }
+
+  .nav-cta-wrap{ position:relative; }
+  .nav-cta{
+    width:36px; height:36px; border:1px solid var(--line); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color: var(--ink);
+    transition: background .2s ease, border-color .2s ease; cursor:pointer; flex-shrink:0;
+  }
+  .nav-cta:hover{ background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.25); }
+
+  .nav-tooltip{
+    position:absolute; top: 48px; right:0; z-index: 150; max-width: 220px;
+    background:#16171a; border:1px solid var(--line); color: var(--ink); font-size:13px;
+    line-height:1.4; padding:12px 16px; border-radius:14px; white-space:normal;
+    opacity:0; transform: translateY(-6px); pointer-events:none;
+    transition: opacity .2s ease, transform .2s ease;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+  }
+  .nav-tooltip.show{ opacity:1; transform:none; pointer-events:auto; }
+  .nav-tooltip::before{
+    content:''; position:absolute; top:-6px; right:14px; width:12px; height:12px; background:#16171a;
+    border-left:1px solid var(--line); border-top:1px solid var(--line); transform: rotate(45deg);
+  }
+
+  .back-to-top{
+    position: fixed; right: 28px; bottom: 28px; width:50px; height:50px; border-radius:50%;
+    background: rgba(18,18,22,0.7); border:1px solid var(--line); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); color: var(--ink); display:flex; align-items:center;
+    justify-content:center; cursor:pointer; z-index: 90; opacity:0; transform: translateY(12px);
+    pointer-events:none; transition: opacity .3s ease, transform .3s ease, background .2s ease;
+  }
+  .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+  .back-to-top:hover{ background: rgba(40,40,46,0.9); }
+
+  .screen{ position:relative; min-height:100vh; scroll-snap-align: start; display:flex; flex-direction:column; }
+
+  /* ================= SCREEN 1 — HERO ================= */
+  #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; }
+  #hero::before{
+    content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(38% 34% at 30% 35%, rgba(150,130,255,0.30), transparent 70%),
+      radial-gradient(34% 30% at 72% 60%, rgba(255,130,190,0.20), transparent 70%),
+      radial-gradient(30% 28% at 58% 18%, rgba(110,230,210,0.20), transparent 70%);
+    filter: blur(70px);
+    animation: auroraMove 22s ease-in-out infinite alternate;
+  }
+  @keyframes auroraMove{
+    0%{ transform: translate3d(0,0,0) scale(1); }
+    50%{ transform: translate3d(3%, -4%, 0) scale(1.1); }
+    100%{ transform: translate3d(-4%, 3%, 0) scale(1); }
+  }
+  .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size: 13px; color: var(--ink-dim);
+    border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px; margin-bottom: 28px;
+  }
+  .eyebrow span{ width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
+  #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
+  #hero p{ position:relative; z-index:2; margin: 22px auto 0; font-size: clamp(13px, 2vw, 18px); color: var(--ink-dim); line-height: 1.6; white-space: nowrap; }
+
+  .scroll-cue{ position:absolute; left:50%; bottom: 44px; transform: translateX(-50%); z-index: 3; }
+  .scroll-cue button{
+    width: 46px; height:46px; border-radius:50%; border: 1px solid var(--line); background: transparent;
+    color: var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition: background .2s ease; animation: bob 2.4s ease-in-out infinite;
+  }
+  .scroll-cue button:hover{ background: rgba(255,255,255,0.08); }
+  @keyframes bob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(6px); } }
+
+  /* shared section header row */
+  .section-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding: 0 56px 0 48px; gap: 40px;
+  }
+  .section-copy h2{ font-size: clamp(34px, 4.6vw, 54px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; max-width: 640px; }
+  .section-copy p{ margin-top: 14px; font-size: 16px; color: var(--ink-dim); line-height: 1.55; max-width: 380px; }
+  .section-note{ text-align:right; font-size: 15px; color: var(--ink-dim); line-height: 1.6; max-width: 300px; padding-top: 10px; flex-shrink:0; }
+
+  /* ================= SCREEN 2 — EXPERIENCE (fan) ================= */
+  #experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
+  .stage{ position:relative; flex:1; display:flex; align-items:center; justify-content:center; margin-top: 40px; padding: 0 20px 60px; }
+  .cards{ position:relative; display:flex; align-items:center; justify-content:center; width:100%; max-width: 1180px; }
+
+  .card{
+    position:relative; width: 246px; aspect-ratio: 210/430; border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08); padding: 22px; display:flex; flex-direction:column;
+    justify-content:space-between; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.65); overflow:hidden;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; flex-shrink:0;
+    cursor: pointer;
+  }
+  .cards .card:not(:first-child){ margin-left: -6px; }
+  .card:not(.selected):hover{ transform: translateY(-14px) !important; }
+  .card.selected{ box-shadow: 0 40px 80px -20px rgba(0,0,0,0.75), 0 0 0 2px rgba(255,255,255,0.6) !important; z-index: 20 !important; }
+
+  .card .period{ font-size: 11.5px; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); display:inline-block; padding: 5px 10px; border-radius: 20px; align-self:flex-start; white-space:nowrap; }
+  .card .role{ font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 6px; }
+  .card .title{ font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px; line-height:1.15; }
+  .card .brand{ font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+
+  .card-footer{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .details-btn{
+    display:none; align-items:center; gap:4px; font-size: 11.5px; font-weight:600; white-space:nowrap;
+    padding: 7px 12px; border-radius: 20px; background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.28); color:#fff; cursor:pointer;
+    transition: background .2s ease, transform .2s ease; opacity:0;
+  }
+  .card.selected .details-btn{ display:inline-flex; opacity:1; animation: btnIn .3s ease; }
+  .details-btn:hover{ background: rgba(255,255,255,0.32); transform: translateY(-1px); }
+  @keyframes btnIn{ from{ opacity:0; transform: translateY(4px); } to{ opacity:1; transform:none; } }
+
+  .card-1{ background: linear-gradient(160deg, var(--purple-1), var(--purple-2) 75%); transform: rotate(-7deg) translateY(26px); z-index:1; }
+  .card-2{
+    background: linear-gradient(180deg, #071a10, #020705 88%);
+    border: 1px solid rgba(94,255,154,0.4);
+    box-shadow: 0 0 0 1px rgba(94,255,154,0.12), 0 0 34px rgba(80,255,150,0.22), 0 30px 60px -20px rgba(0,0,0,0.7);
+    clip-path: polygon(0 16px, 16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+    transform: rotate(-3.5deg) translateY(6px); z-index:2;
+  }
+  .card-3{ background: linear-gradient(180deg, #16171a, #050506 85%); transform: rotate(0deg) translateY(-16px); z-index:3; width: 300px; }
+  .card-4{ background: linear-gradient(160deg, var(--green-1), var(--green-2) 80%); transform: rotate(3.5deg) translateY(6px); z-index:2; }
+  .card-5{ background: linear-gradient(160deg, var(--slate-1), var(--slate-2) 80%); transform: rotate(7deg) translateY(26px); z-index:1; }
+
+  .card-2 .period{ background: rgba(94,255,154,0.12); border: 1px solid rgba(94,255,154,0.35); color:#aaffce; }
+  .card-2 .title{ font-style: italic; text-transform: uppercase; font-weight: 800; color:#eafff0; text-shadow: 0 0 14px rgba(94,255,154,0.55); }
+  .card-2 .role{ color:#8fffb8; }
+  .card-2 .card-list li::before{ content:'✓'; color:#5eff9a; }
+  .card-2 .brand{ color:#8fffb8; letter-spacing: 0.02em; }
+  .card-2 .details-btn{ background: rgba(94,255,154,0.16); border-color: rgba(94,255,154,0.5); color:#eafff0; }
+  .card-2 .details-btn:hover{ background: rgba(94,255,154,0.28); }
+
+  .card-1.selected{ transform: rotate(-7deg) translateY(2px) scale(1.05) !important; }
+  .card-2.selected{ transform: rotate(-3.5deg) translateY(-16px) scale(1.05) !important; }
+  .card-3.selected{ transform: rotate(0deg) translateY(-36px) scale(1.05) !important; }
+  .card-4.selected{ transform: rotate(3.5deg) translateY(-16px) scale(1.05) !important; }
+  .card-5.selected{ transform: rotate(7deg) translateY(2px) scale(1.05) !important; }
+
+  .card-1 .art{ position:absolute; inset:0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 55%); }
+  .card-2 .art{ position:absolute; inset:0;
+    background: radial-gradient(circle at 75% 12%, rgba(94,255,154,0.28), transparent 55%),
+      radial-gradient(circle at 10% 90%, rgba(94,255,154,0.14), transparent 50%); }
+  .card-3 .art{ position:absolute; left:-25%; right:-15%; bottom:-18%; top:32%; border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+    background: radial-gradient(circle at 35% 25%, #eef1f6 0%, #b9c2cf 18%, #4c525e 42%, #12141a 70%);
+    box-shadow: inset -20px -10px 60px rgba(0,0,0,0.5); }
+  .card-3 .art::after{ content:''; position:absolute; left:10%; top:8%; width:34%; height:22%; background: rgba(255,255,255,0.55); border-radius: 50%; filter: blur(10px); }
+  .card-4 .art{ position:absolute; right:-6%; bottom:-4%; width:78%; height:46%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.14), transparent 60%);
+    clip-path: polygon(20% 100%, 0% 55%, 30% 20%, 55% 0%, 70% 30%, 100% 15%, 100% 100%); }
+  .card-5 .art{ position:absolute; right:-18%; bottom:-14%; width:70%; height:52%; border-radius: 50%;
+    background: radial-gradient(circle at 60% 35%, rgba(255,255,255,0.22), transparent 60%); border: 10px solid rgba(255,255,255,0.10); }
+
+  .card-body{ position:relative; z-index:2; }
+  .card-list{ margin-top: 14px; list-style:none; font-size: 12.5px; color: rgba(255,255,255,0.72); line-height: 1.85; }
+  .card-list li{ position:relative; padding-left: 12px; }
+  .card-list li::before{ content:'–'; position:absolute; left:0; color: rgba(255,255,255,0.45); }
+  .card-3 .card-list{ font-size: 13.5px; line-height: 2; max-width: 210px; }
+
+  /* ================= SCREEN 3 — PORTFOLIO (flat row) ================= */
+  #portfolio{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
+  .flat-grid{
+    flex:1; display:grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+    padding: 40px 48px 56px; align-items:stretch;
+  }
+  .flat-card{
+    position:relative; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+    padding: 22px; display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden; min-height: 420px; box-shadow: 0 24px 50px -24px rgba(0,0,0,0.6);
+    transition: transform .35s ease; background-size: cover; background-position: center;
+  }
+  .flat-card:hover{ transform: translateY(-8px); }
+  .flat-card::before{
+    content:''; position:absolute; inset:0; z-index:1;
+    background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%);
+  }
+  .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; }
+  .flat-card .cat{ font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; position:relative; z-index:2; }
+  .flat-icon{
+    width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.14);
+    display:flex; align-items:center; justify-content:center; position:absolute; top:20px; right:20px; z-index:2;
+    font-size: 14px;
+  }
+  .portfolio-more{
+    display:inline-flex; align-items:center; gap:8px; margin: 8px 48px 40px; font-size: 14px;
+    color: var(--ink-dim); border: 1px solid var(--line); border-radius: 30px; padding: 10px 20px;
+    transition: background .2s ease, color .2s ease, border-color .2s ease; width: fit-content;
+  }
+  .portfolio-more:hover{ background: rgba(255,255,255,0.06); color: var(--ink); border-color: rgba(255,255,255,0.25); }
+
+  /* ================= SCREEN 4 — ABOUT ================= */
+  #about{ align-items:center; padding-top: var(--nav-h); }
+  .about-wrap{
+    flex:1; width:100%; max-width: 1180px; margin: 0 auto; padding: 0 48px;
+    display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center;
+  }
+  .about-photo{
+    aspect-ratio: 1/1; border-radius: 28px; background: linear-gradient(160deg, #2a2270, #14122f 80%);
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+    border: 1px solid var(--line);
+  }
+  .about-photo::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
+  .about-photo span{ font-size: 72px; font-weight: 700; letter-spacing: -0.02em; position:relative; z-index:2; }
+  .about-photo img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
+
+  .about-copy .eyebrow{ margin-bottom: 22px; }
+  .about-copy h2{ font-size: clamp(32px, 4.2vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+  .about-copy p{ margin-top: 18px; font-size: 16.5px; color: var(--ink-dim); line-height: 1.65; max-width: 480px; }
+
+  .about-facts{ display:flex; gap: 34px; margin-top: 32px; }
+  .about-facts div b{ display:block; font-size: 26px; font-weight: 700; }
+  .about-facts div span{ font-size: 13px; color: var(--ink-dim); }
+
+  /* ================= SCREEN 5 — CONTACTS ================= */
+  #contacts{ align-items:center; justify-content:center; text-align:center; padding-top: var(--nav-h); }
+  #contacts::before{
+    content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(36% 32% at 35% 60%, rgba(150,130,255,0.16), transparent 70%),
+      radial-gradient(32% 28% at 68% 40%, rgba(255,130,190,0.10), transparent 70%),
+      radial-gradient(28% 26% at 55% 75%, rgba(110,230,210,0.10), transparent 70%);
+    filter: blur(80px);
+    animation: auroraMove 26s ease-in-out infinite alternate;
+  }
+  .contacts-inner{ position:relative; z-index:2; max-width: 640px; padding: 0 24px; }
+  #contacts h2{ font-size: clamp(38px, 5.6vw, 64px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+  #contacts p{ margin: 18px auto 0; font-size: 17px; color: var(--ink-dim); line-height: 1.6; max-width: 420px; }
+  .contact-email{
+    display:inline-block; margin-top: 30px; font-size: 20px; font-weight: 600;
+    border-bottom: 1px solid var(--line); padding-bottom: 6px; transition: border-color .2s ease, color .2s ease;
+  }
+  .contact-email:hover{ border-color: var(--ink); color: var(--ink); }
+
+  .social-row{ display:flex; gap: 14px; justify-content:center; margin-top: 40px; flex-wrap:wrap; }
+  .social-row a{
+    display:flex; align-items:center; gap:8px; font-size: 14px; color: var(--ink-dim);
+    border: 1px solid var(--line); border-radius: 30px; padding: 10px 20px;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .social-row a:hover{ background: rgba(255,255,255,0.06); color: var(--ink); border-color: rgba(255,255,255,0.25); }
+
+  footer{ position:relative; z-index:2; padding: 26px 0; font-size: 12.5px; color: var(--ink-faint); }
+
+  /* ================= MODAL ================= */
+  .modal-overlay{
+    position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center;
+    background: rgba(4,4,6,0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px;
+  }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-box{
+    position:relative; width:100%; max-width: 520px; max-height: 84vh; overflow-y:auto;
+    background: linear-gradient(165deg, #17181c, #0a0a0c 80%); border: 1px solid var(--line);
+    border-radius: 26px; padding: 40px 36px; transform: translateY(14px) scale(0.98);
+    transition: transform .25s ease;
+  }
+  .modal-overlay.open .modal-box{ transform: none; }
+  .modal-close{
+    position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%;
+    border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: var(--ink);
+    font-size:18px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover{ background: rgba(255,255,255,0.14); }
+  .modal-period{ font-size: 12px; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); display:inline-block; padding: 5px 10px; border-radius: 20px; }
+  .modal-box h3{ font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 16px; }
+  .modal-box .modal-role{ font-size: 14.5px; color: var(--ink-dim); margin-top: 4px; }
+  .modal-box ul{ margin-top: 22px; list-style:none; }
+  .modal-box ul li{ position:relative; padding-left: 18px; font-size: 14.5px; color: rgba(255,255,255,0.82); line-height: 1.7; margin-bottom: 10px; }
+  .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px){
+    nav{ padding: 0 22px; }
+    .nav-links{ display:none; }
+    .section-top{ flex-direction:column; padding: 0 22px; gap:16px; }
+    .section-note{ text-align:left; max-width:100%; }
+    .cards{ transform: scale(0.62); }
+    #experience{ padding-top: calc(var(--nav-h) + 30px); }
+    #portfolio{ padding-top: calc(var(--nav-h) + 30px); }
+    .flat-grid{ grid-template-columns: repeat(2, 1fr); padding: 24px 22px 40px; }
+    .flat-card{ min-height: 260px; }
+    .portfolio-more{ margin: 8px 22px 32px; }
+    .about-wrap{ grid-template-columns: 1fr; padding: 40px 22px; gap: 32px; }
+    .about-photo{ max-width: 260px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+  <nav id="siteNav">
+    <div class="logo">lummb</div>
+    <ul class="nav-links">
+      <li data-target="experience">Работы</li>
+      <li data-target="portfolio">Реализованные проекты</li>
+      <li data-target="about">Обо мне</li>
+      <li data-target="contacts">Контакты</li>
+    </ul>
+    <div class="nav-cta-wrap">
+      <div class="nav-cta" id="topBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </div>
+      <div class="nav-tooltip" id="navTooltip">тут ничего нет, смотри портфолио дальше, друк</div>
+    </div>
+  </nav>
+
+  <!-- SCREEN 1 — HERO -->
+  <section class="screen" id="hero">
+    <div class="hero-inner">
+      <div class="eyebrow"><span></span>Открыт для новых проектов</div>
+      <h1>Моё портфолио</h1>
+      <p>Коллекция проектов и компаний, с которыми я работал и рос.</p>
+    </div>
+    <div class="scroll-cue">
+      <button id="scrollBtn" aria-label="Перейти к работам">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 — EXPERIENCE (fan) -->
+  <section class="screen" id="experience">
+    <div class="section-top reveal">
+      <div class="section-copy">
+        <h2>Места, где я работал</h2>
+        <p>Компании и проекты, которые сформировали мой опыт и подход к дизайну.</p>
+      </div>
+      <div class="section-note">От первых шагов до масштабных задач — каждый проект сделал меня тем, кем я являюсь сегодня.</div>
+    </div>
+
+    <div class="stage">
+      <div class="cards reveal">
+        <div class="card card-1" data-detail="farteam">
+          <div class="art"></div>
+          <div class="card-body">
+            <span class="period">Апрель 2023 —</span>
+            <div class="title">FarTeam</div>
+            <div class="role">Web-дизайнер</div>
+            <ul class="card-list"><li>Оформление соцсетей</li><li>Рекламные креативы</li><li>Превью для YouTube</li></ul>
+          </div>
+          <div class="card-footer">
+            <span class="brand">FARTEAM</span>
+            <button class="details-btn" data-detail="farteam">Подробнее →</button>
+          </div>
+        </div>
+        <div class="card card-2" data-detail="sinergium">
+          <div class="art"></div>
+          <div class="card-body">
+            <span class="period">Август 2025 — Февраль 2026</span>
+            <div class="title">Синергиум</div>
+            <div class="role">Креативный дизайнер</div>
+            <ul class="card-list"><li>Креативы для таргета и контекста</li><li>Карточки компаний Яндекс</li><li>Работа с нейросетями и ИИ</li></ul>
+          </div>
+          <div class="card-footer">
+            <span class="brand">СИНЕРГИУМ</span>
+            <button class="details-btn" data-detail="sinergium">Подробнее →</button>
+          </div>
+        </div>
+        <div class="card card-3" data-detail="gosinform">
+          <div class="art"></div>
+          <div class="card-body">
+            <span class="period">Март 2026 — настоящее время</span>
+            <div class="title">ГАУ РМ «Госинформ»</div>
+            <div class="role">Аналитик</div>
+            <ul class="card-list"><li>Дизайн презентаций</li><li>Разработка рекламных материалов</li><li>Инфографика и визуализация данных</li><li>Вёрстка сайтов и ИС</li><li>Моушен-инфографика, монтаж видео</li></ul>
+          </div>
+          <div class="card-footer">
+            <span class="brand">ГОСИНФОРМ</span>
+            <button class="details-btn" data-detail="gosinform">Подробнее →</button>
+          </div>
+        </div>
+        <div class="card card-4" data-detail="kostenkov">
+          <div class="art"></div>
+          <div class="card-body">
+            <span class="period">Март 2024 — Август 2025</span>
+            <div class="title">ИП Костенков</div>
+            <div class="role">Графический дизайнер</div>
+            <ul class="card-list"><li>Макеты для соцсетей</li><li>Логотипы и фирменный стиль</li><li>Дизайн для веб и приложений</li></ul>
+          </div>
+          <div class="card-footer">
+            <span class="brand">nymo</span>
+            <button class="details-btn" data-detail="kostenkov">Подробнее →</button>
+          </div>
+        </div>
+        <div class="card card-5" data-detail="ija">
+          <div class="art"></div>
+          <div class="card-body">
+            <span class="period">Ноябрь 2023 — Февраль 2024</span>
+            <div class="title">IJA</div>
+            <div class="role">Дизайнер</div>
+            <ul class="card-list"><li>Оформление офферов и рассылок</li><li>Работа с MidJourney и AI</li><li>Монтаж Reels</li></ul>
+          </div>
+          <div class="card-footer">
+            <span class="brand">IJA</span>
+            <button class="details-btn" data-detail="ija">Подробнее →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 — PORTFOLIO (flat, completed projects) -->
+  <section class="screen" id="portfolio">
+    <div class="section-top reveal">
+      <div class="section-copy">
+        <h2>Реализованные проекты</h2>
+        <p>Готовые работы: от концепции до финального результата.</p>
+      </div>
+      <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
+    </div>
+
+    <div class="flat-grid reveal">
+      <a class="flat-card" href="https://www.behance.net/gallery/252823503/prezentacija-dlja-restorannogo-biznesa" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/5afef3252823503.Y3JvcCw2OTQsNTQzLDI2MSwzMzc.png')">
+        <div class="flat-icon">↗</div>
+        <h3>Презентация для ресторанного бизнеса</h3>
+        <div class="cat">Behance · 55 просмотров</div>
+      </a>
+      <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+        <div class="flat-icon">↗</div>
+        <h3>Серия плакатов (концепция)</h3>
+        <div class="cat">Behance · 12 просмотров</div>
+      </a>
+      <a class="flat-card" href="https://www.behance.net/gallery/226203917/AI-Design-oformlenie-posta-dlja-TelegramVK" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/2351ba226203917.Y3JvcCw3MDQsNTUxLDM1NSw1NTQ.png')">
+        <div class="flat-icon">↗</div>
+        <h3>AI Design | Оформление поста для Telegram/VK</h3>
+        <div class="cat">Behance · 31 просмотр</div>
+      </a>
+      <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+        <div class="flat-icon">↗</div>
+        <h3>ШумГрант | Центр социального проектирования</h3>
+        <div class="cat">Behance · 30 просмотров</div>
+      </a>
+      <a class="flat-card" href="https://www.behance.net/gallery/216697531/primery-korporativnyh-kalendarej" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/a7c45f216697531.Y3JvcCwxMDgwLDg0NCwwLDA.png')">
+        <div class="flat-icon">↗</div>
+        <h3>Примеры корпоративных календарей</h3>
+        <div class="cat">Behance · 22 просмотра</div>
+      </a>
+    </div>
+
+    <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
+  </section>
+
+  <!-- SCREEN 4 — ABOUT -->
+  <section class="screen" id="about">
+    <div class="about-wrap reveal">
+      <div class="about-photo"><img src="profile.jpg" alt="Фото Владимира"></div>
+      <div class="about-copy">
+        <div class="eyebrow"><span></span>Обо мне</div>
+        <h2>Дизайнер, от работ которого у конкурентов подгорает</h2>
+        <p>Если коротко: я просто крутой, пиздатый и вообще невъебенный дизайнер. Без ложной скромности — она тут просто неуместна.</p>
+        <div class="about-facts">
+          <div><b>8+</b><span>лет профессионально ломаю пиксели</span></div>
+          <div><b>5</b><span>мест, где меня терпели</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5 — CONTACTS -->
+  <section class="screen" id="contacts">
+    <div class="contacts-inner reveal">
+      <div class="eyebrow"><span></span>На связи</div>
+      <h2>Давайте поработаем вместе</h2>
+      <p>Опишите задачу — отвечу в течение дня и предложу, как лучше подойти к проекту.</p>
+      <a class="contact-email" href="mailto:lumbmgmt@gmail.com">lumbmgmt@gmail.com</a>
+      <div class="social-row">
+        <a href="https://t.me/weirdlummb" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Behance</a>
+        <a href="https://instagram.com/gallarados" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <footer>© 2026 lummb. Все права защищены.</footer>
+  </section>
+
+  <button class="back-to-top" id="backToTop" aria-label="Наверх">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </button>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+      <span class="modal-period" id="modalPeriod"></span>
+      <h3 id="modalTitle"></h3>
+      <div class="modal-role" id="modalRole"></div>
+      <ul id="modalList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const jobDetails = {
+      farteam: {
+        period: 'Апрель 2023 —',
+        title: 'FarTeam',
+        role: 'Web-дизайнер',
+        points: [
+          'Оформлял соцсети компании: посты, шапки, сторис в единой визуальной стилистике',
+          'Разрабатывал рекламные креативы для таргетированной рекламы',
+          'Делал превью и обложки для YouTube-роликов',
+          'Собирал баннеры для сайта и партнёрских размещений'
+        ]
+      },
+      sinergium: {
+        period: 'Август 2025 — Февраль 2026',
+        title: 'Синергиум',
+        role: 'Креативный дизайнер',
+        points: [
+          'Создавал рекламные креативы для таргета и контекстной рекламы под разные ниши клиентов',
+          'Оформлял соцсети и брендинг для партнёров агентства',
+          'Делал карточки товаров и компаний для Яндекса',
+          'Внедрял нейросети в рабочий процесс: генерация и обработка визуала',
+          'Занимался анимацией, монтажом и инфографикой для рекламных роликов'
+        ]
+      },
+      gosinform: {
+        period: 'Март 2026 — настоящее время',
+        title: 'ГАУ РМ «Госинформ»',
+        role: 'Аналитик',
+        points: [
+          'Разрабатываю дизайн презентаций для внутренних и внешних задач учреждения',
+          'Готовлю рекламные и информационные материалы',
+          'Визуализирую данные и делаю инфографику для отчётов',
+          'Верстаю сайты и информационные системы',
+          'Собираю моушен-инфографику и монтирую видеоролики'
+        ]
+      },
+      kostenkov: {
+        period: 'Март 2024 — Август 2025',
+        title: 'ИП Костенков',
+        role: 'Графический дизайнер',
+        points: [
+          'Разрабатывал макеты для соцсетей и рекламных кампаний',
+          'Готовил презентации и каталоги продукции',
+          'Занимался анимацией и монтажом коротких видео',
+          'Создавал логотипы и фирменный стиль для клиентов',
+          'Проектировал дизайн для сайтов и мобильных приложений'
+        ]
+      },
+      ija: {
+        period: 'Ноябрь 2023 — Февраль 2024',
+        title: 'IJA',
+        role: 'Дизайнер',
+        points: [
+          'Оформлял офферы и email/push-рассылки',
+          'Делал баннеры для акций и распродаж',
+          'Работал с MidJourney и другими нейросетями для генерации визуала',
+          'Верстал страницы сайта',
+          'Монтировал Reels для соцсетей бренда'
+        ]
+      }
+    };
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalPeriod = document.getElementById('modalPeriod');
+    const modalRole = document.getElementById('modalRole');
+    const modalList = document.getElementById('modalList');
+
+    function openModal(key){
+      const data = jobDetails[key];
+      if (!data) return;
+      modalTitle.textContent = data.title;
+      modalPeriod.textContent = data.period;
+      modalRole.textContent = data.role;
+      modalList.innerHTML = data.points.map(p => `<li>${p}</li>`).join('');
+      modalOverlay.classList.add('open');
+    }
+    function closeModal(){ modalOverlay.classList.remove('open'); }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    const jobCards = document.querySelectorAll('#experience .card');
+    jobCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.details-btn')) return;
+        const isSelected = card.classList.contains('selected');
+        jobCards.forEach(c => c.classList.remove('selected'));
+        if (!isSelected) card.classList.add('selected');
+      });
+    });
+    document.querySelectorAll('.details-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.card');
+        jobCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        openModal(btn.dataset.detail);
+      });
+    });
+
+    const nav = document.getElementById('siteNav');
+    const sections = {
+      hero: document.getElementById('hero'),
+      experience: document.getElementById('experience'),
+      portfolio: document.getElementById('portfolio'),
+      about: document.getElementById('about'),
+      contacts: document.getElementById('contacts'),
+    };
+    const navItems = document.querySelectorAll('.nav-links li');
+
+    function goTo(id){ sections[id].scrollIntoView({ behavior: 'smooth' }); }
+
+    document.getElementById('scrollBtn').addEventListener('click', () => goTo('experience'));
+
+    const navTooltip = document.getElementById('navTooltip');
+    document.getElementById('topBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      navTooltip.classList.toggle('show');
+    });
+    document.addEventListener('click', () => navTooltip.classList.remove('show'));
+
+    const backToTop = document.getElementById('backToTop');
+    backToTop.addEventListener('click', () => goTo('hero'));
+
+    navItems.forEach(li => li.addEventListener('click', () => goTo(li.dataset.target)));
+
+    const navMap = { experience: 'experience', portfolio: 'portfolio', about: 'about', contacts: 'contacts' };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const id = entry.target.id;
+        nav.classList.toggle('scrolled', id !== 'hero');
+        backToTop.classList.toggle('show', id !== 'hero');
+
+        navItems.forEach(li => li.classList.remove('active'));
+        if (navMap[id]){
+          const match = document.querySelector(`.nav-links li[data-target="${id}"]`);
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { threshold: 0.55 });
+
+    Object.values(sections).forEach(s => observer.observe(s));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
