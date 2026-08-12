@@ -18,11 +18,49 @@
     --green-1: #1f4d3d;  --green-2: #0c211a;
     --slate-1: #3d4046;  --slate-2: #23252a;
     --blue-1: #2f4f8f;   --blue-2: #15243f;
+
+    --nav-bg: rgba(8,8,10,0.5);
+    --nav-bg-scrolled: rgba(8,8,10,0.78);
+    --mobile-menu-bg: rgba(8,8,10,0.97);
+    --tooltip-bg: #16171a;
+    --backtotop-bg: rgba(18,18,22,0.7);
+    --backtotop-bg-hover: rgba(40,40,46,0.9);
+    --overlay-bg: rgba(4,4,6,0.72);
+    --modal-from: #17181c;
+    --modal-to: #0a0a0c;
+    --pill-bg: rgba(255,255,255,0.08);
+    --hover-bg: rgba(255,255,255,0.06);
+    --hover-border: rgba(255,255,255,0.25);
+    --aurora-a1: 0.42; --aurora-a2: 0.30; --aurora-a3: 0.28;
   }
 
+  html[data-theme="light"]{
+    --bg: #f3f3f5;
+    --ink: #14141a;
+    --ink-dim: #55565f;
+    --ink-faint: #8a8b93;
+    --line: rgba(0,0,0,0.10);
+
+    --nav-bg: rgba(243,243,245,0.6);
+    --nav-bg-scrolled: rgba(243,243,245,0.85);
+    --mobile-menu-bg: rgba(243,243,245,0.97);
+    --tooltip-bg: #ffffff;
+    --backtotop-bg: rgba(255,255,255,0.75);
+    --backtotop-bg-hover: rgba(255,255,255,0.95);
+    --overlay-bg: rgba(20,20,26,0.45);
+    --modal-from: #ffffff;
+    --modal-to: #eeeef1;
+    --pill-bg: rgba(0,0,0,0.05);
+    --hover-bg: rgba(0,0,0,0.05);
+    --hover-border: rgba(0,0,0,0.22);
+    --aurora-a1: 0.22; --aurora-a2: 0.16; --aurora-a3: 0.15;
+    color-scheme: light;
+  }
+
+  html{ color-scheme: dark; }
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; overscroll-behavior-y: none; }
 
   body{
     background: var(--bg);
@@ -31,6 +69,8 @@
       "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
+    transition: background .3s ease, color .3s ease;
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -44,7 +84,7 @@
   }
 
   /* reveal-on-scroll */
-  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal{ opacity:0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.16,.8,.4,1), transform .8s cubic-bezier(.16,.8,.4,1); }
   .reveal.is-visible{ opacity:1; transform:none; }
 
   /* ---------- fixed nav ---------- */
@@ -52,12 +92,12 @@
     position: fixed; top:0; left:0; right:0; height: var(--nav-h);
     display:flex; align-items:center; justify-content:space-between;
     padding: 0 56px 0 48px; z-index: 100;
-    background: rgba(8,8,10,0.5);
+    background: var(--nav-bg);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid transparent;
     transition: border-color .3s ease, background .3s ease;
   }
-  nav.scrolled{ border-bottom-color: var(--line); background: rgba(8,8,10,0.78); }
+  nav.scrolled{ border-bottom-color: var(--line); background: var(--nav-bg-scrolled); }
 
   .logo{ font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
 
@@ -76,6 +116,12 @@
   .nav-right{ display:flex; align-items:center; gap:14px; }
   .nav-cta-wrap{ position:relative; }
 
+  .theme-toggle{ position:relative; }
+  .theme-toggle .icon-sun{ display:none; }
+  .theme-toggle .icon-moon{ display:block; }
+  html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
+  html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
+
   .nav-burger{
     display:none; width:36px; height:36px; border:1px solid var(--line); border-radius:50%;
     background:transparent; cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:4px;
@@ -87,7 +133,7 @@
   .nav-burger.open span:nth-child(3){ transform: translateY(-5.5px) rotate(-45deg); }
 
   .mobile-menu{
-    position:fixed; inset:0; z-index:200; background: rgba(8,8,10,0.97);
+    position:fixed; inset:0; z-index:200; background: var(--mobile-menu-bg);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     display:flex; align-items:center; justify-content:center;
     opacity:0; pointer-events:none; transform: translateY(-10px);
@@ -102,11 +148,11 @@
     display:flex; align-items:center; justify-content:center; color: var(--ink);
     transition: background .2s ease, border-color .2s ease; cursor:pointer; flex-shrink:0;
   }
-  .nav-cta:hover{ background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.25); }
+  .nav-cta:hover{ background: var(--hover-bg); border-color: var(--hover-border); }
 
   .nav-tooltip{
     position:absolute; top: 48px; right:0; z-index: 150; max-width: 220px;
-    background:#16171a; border:1px solid var(--line); color: var(--ink); font-size:13px;
+    background: var(--tooltip-bg); border:1px solid var(--line); color: var(--ink); font-size:13px;
     line-height:1.4; padding:12px 16px; border-radius:14px; white-space:normal;
     opacity:0; transform: translateY(-6px); pointer-events:none;
     transition: opacity .2s ease, transform .2s ease;
@@ -114,36 +160,36 @@
   }
   .nav-tooltip.show{ opacity:1; transform:none; pointer-events:auto; }
   .nav-tooltip::before{
-    content:''; position:absolute; top:-6px; right:14px; width:12px; height:12px; background:#16171a;
+    content:''; position:absolute; top:-6px; right:14px; width:12px; height:12px; background: var(--tooltip-bg);
     border-left:1px solid var(--line); border-top:1px solid var(--line); transform: rotate(45deg);
   }
 
   .back-to-top{
     position: fixed; right: 28px; bottom: 28px; width:50px; height:50px; border-radius:50%;
-    background: rgba(18,18,22,0.7); border:1px solid var(--line); backdrop-filter: blur(10px);
+    background: var(--backtotop-bg); border:1px solid var(--line); backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); color: var(--ink); display:flex; align-items:center;
     justify-content:center; cursor:pointer; z-index: 90; opacity:0; transform: translateY(12px);
     pointer-events:none; transition: opacity .3s ease, transform .3s ease, background .2s ease;
   }
   .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
-  .back-to-top:hover{ background: rgba(40,40,46,0.9); }
+  .back-to-top:hover{ background: var(--backtotop-bg-hover); }
 
   .screen{ position:relative; min-height:100vh; scroll-snap-align: start; display:flex; flex-direction:column; }
 
   /* ================= SCREEN 1 — HERO ================= */
-  #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; }
+  #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; --mx:0px; --my:0px; }
   #hero::before{
     content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
     background:
-      radial-gradient(38% 34% at 30% 35%, rgba(150,130,255,0.30), transparent 70%),
-      radial-gradient(34% 30% at 72% 60%, rgba(255,130,190,0.20), transparent 70%),
-      radial-gradient(30% 28% at 58% 18%, rgba(110,230,210,0.20), transparent 70%);
-    filter: blur(70px);
-    animation: auroraMove 22s ease-in-out infinite alternate;
+      radial-gradient(42% 38% at calc(30% + var(--mx)) calc(35% + var(--my)), rgba(150,130,255,var(--aurora-a1)), transparent 70%),
+      radial-gradient(38% 34% at calc(72% - var(--mx)) calc(60% - var(--my)), rgba(255,130,190,var(--aurora-a2)), transparent 70%),
+      radial-gradient(34% 32% at calc(58% + var(--my)) calc(18% + var(--mx)), rgba(110,230,210,var(--aurora-a3)), transparent 70%);
+    filter: blur(64px);
+    animation: auroraMove 14s ease-in-out infinite alternate;
   }
   @keyframes auroraMove{
     0%{ transform: translate3d(0,0,0) scale(1); }
-    50%{ transform: translate3d(3%, -4%, 0) scale(1.1); }
+    50%{ transform: translate3d(3%, -4%, 0) scale(1.12); }
     100%{ transform: translate3d(-4%, 3%, 0) scale(1); }
   }
   .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
@@ -161,7 +207,7 @@
     color: var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;
     transition: background .2s ease; animation: bob 2.4s ease-in-out infinite;
   }
-  .scroll-cue button:hover{ background: rgba(255,255,255,0.08); }
+  .scroll-cue button:hover{ background: var(--hover-bg); }
   @keyframes bob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(6px); } }
 
   /* shared section header row */
@@ -174,7 +220,7 @@
   .section-note{ text-align:right; font-size: 15px; color: var(--ink-dim); line-height: 1.6; max-width: 300px; padding-top: 10px; flex-shrink:0; }
 
   /* ================= SCREEN 2 — EXPERIENCE (fan) ================= */
-experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
+  #experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
   .stage{ position:relative; flex:1; display:flex; align-items:center; justify-content:center; margin-top: 40px; padding: 0 20px 60px; width: 100%; }
   .cards{ position:relative; display:flex; align-items:center; justify-content:center; width:100%; max-width: 1200px; }
 
@@ -237,14 +283,20 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
   .card-list li{ position:relative; padding-left: 14px; margin-bottom: 6px;}
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
 
-  /* ================= SCREEN 3 — PORTFOLIO (flat row) ================= */
+  /* ================= SCREEN 3 — PORTFOLIO (carousel) ================= */
   #portfolio{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
+  .carousel-wrap{ position:relative; flex:1; display:flex; align-items:center; gap: 14px; padding: 0 48px; }
   .flat-grid{
-    flex:1; display:grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
-    padding: 40px 48px 56px; align-items:stretch;
+    flex:1; display:flex; gap: 18px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; padding: 40px 4px 56px; scrollbar-width:none;
+    cursor: grab;
   }
+  .flat-grid.dragging{ cursor: grabbing; scroll-snap-type: none; user-select:none; }
+  .flat-grid.dragging .flat-card{ pointer-events:none; }
+  .flat-grid::-webkit-scrollbar{ display:none; }
   .flat-card{
-    position:relative; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+    position:relative; flex: 0 0 auto; width: 290px; scroll-snap-align:center;
+    border-radius: 20px; border: 1px solid var(--line);
     padding: 22px; display:flex; flex-direction:column; justify-content:flex-end;
     overflow:hidden; min-height: 420px; box-shadow: 0 24px 50px -24px rgba(0,0,0,0.6);
     transition: transform .35s ease; background-size: cover; background-position: center;
@@ -254,19 +306,26 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
     content:''; position:absolute; inset:0; z-index:1;
     background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%);
   }
-  .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; }
+  .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; color:#fff; }
   .flat-card .cat{ font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; position:relative; z-index:2; }
   .flat-icon{
-    width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.14);
+    width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.16);
     display:flex; align-items:center; justify-content:center; position:absolute; top:20px; right:20px; z-index:2;
-    font-size: 14px;
+    font-size: 14px; color:#fff;
   }
+  .carousel-arrow{
+    flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
+    background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:18px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5;
+    transition: background .2s ease;
+  }
+  .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
   .portfolio-more{
     display:inline-flex; align-items:center; gap:8px; margin: 8px 48px 40px; font-size: 14px;
     color: var(--ink-dim); border: 1px solid var(--line); border-radius: 30px; padding: 10px 20px;
     transition: background .2s ease, color .2s ease, border-color .2s ease; width: fit-content;
   }
-  .portfolio-more:hover{ background: rgba(255,255,255,0.06); color: var(--ink); border-color: rgba(255,255,255,0.25); }
+  .portfolio-more:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); }
 
   /* ================= SCREEN 4 — ABOUT ================= */
   #about{ align-items:center; padding-top: var(--nav-h); }
@@ -274,14 +333,18 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
     flex:1; width:100%; max-width: 1180px; margin: 0 auto; padding: 0 48px;
     display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center;
   }
-  .about-photo{
-    aspect-ratio: 1/1; border-radius: 28px; background: linear-gradient(160deg, #2a2270, #14122f 80%);
-    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-    border: 1px solid var(--line);
+  .about-photo-grid{
+    display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+    gap: 12px; aspect-ratio: 1/1;
   }
-  .about-photo::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
-  .about-photo span{ font-size: 72px; font-weight: 700; letter-spacing: -0.02em; position:relative; z-index:2; }
-  .about-photo img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
+  .about-photo-grid .tile{
+    position:relative; border-radius: 20px; overflow:hidden; border: 1px solid var(--line);
+    background: linear-gradient(160deg, #2a2270, #14122f 80%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-photo-grid .tile::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
+  .about-photo-grid .tile img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
+  .about-photo-grid .tile-placeholder{ font-size: 26px; font-weight:300; color: rgba(255,255,255,0.32); position:relative; z-index:2; }
 
   .about-copy .eyebrow{ margin-bottom: 22px; }
   .about-copy h2{ font-size: clamp(32px, 4.2vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
@@ -317,84 +380,97 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
     border: 1px solid var(--line); border-radius: 30px; padding: 10px 20px;
     transition: background .2s ease, color .2s ease, border-color .2s ease;
   }
-  .social-row a:hover{ background: rgba(255,255,255,0.06); color: var(--ink); border-color: rgba(255,255,255,0.25); }
+  .social-row a:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); }
 
-  footer{ position:relative; z-index:2; padding: 26px 0; font-size: 12.5px; color: var(--ink-faint); }
+  footer{ position:absolute; left:0; right:0; bottom:18px; z-index:2; text-align:center; font-size: 12.5px; color: var(--ink-faint); }
 
   /* ================= MODAL ================= */
   .modal-overlay{
     position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center;
-    background: rgba(4,4,6,0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
     opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px;
   }
   .modal-overlay.open{ opacity:1; pointer-events:auto; }
   .modal-box{
     position:relative; width:100%; max-width: 520px; max-height: 84vh; overflow-y:auto;
-    background: linear-gradient(165deg, #17181c, #0a0a0c 80%); border: 1px solid var(--line);
+    background: linear-gradient(165deg, var(--modal-from), var(--modal-to) 80%); border: 1px solid var(--line);
     border-radius: 26px; padding: 40px 36px; transform: translateY(14px) scale(0.98);
     transition: transform .25s ease;
   }
   .modal-overlay.open .modal-box{ transform: none; }
   .modal-close{
     position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%;
-    border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: var(--ink);
+    border: 1px solid var(--line); background: var(--hover-bg); color: var(--ink);
     font-size:18px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
   }
-  .modal-close:hover{ background: rgba(255,255,255,0.14); }
-  .modal-period{ font-size: 12px; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); display:inline-block; padding: 5px 10px; border-radius: 20px; }
+  .modal-close:hover{ background: var(--hover-border); }
+  .modal-period{ font-size: 12px; color: var(--ink-dim); background: var(--pill-bg); display:inline-block; padding: 5px 10px; border-radius: 20px; }
   .modal-box h3{ font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 16px; }
   .modal-box .modal-role{ font-size: 14.5px; color: var(--ink-dim); margin-top: 4px; }
   .modal-box ul{ margin-top: 22px; list-style:none; }
-  .modal-box ul li{ position:relative; padding-left: 18px; font-size: 14.5px; color: rgba(255,255,255,0.82); line-height: 1.7; margin-bottom: 10px; }
-  .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: rgba(255,255,255,0.4); }
+  .modal-box ul li{ position:relative; padding-left: 18px; font-size: 14.5px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; }
+  .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: var(--ink-faint); }
 
   /* ================= RESPONSIVE / MOBILE ================= */
   @media (max-width: 900px){
     .screen{ min-height: 100vh; min-height: 100dvh; }
     html{ scroll-snap-type: y proximity; }
 
-    nav{ padding: 0 18px; height: 64px; }
+    nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
     .logo{ font-size:17px; }
     .nav-links{ display:none; }
     .nav-burger{ display:flex; }
 
     #hero{ text-align:center; }
-    #hero p{ white-space: normal; max-width: 320px; margin-left:auto; margin-right:auto; }
+    #hero h1{ font-size: clamp(38px, 11vw, 56px); }
+    #hero p{ white-space: normal; max-width: 300px; margin-left:auto; margin-right:auto; font-size: 14.5px; }
 
-    .section-top{ flex-direction:column; padding: 0 20px; gap:14px; }
+    .section-top{ flex-direction:column; padding: 0 18px; gap:12px; }
+    .section-copy h2{ font-size: clamp(26px, 7.2vw, 36px); }
     .section-note{ text-align:left; max-width:100%; }
 
-    #experience{ padding-top: calc(var(--nav-h) + 24px); }
-    .stage{ margin-top: 24px; padding: 0 0 30px; justify-content:flex-start; }
+    #experience{ padding-top: calc(var(--nav-h) + 18px); }
+    .stage{ margin-top: 18px; padding: 0 0 26px; justify-content:flex-start; }
     /* swap the fan layout for a swipeable, uniformly-sized card carousel */
     .cards{ display:flex; justify-content:flex-start; max-width:100%; width:100%;
       overflow-x:auto; overflow-y:visible; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-      gap:16px; padding: 12px 20px 18px; }
+      gap:14px; padding: 10px 18px 16px; }
     .cards::-webkit-scrollbar{ display:none; }
     .cards .card:not(:first-child){ margin-left:0; }
-    .cards .card{ transform:none; scroll-snap-align:center; }
+    .cards .card{ transform:none; scroll-snap-align:center; width: 76vw; max-width: 260px; }
     .cards .card:not(.selected):hover{ transform:none !important; }
     .cards .card.selected{ transform: translateY(-6px) !important; }
 
-    #portfolio{ padding-top: calc(var(--nav-h) + 24px); }
-    .flat-grid{ grid-template-columns: repeat(2, 1fr); gap:12px; padding: 20px 20px 36px; }
-    .flat-card{ min-height: 220px; padding:16px; }
+    #portfolio{ padding-top: calc(var(--nav-h) + 18px); }
+    .carousel-wrap{ padding: 0 12px; gap: 6px; }
+    .carousel-arrow{ display:none; }
+    .flat-grid{ padding: 16px 12px 32px; gap: 12px; }
+    .flat-card{ width: 76vw; max-width: 280px; min-height: 240px; padding:16px; }
     .flat-card h3{ font-size:15px; }
-    .portfolio-more{ margin: 6px 20px 30px; }
+    .portfolio-more{ margin: 4px 18px 28px; font-size: 13px; }
 
-    .about-wrap{ grid-template-columns: 1fr; padding: 36px 20px; gap: 28px; }
-    .about-photo{ max-width: 240px; margin: 0 auto; }
+    .about-wrap{ grid-template-columns: 1fr; padding: 32px 18px; gap: 24px; }
+    .about-photo-grid{ max-width: 260px; margin: 0 auto; }
+    .about-copy h2{ font-size: clamp(22px, 7vw, 30px); }
+    .about-copy p{ font-size: 15px; }
 
-    .modal-box{ padding: 30px 22px; border-radius: 20px; }
+    #contacts h2{ font-size: clamp(28px, 8vw, 40px); }
+    .social-row{ gap: 10px; }
+    .social-row a{ font-size: 13px; padding: 9px 16px; }
+
+    .modal-box{ padding: 28px 22px; border-radius: 20px; }
+    .modal-box h3{ font-size: 22px; }
+
+    .back-to-top{ right: 16px; bottom: 16px; width:44px; height:44px; }
+    .back-to-top{ right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
   }
 
   @media (max-width: 480px){
-    .flat-grid{ grid-template-columns: 1fr; }
-    .flat-card{ min-height: 180px; }
+    .flat-card{ width: 82vw; }
+    .cards .card{ width: 82vw; }
     .about-facts{ gap: 22px; }
     .social-row a{ font-size:13px; padding: 9px 16px; }
-    #hero h1{ font-size: clamp(38px, 11vw, 56px); }
   }
 </style>
 </head>
@@ -409,6 +485,10 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
       <li data-target="contacts">Контакты</li>
     </ul>
     <div class="nav-right">
+      <button class="nav-cta theme-toggle" id="themeToggle" aria-label="Переключить тему">
+        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
       <div class="nav-cta-wrap">
         <div class="nav-cta" id="topBtn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
@@ -510,7 +590,7 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
             <ul class="card-list"><li>Макеты для соцсетей</li><li>Логотипы и фирменный стиль</li><li>Дизайн для веб и приложений</li></ul>
           </div>
           <div class="card-footer">
-            <span class="brand"></span>
+            <span class="brand">nymo</span>
             <button class="details-btn" data-detail="kostenkov">Подробнее →</button>
           </div>
         </div>
@@ -558,32 +638,46 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
       <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
     </div>
 
-    <div class="flat-grid reveal">
-      <a class="flat-card" href="https://www.behance.net/gallery/252823503/prezentacija-dlja-restorannogo-biznesa" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/5afef3252823503.Y3JvcCw2OTQsNTQzLDI2MSwzMzc.png')">
-        <div class="flat-icon">↗</div>
-        <h3>Презентация для ресторанного бизнеса</h3>
-        <div class="cat">Behance · 55 просмотров</div>
-      </a>
-      <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
-        <div class="flat-icon">↗</div>
-        <h3>Серия плакатов (концепция)</h3>
-        <div class="cat">Behance · 12 просмотров</div>
-      </a>
-      <a class="flat-card" href="https://www.behance.net/gallery/226203917/AI-Design-oformlenie-posta-dlja-TelegramVK" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/2351ba226203917.Y3JvcCw3MDQsNTUxLDM1NSw1NTQ.png')">
-        <div class="flat-icon">↗</div>
-        <h3>AI Design | Оформление поста для Telegram/VK</h3>
-        <div class="cat">Behance · 31 просмотр</div>
-      </a>
-      <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
-        <div class="flat-icon">↗</div>
-        <h3>ШумГрант | Центр социального проектирования</h3>
-        <div class="cat">Behance · 30 просмотров</div>
-      </a>
-      <a class="flat-card" href="https://www.behance.net/gallery/216697531/primery-korporativnyh-kalendarej" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/a7c45f216697531.Y3JvcCwxMDgwLDg0NCwwLDA.png')">
-        <div class="flat-icon">↗</div>
-        <h3>Примеры корпоративных календарей</h3>
-        <div class="cat">Behance · 22 просмотра</div>
-      </a>
+    <div class="carousel-wrap">
+      <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
+      <div class="flat-grid reveal" id="portfolioTrack">
+        <a class="flat-card" href="https://www.behance.net/gallery/252823503/prezentacija-dlja-restorannogo-biznesa" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/5afef3252823503.Y3JvcCw2OTQsNTQzLDI2MSwzMzc.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Презентация для ресторанного бизнеса</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Поднебесье Настоящего МГУ</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Серия плакатов (концепция)</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/226203917/AI-Design-oformlenie-posta-dlja-TelegramVK" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/2351ba226203917.Y3JvcCw3MDQsNTUxLDM1NSw1NTQ.png')">
+          <div class="flat-icon">↗</div>
+          <h3>AI Design | Оформление поста для Telegram/VK</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+          <div class="flat-icon">↗</div>
+          <h3>ШумГрант | Центр социального проектирования</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
+          <div class="flat-icon">↗</div>
+          <h3>i hate being here, there and anyone else</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/216697531/primery-korporativnyh-kalendarej" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/a7c45f216697531.Y3JvcCwxMDgwLDg0NCwwLDA.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Примеры корпоративных календарей</h3>
+          <div class="cat">Behance</div>
+        </a>
+      </div>
+      <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
     </div>
 
     <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
@@ -592,7 +686,12 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
   <!-- SCREEN 4 — ABOUT -->
   <section class="screen" id="about">
     <div class="about-wrap reveal">
-      <div class="about-photo"><img src="profile.jpg" alt="Фото Владимира"></div>
+      <div class="about-photo-grid reveal">
+        <div class="tile"><img src="profile.jpg" alt="Фото Владимира"></div>
+        <div class="tile"><span class="tile-placeholder">+</span></div>
+        <div class="tile"><span class="tile-placeholder">+</span></div>
+        <div class="tile"><span class="tile-placeholder">+</span></div>
+      </div>
       <div class="about-copy">
         <div class="eyebrow"><span></span>Обо мне</div>
         <h2>Создаю дизайн, который работает на результат</h2>
@@ -763,7 +862,81 @@ experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; 
 
     function goTo(id){ sections[id].scrollIntoView({ behavior: 'smooth' }); }
 
+    // Theme toggle — dark by default, manual switch persisted in localStorage
+    const themeToggle = document.getElementById('themeToggle');
+    const rootEl = document.documentElement;
+    function applyTheme(theme){
+      rootEl.setAttribute('data-theme', theme);
+      try { localStorage.setItem('lummb-theme', theme); } catch(e){}
+    }
+    let savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('lummb-theme') === 'light' ? 'light' : 'dark'; } catch(e){}
+    applyTheme(savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const current = rootEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
+
     document.getElementById('scrollBtn').addEventListener('click', () => goTo('experience'));
+
+    // Mouse-reactive aurora gradient on the hero screen
+    const heroSection = document.getElementById('hero');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (heroSection && !prefersReducedMotion){
+      let targetMX = 0, targetMY = 0, curMX = 0, curMY = 0;
+      heroSection.addEventListener('mousemove', (e) => {
+        const r = heroSection.getBoundingClientRect();
+        const relX = (e.clientX - r.left) / r.width - 0.5;
+        const relY = (e.clientY - r.top) / r.height - 0.5;
+        targetMX = relX * 70;
+        targetMY = relY * 70;
+      });
+      heroSection.addEventListener('mouseleave', () => { targetMX = 0; targetMY = 0; });
+      (function tickAurora(){
+        curMX += (targetMX - curMX) * 0.07;
+        curMY += (targetMY - curMY) * 0.07;
+        heroSection.style.setProperty('--mx', curMX.toFixed(2) + 'px');
+        heroSection.style.setProperty('--my', curMY.toFixed(2) + 'px');
+        requestAnimationFrame(tickAurora);
+      })();
+    }
+
+    // Portfolio carousel arrows
+    const portfolioTrack = document.getElementById('portfolioTrack');
+    const portfolioPrev = document.getElementById('portfolioPrev');
+    const portfolioNext = document.getElementById('portfolioNext');
+    if (portfolioTrack && portfolioPrev && portfolioNext){
+      const scrollAmount = () => (portfolioTrack.querySelector('.flat-card')?.offsetWidth || 290) + 18;
+      portfolioPrev.addEventListener('click', () => portfolioTrack.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+      portfolioNext.addEventListener('click', () => portfolioTrack.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+
+      // Grab-to-pan dragging with the mouse (touch keeps native swipe scrolling)
+      let isDragging = false, dragStartX = 0, dragScrollStart = 0, dragMoved = 0;
+      portfolioTrack.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        isDragging = true; dragMoved = 0;
+        dragStartX = e.clientX; dragScrollStart = portfolioTrack.scrollLeft;
+        portfolioTrack.classList.add('dragging');
+        portfolioTrack.setPointerCapture(e.pointerId);
+      });
+      portfolioTrack.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartX;
+        dragMoved = Math.max(dragMoved, Math.abs(dx));
+        portfolioTrack.scrollLeft = dragScrollStart - dx;
+      });
+      const endDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        portfolioTrack.classList.remove('dragging');
+      };
+      portfolioTrack.addEventListener('pointerup', endDrag);
+      portfolioTrack.addEventListener('pointerleave', endDrag);
+      portfolioTrack.addEventListener('pointercancel', endDrag);
+      portfolioTrack.addEventListener('click', (e) => {
+        if (dragMoved > 6) e.preventDefault();
+      }, true);
+    }
 
     const navBurger = document.getElementById('navBurger');
     const mobileMenu = document.getElementById('mobileMenu');
