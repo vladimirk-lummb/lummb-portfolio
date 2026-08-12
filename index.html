@@ -384,6 +384,80 @@
 
   footer{ position:absolute; left:0; right:0; bottom:18px; z-index:2; text-align:center; font-size: 12.5px; color: var(--ink-faint); }
 
+  /* ================= SECRET CUE (under About) ================= */
+  .secret-cue{ position:absolute; left:50%; bottom: 18px; transform:translateX(-50%); z-index:3; }
+  .secret-cue button{
+    width:40px; height:40px; border-radius:50%; border:1px dashed var(--ink-faint); background:transparent;
+    color: var(--ink-faint); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    opacity:.5; transition: opacity .3s ease, transform .3s ease, color .3s ease, border-color .3s ease;
+    animation: bob 3s ease-in-out infinite;
+  }
+  .secret-cue button:hover{ opacity:1; color:#ff2f6e; border-color:#ff2f6e; border-style:solid; transform: scale(1.08); }
+
+  /* ================= HIDDEN SCREEN — VIBES (easter egg overlay) ================= */
+  body.vibes-open{ overflow:hidden; }
+  .vibes-overlay{
+    position:fixed; inset:0; z-index: 400; display:flex; align-items:center; justify-content:center;
+    overflow-y:auto; -webkit-overflow-scrolling:touch; text-align:center;
+    background: linear-gradient(120deg, #ff5fae, #ff9d4d 28%, #ffe14d 52%, #6ee7ff 76%, #b98bff 100%);
+    background-size: 300% 300%; animation: vibesGradient 16s ease-in-out infinite;
+    opacity:0; pointer-events:none; transform: scale(0.98);
+    transition: opacity .35s ease, transform .35s ease; color:#14141a;
+  }
+  .vibes-overlay.open{ opacity:1; pointer-events:auto; transform:none; }
+  @keyframes vibesGradient{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+  .vibes-marquee{ position:absolute; left:-4%; right:-4%; z-index:2; overflow:hidden; white-space:nowrap; background: #14141a; padding: 9px 0; }
+  .vibes-marquee.top{ top: 26px; transform: rotate(-1.4deg); }
+  .vibes-marquee.bottom{ bottom: 26px; transform: rotate(1.4deg); }
+  .marquee-track{ display:inline-flex; width:max-content; animation: marqueeScroll 24s linear infinite; }
+  .marquee-track.reverse{ animation-direction: reverse; }
+  .marquee-track span{ display:inline-block; padding-right: 26px; font-size:13px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:#fff; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .vibes-inner{ position:relative; z-index:3; max-width: 720px; padding: 100px 24px 90px; }
+  .vibes-badge{
+    display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:700;
+    background:#14141a; color:#fff; border-radius:30px; padding:8px 16px; margin-bottom: 26px;
+    transform: rotate(-2deg);
+  }
+  .vibes-title{ display:flex; flex-direction:column; gap:2px; font-size: clamp(38px, 8.6vw, 92px); font-weight:900; line-height:0.96; letter-spacing:-0.02em; text-transform:uppercase; }
+  .vibes-title span{ -webkit-text-stroke: 2px #14141a; text-shadow: 4px 4px 0 #14141a; }
+  .vibes-title span:nth-child(1){ color:#ff2f6e; transform: rotate(-2deg); }
+  .vibes-title span:nth-child(2){ color:#ffd23f; transform: rotate(1.4deg); }
+  .vibes-title span:nth-child(3){ color:#3fd6ff; transform: rotate(-1deg); }
+  .vibes-sub{ margin: 24px auto 0; max-width: 460px; font-size:16px; font-weight:600; }
+
+  .sticker-grid{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top: 42px; }
+  .sticker{
+    background:#14141a; color:#fff; font-size:13px; font-weight:800; letter-spacing:0.01em;
+    padding: 12px 18px; border-radius: 40px; border: 2px solid #14141a;
+    box-shadow: 4px 4px 0 rgba(20,20,26,0.45);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .sticker:hover{ transform: translateY(-4px) rotate(-2deg) scale(1.05); box-shadow: 6px 6px 0 rgba(20,20,26,0.5); }
+  .sticker.s1{ transform: rotate(-3deg); } .sticker.s2{ transform: rotate(2deg); }
+  .sticker.s3{ transform: rotate(-1.5deg); } .sticker.s4{ transform: rotate(3deg); }
+  .sticker.s5{ transform: rotate(-2.5deg); } .sticker.s6{ transform: rotate(1.5deg); }
+
+  .vibes-cta{
+    display:inline-block; margin-top: 42px; background:#14141a; color:#fff; font-weight:800;
+    font-size:15px; padding: 14px 28px; border-radius: 40px; border:2px solid #14141a;
+    box-shadow: 5px 5px 0 rgba(20,20,26,0.4); transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .vibes-cta:hover{ transform: translateY(-3px); box-shadow: 7px 7px 0 rgba(20,20,26,0.45); }
+
+  .vibes-close{
+    position:absolute; top: 78px; right: 28px; z-index:5;
+    width:42px; height:42px; border-radius:50%; border:2px solid #14141a; background:#fff; color:#14141a;
+    font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow: 3px 3px 0 rgba(20,20,26,0.3); transition: transform .2s ease;
+  }
+  .vibes-close:hover{ transform: translateY(-2px); }
+
   /* ================= MODAL ================= */
   .modal-overlay{
     position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center;
@@ -418,6 +492,10 @@
 
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
+
+    /* large blurred aurora backgrounds are expensive to paint — shrink them on mobile GPUs */
+    #hero::before{ filter: blur(34px); }
+    #contacts::before{ filter: blur(40px); }
     .logo{ font-size:17px; }
     .nav-links{ display:none; }
     .nav-burger{ display:flex; }
@@ -461,6 +539,13 @@
 
     .modal-box{ padding: 28px 22px; border-radius: 20px; }
     .modal-box h3{ font-size: 22px; }
+
+    .secret-cue{ bottom: 14px; }
+    .vibes-marquee.top{ top: 68px; }
+    .vibes-marquee.bottom{ bottom: 18px; }
+    .vibes-inner{ padding: 118px 18px 70px; }
+    .vibes-close{ top: 16px; right: 16px; }
+    .sticker{ font-size:12px; padding: 10px 14px; }
 
     .back-to-top{ right: 16px; bottom: 16px; width:44px; height:44px; }
     .back-to-top{ right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
@@ -703,6 +788,11 @@
         </div>
       </div>
     </div>
+    <div class="secret-cue">
+      <button id="secretCue" aria-label="???" title="???">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </button>
+    </div>
   </section>
 
   <!-- SCREEN 5 — CONTACTS -->
@@ -725,6 +815,42 @@
   <button class="back-to-top" id="backToTop" aria-label="Наверх">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
   </button>
+
+  <!-- HIDDEN SCREEN — reachable only via the arrow under "About" -->
+  <div class="vibes-overlay" id="vibesOverlay">
+    <div class="vibes-marquee top">
+      <div class="marquee-track">
+        <span>✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦</span>
+        <span aria-hidden="true">✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦</span>
+      </div>
+    </div>
+
+    <div class="vibes-inner">
+      <div class="vibes-badge">👀 ты нашёл секретную страничку</div>
+      <h2 class="vibes-title"><span>ХОРОШИЕ</span><span>ВАЙБЫ</span><span>ТОЛЬКО</span></h2>
+      <p class="vibes-sub">Тут я не дизайнер на зарплате, а просто чувак, который любит яркое, громкое и немного безумное.</p>
+
+      <div class="sticker-grid">
+        <div class="sticker s1">🎧 24/7 В НАУШНИКАХ</div>
+        <div class="sticker s2">✌️ NO CAP, ONLY VIBES</div>
+        <div class="sticker s3">🛹 MADE IN MORDOVIA</div>
+        <div class="sticker s4">🌈 DESIGN. VIBE. REPEAT.</div>
+        <div class="sticker s5">🔥 CHAOTIC GOOD ENERGY</div>
+        <div class="sticker s6">🎵 SLIDE INTO SOUNDCLOUD</div>
+      </div>
+
+      <a class="vibes-cta" href="https://soundcloud.com/lummb" target="_blank" rel="noopener">Послушать мои треки →</a>
+    </div>
+
+    <div class="vibes-marquee bottom">
+      <div class="marquee-track reverse">
+        <span>✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦</span>
+        <span aria-hidden="true">✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦</span>
+      </div>
+    </div>
+
+    <button class="vibes-close" id="vibesClose" aria-label="Закрыть">×</button>
+  </div>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box" id="modalBox">
@@ -829,7 +955,18 @@
 
     document.getElementById('modalClose').addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeModal(); toggleMobileMenu(false); } });
+
+    // Hidden "vibes" page — opened only via the arrow tucked under About
+    const secretCue = document.getElementById('secretCue');
+    const vibesOverlay = document.getElementById('vibesOverlay');
+    const vibesClose = document.getElementById('vibesClose');
+    function openVibes(){ vibesOverlay.classList.add('open'); document.body.classList.add('vibes-open'); }
+    function closeVibes(){ vibesOverlay.classList.remove('open'); document.body.classList.remove('vibes-open'); }
+    secretCue.addEventListener('click', openVibes);
+    vibesClose.addEventListener('click', closeVibes);
+    vibesOverlay.addEventListener('click', (e) => { if (e.target === vibesOverlay) closeVibes(); });
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeModal(); closeVibes(); toggleMobileMenu(false); } });
 
     const jobCards = document.querySelectorAll('#experience .card');
     jobCards.forEach(card => {
@@ -879,26 +1016,35 @@
 
     document.getElementById('scrollBtn').addEventListener('click', () => goTo('experience'));
 
-    // Mouse-reactive aurora gradient on the hero screen
+    // Mouse-reactive aurora gradient on the hero screen — desktop/mouse only,
+    // and the loop stops once it settles instead of running forever in the background
     const heroSection = document.getElementById('hero');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (heroSection && !prefersReducedMotion){
-      let targetMX = 0, targetMY = 0, curMX = 0, curMY = 0;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    if (heroSection && !prefersReducedMotion && hasFinePointer){
+      let targetMX = 0, targetMY = 0, curMX = 0, curMY = 0, rafId = null;
+      function ensureTicking(){
+        if (rafId !== null) return;
+        rafId = requestAnimationFrame(tickAurora);
+      }
+      function tickAurora(){
+        curMX += (targetMX - curMX) * 0.07;
+        curMY += (targetMY - curMY) * 0.07;
+        heroSection.style.setProperty('--mx', curMX.toFixed(2) + 'px');
+        heroSection.style.setProperty('--my', curMY.toFixed(2) + 'px');
+        const settled = Math.abs(targetMX - curMX) < 0.05 && Math.abs(targetMY - curMY) < 0.05;
+        if (settled){ rafId = null; return; }
+        rafId = requestAnimationFrame(tickAurora);
+      }
       heroSection.addEventListener('mousemove', (e) => {
         const r = heroSection.getBoundingClientRect();
         const relX = (e.clientX - r.left) / r.width - 0.5;
         const relY = (e.clientY - r.top) / r.height - 0.5;
         targetMX = relX * 70;
         targetMY = relY * 70;
+        ensureTicking();
       });
-      heroSection.addEventListener('mouseleave', () => { targetMX = 0; targetMY = 0; });
-      (function tickAurora(){
-        curMX += (targetMX - curMX) * 0.07;
-        curMY += (targetMY - curMY) * 0.07;
-        heroSection.style.setProperty('--mx', curMX.toFixed(2) + 'px');
-        heroSection.style.setProperty('--my', curMY.toFixed(2) + 'px');
-        requestAnimationFrame(tickAurora);
-      })();
+      heroSection.addEventListener('mouseleave', () => { targetMX = 0; targetMY = 0; ensureTicking(); });
     }
 
     // Portfolio carousel arrows
