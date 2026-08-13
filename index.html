@@ -572,9 +572,9 @@
   <nav id="siteNav">
     <div class="logo">lummb</div>
     <ul class="nav-links">
-      <li data-target="experience">Опыт работы</li>
-      <li data-target="portfolio">Реализованные проекты</li>
       <li data-target="about">Обо мне</li>
+      <li data-target="portfolio">Реализованные проекты</li>
+      <li data-target="experience">Опыт работы</li>
       <li data-target="contacts">Контакты</li>
     </ul>
     <div class="nav-right">
@@ -596,9 +596,9 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <ul>
-      <li data-target="experience">Работы</li>
-      <li data-target="portfolio">Реализованные проекты</li>
       <li data-target="about">Обо мне</li>
+      <li data-target="portfolio">Реализованные проекты</li>
+      <li data-target="experience">Работы</li>
       <li data-target="contacts">Контакты</li>
     </ul>
   </div>
@@ -615,6 +615,86 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
       </button>
     </div>
+  </section>
+
+  <!-- SCREEN 4 — ABOUT -->
+  <section class="screen" id="about">
+    <div class="about-wrap reveal">
+      <div class="about-photo-grid reveal">
+        <img src="profile.jpg" alt="Фото Владимира">
+      </div>
+      <div class="about-copy">
+        <div class="eyebrow"><span></span>Обо мне</div>
+        <h2>Создаю дизайн, который работает на результат</h2>
+        <p>Я коммерческий дизайнер. Специализируюсь на создании промо-материалов, сильных презентаций, рекламных креативов для статики и видео, а также визуализации данных.
+          В работе активно внедряю нейросети и инструменты автоматизации, экспериментируя с темами: от строгой корпоративной аналитики до выразительной ретро-эстетики.</p>
+        <div class="about-facts">
+          <div><b>8+</b><span>лет профессионально ломаю пиксели</span></div>
+          <div><b>5</b><span>мест, где меня терпели</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="secret-cue">
+      <button id="secretCue" aria-label="???" title="???">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </button>
+      <div class="secret-tooltip" id="secretTooltip">Тут скоро будет кое-что интересное 👀 пока не готово</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 — PORTFOLIO (flat, completed projects) -->
+  <section class="screen" id="portfolio">
+    <div class="section-top reveal">
+      <div class="section-copy">
+        <h2>Реализованные проекты</h2>
+        <p>Готовые работы: от концепции до финального результата.</p>
+      </div>
+      <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
+    </div>
+
+    <div class="carousel-wrap">
+      <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
+      <div class="flat-grid reveal" id="portfolioTrack">
+        <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Поднебесье Настоящего МГУ</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+          <div class="flat-icon">↗</div>
+          <h3>ШумГрант | Центр социального проектирования</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
+          <div class="flat-icon">↗</div>
+          <h3>i hate being here, there and anyone else</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background-image:url('img/balcony.jpg')">
+          <div class="flat-icon">↗</div>
+          <h3>Balcony</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
+          <div class="flat-icon">↗</div>
+          <h3>LUMMB POSTER | This feelings</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener" style="background-image:url('img/midjourney-post.jpg')">
+          <div class="flat-icon">↗</div>
+          <h3>Пример оформления поста с использованием MidJourney</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Серия плакатов (концепция)</h3>
+          <div class="cat">Behance</div>
+        </a>
+      </div>
+      <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
+    </div>
+
+    <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
   </section>
 
   <section class="screen" id="experience">
@@ -718,86 +798,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SCREEN 3 — PORTFOLIO (flat, completed projects) -->
-  <section class="screen" id="portfolio">
-    <div class="section-top reveal">
-      <div class="section-copy">
-        <h2>Реализованные проекты</h2>
-        <p>Готовые работы: от концепции до финального результата.</p>
-      </div>
-      <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
-    </div>
-
-    <div class="carousel-wrap">
-      <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
-      <div class="flat-grid reveal" id="portfolioTrack">
-        <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
-          <div class="flat-icon">↗</div>
-          <h3>Поднебесье Настоящего МГУ</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
-          <div class="flat-icon">↗</div>
-          <h3>ШумГрант | Центр социального проектирования</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
-          <div class="flat-icon">↗</div>
-          <h3>i hate being here, there and anyone else</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background-image:url('img/balcony.jpg')">
-          <div class="flat-icon">↗</div>
-          <h3>Balcony</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
-          <div class="flat-icon">↗</div>
-          <h3>LUMMB POSTER | This feelings</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener" style="background-image:url('img/midjourney-post.jpg')">
-          <div class="flat-icon">↗</div>
-          <h3>Пример оформления поста с использованием MidJourney</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
-          <div class="flat-icon">↗</div>
-          <h3>Серия плакатов (концепция)</h3>
-          <div class="cat">Behance</div>
-        </a>
-      </div>
-      <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
-    </div>
-
-    <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
-  </section>
-
-  <!-- SCREEN 4 — ABOUT -->
-  <section class="screen" id="about">
-    <div class="about-wrap reveal">
-      <div class="about-photo-grid reveal">
-        <img src="profile.jpg" alt="Фото Владимира">
-      </div>
-      <div class="about-copy">
-        <div class="eyebrow"><span></span>Обо мне</div>
-        <h2>Создаю дизайн, который работает на результат</h2>
-        <p>Я коммерческий дизайнер. Специализируюсь на создании промо-материалов, сильных презентаций, рекламных креативов для статики и видео, а также визуализации данных.
-          В работе активно внедряю нейросети и инструменты автоматизации, экспериментируя с темами: от строгой корпоративной аналитики до выразительной ретро-эстетики.</p>
-        <div class="about-facts">
-          <div><b>8+</b><span>лет профессионально ломаю пиксели</span></div>
-          <div><b>5</b><span>мест, где меня терпели</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="secret-cue">
-      <button id="secretCue" aria-label="???" title="???">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-      </button>
-      <div class="secret-tooltip" id="secretTooltip">Тут скоро будет кое-что интересное 👀 пока не готово</div>
     </div>
   </section>
 
@@ -1029,7 +1029,7 @@
       applyTheme(current === 'light' ? 'dark' : 'light');
     });
 
-    document.getElementById('scrollBtn').addEventListener('click', () => goTo('experience'));
+    document.getElementById('scrollBtn').addEventListener('click', () => goTo('about'));
 
     // Mouse-reactive aurora gradient on the hero screen — desktop/mouse only,
     // and the loop stops once it settles instead of running forever in the background
