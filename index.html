@@ -339,18 +339,11 @@
   }
   .about-photo-grid{
     position:relative; aspect-ratio: 1/1; border-radius: 26px; overflow:hidden;
-    border: 1px dashed var(--line);
+    border: 1px solid var(--line);
     background: linear-gradient(160deg, #2a2270, #14122f 80%);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    text-align:center; padding: 24px;
   }
-  .about-photo-grid::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:1; }
-  .about-photo-grid .ph-icon{
-    position:relative; z-index:2; width:56px; height:56px; border-radius:50%;
-    border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;
-    color: rgba(255,255,255,0.55);
-  }
-  .about-photo-grid .ph-text{ position:relative; z-index:2; font-size:14px; color: rgba(255,255,255,0.5); line-height:1.5; max-width:210px; }
+  .about-photo-grid::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
+  .about-photo-grid img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
 
   .about-copy .eyebrow{ margin-bottom: 22px; }
   .about-copy h2{ font-size: clamp(32px, 4.2vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
@@ -794,10 +787,7 @@
   <section class="screen" id="about">
     <div class="about-wrap reveal">
       <div class="about-photo-grid reveal">
-        <div class="ph-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-        </div>
-        <div class="ph-text">Фото скоро здесь появятся<br>— пока подбираю удачные кадры</div>
+        <img src="profile.jpg" alt="Фото Владимира">
       </div>
       <div class="about-copy">
         <div class="eyebrow"><span></span>Обо мне</div>
