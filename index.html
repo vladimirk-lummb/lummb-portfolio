@@ -306,6 +306,10 @@
     content:''; position:absolute; inset:0; z-index:1;
     background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%);
   }
+  .flat-card-ph::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background: radial-gradient(circle at 75% 18%, rgba(255,255,255,0.14), transparent 55%);
+  }
   .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; color:#fff; }
   .flat-card .cat{ font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; position:relative; z-index:2; }
   .flat-icon{
@@ -334,17 +338,19 @@
     display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center;
   }
   .about-photo-grid{
-    display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-    gap: 12px; aspect-ratio: 1/1;
-  }
-  .about-photo-grid .tile{
-    position:relative; border-radius: 20px; overflow:hidden; border: 1px solid var(--line);
+    position:relative; aspect-ratio: 1/1; border-radius: 26px; overflow:hidden;
+    border: 1px dashed var(--line);
     background: linear-gradient(160deg, #2a2270, #14122f 80%);
-    display:flex; align-items:center; justify-content:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    text-align:center; padding: 24px;
   }
-  .about-photo-grid .tile::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
-  .about-photo-grid .tile img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
-  .about-photo-grid .tile-placeholder{ font-size: 26px; font-weight:300; color: rgba(255,255,255,0.32); position:relative; z-index:2; }
+  .about-photo-grid::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:1; }
+  .about-photo-grid .ph-icon{
+    position:relative; z-index:2; width:56px; height:56px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;
+    color: rgba(255,255,255,0.55);
+  }
+  .about-photo-grid .ph-text{ position:relative; z-index:2; font-size:14px; color: rgba(255,255,255,0.5); line-height:1.5; max-width:210px; }
 
   .about-copy .eyebrow{ margin-bottom: 22px; }
   .about-copy h2{ font-size: clamp(32px, 4.2vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
@@ -393,6 +399,19 @@
     animation: bob 3s ease-in-out infinite;
   }
   .secret-cue button:hover{ opacity:1; color:#ff2f6e; border-color:#ff2f6e; border-style:solid; transform: scale(1.08); }
+  .secret-tooltip{
+    position:absolute; left:50%; bottom: 56px; width:220px;
+    background: var(--tooltip-bg); border:1px solid var(--line); color: var(--ink); font-size:13px;
+    line-height:1.4; padding:12px 16px; border-radius:14px; text-align:center;
+    opacity:0; transform: translateX(-50%) translateY(6px); pointer-events:none;
+    transition: opacity .2s ease, transform .2s ease;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+  }
+  .secret-tooltip.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+  .secret-tooltip::after{
+    content:''; position:absolute; left:50%; bottom:-6px; width:12px; height:12px; background: var(--tooltip-bg);
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line); transform: translateX(-50%) rotate(45deg);
+  }
 
   /* ================= HIDDEN SCREEN — VIBES (easter egg overlay) ================= */
   body.vibes-open{ overflow:hidden; }
@@ -726,24 +745,9 @@
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
-        <a class="flat-card" href="https://www.behance.net/gallery/252823503/prezentacija-dlja-restorannogo-biznesa" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/5afef3252823503.Y3JvcCw2OTQsNTQzLDI2MSwzMzc.png')">
-          <div class="flat-icon">↗</div>
-          <h3>Презентация для ресторанного бизнеса</h3>
-          <div class="cat">Behance</div>
-        </a>
         <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
           <div class="flat-icon">↗</div>
           <h3>Поднебесье Настоящего МГУ</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
-          <div class="flat-icon">↗</div>
-          <h3>Серия плакатов (концепция)</h3>
-          <div class="cat">Behance</div>
-        </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/226203917/AI-Design-oformlenie-posta-dlja-TelegramVK" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/2351ba226203917.Y3JvcCw3MDQsNTUxLDM1NSw1NTQ.png')">
-          <div class="flat-icon">↗</div>
-          <h3>AI Design | Оформление поста для Telegram/VK</h3>
           <div class="cat">Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
@@ -756,9 +760,25 @@
           <h3>i hate being here, there and anyone else</h3>
           <div class="cat">Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/216697531/primery-korporativnyh-kalendarej" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/a7c45f216697531.Y3JvcCwxMDgwLDg0NCwwLDA.png')">
+        <!-- no clean CDN thumbnail available for these two yet (Behance blocks scraping) — styled placeholder card instead, still links to the real project -->
+        <a class="flat-card flat-card-ph" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background:linear-gradient(160deg, var(--green-1), var(--green-2) 85%)">
           <div class="flat-icon">↗</div>
-          <h3>Примеры корпоративных календарей</h3>
+          <h3>Balcony</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card flat-card-ph" href="https://www.behance.net/gallery/161802513/dizajn-studencheskogo-soveta-mgu-im-np-ogareva" target="_blank" rel="noopener" style="background:linear-gradient(160deg, var(--blue-1), var(--blue-2) 85%)">
+          <div class="flat-icon">↗</div>
+          <h3>Дизайн Студенческого совета МГУ им. Н.П. Огарёва</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Серия плакатов (концепция)</h3>
+          <div class="cat">Behance</div>
+        </a>
+        <a class="flat-card" href="https://www.behance.net/gallery/226203917/AI-Design-oformlenie-posta-dlja-TelegramVK" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/2351ba226203917.Y3JvcCw3MDQsNTUxLDM1NSw1NTQ.png')">
+          <div class="flat-icon">↗</div>
+          <h3>Пример оформления поста с использованием MidJourney</h3>
           <div class="cat">Behance</div>
         </a>
       </div>
@@ -772,10 +792,10 @@
   <section class="screen" id="about">
     <div class="about-wrap reveal">
       <div class="about-photo-grid reveal">
-        <div class="tile"><img src="profile.jpg" alt="Фото Владимира"></div>
-        <div class="tile"><span class="tile-placeholder">+</span></div>
-        <div class="tile"><span class="tile-placeholder">+</span></div>
-        <div class="tile"><span class="tile-placeholder">+</span></div>
+        <div class="ph-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        </div>
+        <div class="ph-text">Фото скоро здесь появятся<br>— пока подбираю удачные кадры</div>
       </div>
       <div class="about-copy">
         <div class="eyebrow"><span></span>Обо мне</div>
@@ -792,6 +812,7 @@
       <button id="secretCue" aria-label="???" title="???">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
       </button>
+      <div class="secret-tooltip" id="secretTooltip">Тут скоро будет кое-что интересное 👀 пока не готово</div>
     </div>
   </section>
 
@@ -956,17 +977,26 @@
     document.getElementById('modalClose').addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
-    // Hidden "vibes" page — opened only via the arrow tucked under About
+    // Hidden "vibes" page — TEMPORARILY DISABLED. The overlay markup/logic below is kept
+    // as-is so it's a one-line swap to re-enable: just call openVibes() from secretCue again.
     const secretCue = document.getElementById('secretCue');
+    const secretTooltip = document.getElementById('secretTooltip');
     const vibesOverlay = document.getElementById('vibesOverlay');
     const vibesClose = document.getElementById('vibesClose');
     function openVibes(){ vibesOverlay.classList.add('open'); document.body.classList.add('vibes-open'); }
     function closeVibes(){ vibesOverlay.classList.remove('open'); document.body.classList.remove('vibes-open'); }
-    secretCue.addEventListener('click', openVibes);
+    let secretTooltipTimer = null;
+    secretCue.addEventListener('click', (e) => {
+      e.stopPropagation();
+      secretTooltip.classList.add('show');
+      clearTimeout(secretTooltipTimer);
+      secretTooltipTimer = setTimeout(() => secretTooltip.classList.remove('show'), 2600);
+    });
+    document.addEventListener('click', () => secretTooltip.classList.remove('show'));
     vibesClose.addEventListener('click', closeVibes);
     vibesOverlay.addEventListener('click', (e) => { if (e.target === vibesOverlay) closeVibes(); });
 
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeModal(); closeVibes(); toggleMobileMenu(false); } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeModal(); closeVibes(); toggleMobileMenu(false); secretTooltip.classList.remove('show'); } });
 
     const jobCards = document.querySelectorAll('#experience .card');
     jobCards.forEach(card => {
