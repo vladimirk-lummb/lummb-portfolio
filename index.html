@@ -327,6 +327,51 @@
   }
   .portfolio-more:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); }
 
+  /* ---- Видео-работы: спойлер (скрыт до загрузки материалов) ---- */
+  .video-spoiler{
+    position:relative; margin: 8px 48px 40px; border-radius: 22px; overflow: hidden;
+    background: linear-gradient(135deg, rgba(139,120,255,0.10), rgba(90,150,255,0.05) 45%, transparent 75%);
+    border: 1px solid rgba(139,120,255,0.22);
+    box-shadow: 0 18px 40px -26px rgba(90,80,220,0.55);
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .video-spoiler:hover{ border-color: rgba(139,120,255,0.4); box-shadow: 0 22px 50px -24px rgba(90,80,220,0.7); }
+  .video-spoiler-toggle{
+    width:100%; display:flex; align-items:center; gap:16px;
+    padding: 20px 22px; background: transparent; border:none; cursor:pointer; text-align:left;
+  }
+  .video-spoiler-icon{
+    flex-shrink:0; width:42px; height:42px; border-radius:50%;
+    background: linear-gradient(135deg, #8b78ff, #5a96ff);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 18px -6px rgba(139,120,255,0.6);
+  }
+  .video-spoiler-icon svg{ width:16px; height:16px; fill:#fff; margin-left:2px; }
+  .video-spoiler-text{ flex:1; min-width:0; }
+  .video-spoiler-text .vs-title{ display:flex; align-items:center; gap:10px; font-size: 15px; font-weight:700; color: var(--ink); letter-spacing:-0.01em; }
+  .video-spoiler-badge{
+    font-size:10.5px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
+    color:#c3b8ff; background: rgba(139,120,255,0.14); border:1px solid rgba(139,120,255,0.3);
+    padding:3px 9px; border-radius:20px;
+  }
+  .video-spoiler-toggle .vs-sub{ display:block; margin-top:4px; font-size:12.5px; font-weight:400; color: var(--ink-dim); }
+  .video-spoiler-arrow{
+    flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; color: var(--ink-dim);
+    transition: transform .3s ease, background .2s ease;
+  }
+  .video-spoiler-toggle:hover .video-spoiler-arrow{ background: var(--hover-bg); color: var(--ink); }
+  .video-spoiler-toggle[aria-expanded="true"] .video-spoiler-arrow{ transform: rotate(180deg); }
+  .video-spoiler-body{ border-top: 1px solid rgba(139,120,255,0.18); padding: 22px; }
+  .video-spoiler-body[hidden]{ display:none; }
+  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+  .video-card{ border-radius:16px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03); }
+  .video-card video{ display:block; width:100%; aspect-ratio: 9/16; object-fit:cover; background:#000; }
+  .video-card-info{ padding: 10px 14px 14px; }
+  .video-card-info h4{ font-size:13.5px; font-weight:600; }
+  .video-card-info .cat{ font-size:11.5px; color: var(--ink-dim); margin-top:3px; display:block; }
+  .video-empty-note{ font-size:13.5px; color: var(--ink-dim); text-align:center; padding: 18px 4px; }
+
   /* ================= SCREEN 4 — ABOUT ================= */
   #about{ align-items:center; padding-top: var(--nav-h); }
   .about-wrap{
@@ -697,6 +742,44 @@
     </div>
 
     <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
+
+    <!--
+      ВИДЕО-РАБОТЫ (спойлер).
+      Как добавить видео, когда материалы готовы:
+      1) Залей файлы (mp4 + постеры-превью, если нужны) в репозиторий на GitHub Pages,
+         например в папку /video/.
+      2) Удали строку с .video-empty-note ниже.
+      3) На каждое видео добавь карточку по образцу:
+
+         <div class="video-card">
+           <video src="video/nazvanie.mp4" controls preload="metadata" poster="video/nazvanie-poster.jpg"></video>
+           <div class="video-card-info">
+             <h4>Название работы</h4>
+             <span class="cat">Реклама</span> -- или "Личная работа"
+           </div>
+         </div>
+
+      Спойлер по умолчанию свёрнут, так что пока внутри пусто — блок не бросается в глаза.
+    -->
+    <div class="video-spoiler reveal">
+      <button class="video-spoiler-toggle" id="videoSpoilerToggle" aria-expanded="false" aria-controls="videoSpoilerBody">
+        <span class="video-spoiler-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="video-spoiler-text">
+          <span class="vs-title">Видео-работы <span class="video-spoiler-badge">Скоро</span></span>
+          <span class="vs-sub">Реклама и личные проекты в видео</span>
+        </span>
+        <span class="video-spoiler-arrow">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </button>
+      <div class="video-spoiler-body" id="videoSpoilerBody" hidden>
+        <div class="video-grid" id="videoGrid">
+          <p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="screen" id="experience">
@@ -1106,6 +1189,16 @@
       portfolioTrack.addEventListener('click', (e) => {
         if (dragMoved > 6) e.preventDefault();
       }, true);
+    }
+
+    const videoSpoilerToggle = document.getElementById('videoSpoilerToggle');
+    const videoSpoilerBody = document.getElementById('videoSpoilerBody');
+    if (videoSpoilerToggle && videoSpoilerBody){
+      videoSpoilerToggle.addEventListener('click', () => {
+        const isOpen = videoSpoilerToggle.getAttribute('aria-expanded') === 'true';
+        videoSpoilerToggle.setAttribute('aria-expanded', String(!isOpen));
+        videoSpoilerBody.hidden = isOpen;
+      });
     }
 
     const navBurger = document.getElementById('navBurger');
