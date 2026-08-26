@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>lummb — Портфолио</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #08080a;
@@ -60,7 +63,9 @@
   html{ color-scheme: dark; }
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; overscroll-behavior-y: none; }
+  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; overscroll-behavior-y: none;
+    cursor: url('cursors/pointer2.cur') 5 10, auto; }
+  html[data-theme="light"]{ cursor: url('cursors/pointer.cur') 5 10, auto; }
 
   body{
     background: var(--bg);
@@ -199,7 +204,21 @@
   }
   .eyebrow span{ width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
   #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
-  #hero p{ position:relative; z-index:2; margin: 22px auto 0; font-size: clamp(13px, 2vw, 18px); color: var(--ink-dim); line-height: 1.6; white-space: nowrap; }
+  .hero-quote{
+    position:relative; z-index:2; margin: 26px auto 0; max-width: 620px;
+    font-family: 'Space Mono', 'Courier New', ui-monospace, monospace;
+  }
+  .hero-quote p{ margin:0; color: var(--ink-dim); line-height: 1.75; }
+  .hero-quote .hq-question{
+    font-size: clamp(12px, 1.55vw, 15px); opacity:.68; letter-spacing:0.01em;
+  }
+  .hero-quote .hq-answer{
+    margin-top: 12px; font-size: clamp(12.5px, 1.7vw, 16px); letter-spacing:0.01em; color: var(--ink);
+  }
+  .hero-quote .hq-cursor{
+    display:inline-block; margin-left:2px; color: var(--ink); animation: hqBlink 1s steps(1,end) infinite;
+  }
+  @keyframes hqBlink{ 50%{ opacity:0; } }
 
   .scroll-cue{ position:absolute; left:50%; bottom: 44px; transform: translateX(-50%); z-index: 3; }
   .scroll-cue button{
@@ -555,7 +574,9 @@
 
     #hero{ text-align:center; }
     #hero h1{ font-size: clamp(38px, 11vw, 56px); }
-    #hero p{ white-space: normal; max-width: 300px; margin-left:auto; margin-right:auto; font-size: 14.5px; }
+    .hero-quote{ max-width: 300px; margin-left:auto; margin-right:auto; }
+    .hero-quote .hq-question{ font-size: 12.5px; }
+    .hero-quote .hq-answer{ font-size: 13px; }
 
     .section-top{ flex-direction:column; padding: 0 18px; gap:12px; }
     .section-copy h2{ font-size: clamp(26px, 7.2vw, 36px); }
@@ -655,8 +676,10 @@
     <div class="hero-inner">
       <div class="eyebrow"><span></span>Открыт для новых проектов</div>
       <h1>Моё портфолио</h1>
-      <p> Вы меня спросите: «Что вы умеете делать?»</p>
-      <p>А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»</p>
+      <div class="hero-quote">
+        <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
+        <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
+      </div>
     </div>
     <div class="scroll-cue">
       <button id="scrollBtn" aria-label="Перейти к работам">
