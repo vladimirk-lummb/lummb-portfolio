@@ -63,9 +63,7 @@
   html{ color-scheme: dark; }
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior: smooth; scroll-snap-type: y mandatory; overscroll-behavior-y: none;
-    cursor: url('cursors/pointer2.cur') 5 10, auto; }
-  html[data-theme="light"]{ cursor: url('cursors/pointer.cur') 5 10, auto; }
+  html{ scroll-behavior: smooth; scroll-snap-type: y proximity; overscroll-behavior-y: none; }
 
   body{
     background: var(--bg);
@@ -330,8 +328,9 @@
   .flat-icon{
     width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.16);
     display:flex; align-items:center; justify-content:center; position:absolute; top:20px; right:20px; z-index:2;
-    font-size: 14px; color:#fff;
+    color:#fff; line-height:0;
   }
+  .flat-icon svg{ display:block; }
   .carousel-arrow{
     flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
     background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:18px;
@@ -381,15 +380,31 @@
   }
   .video-spoiler-toggle:hover .video-spoiler-arrow{ background: var(--hover-bg); color: var(--ink); }
   .video-spoiler-toggle[aria-expanded="true"] .video-spoiler-arrow{ transform: rotate(180deg); }
-  .video-spoiler-body{ border-top: 1px solid rgba(139,120,255,0.18); padding: 22px; }
+  .video-spoiler-body{ border-top: 1px solid rgba(139,120,255,0.18); padding: 22px; max-height: 52vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .video-spoiler-body[hidden]{ display:none; }
   .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
-  .video-card{ border-radius:16px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03); }
-  .video-card video{ display:block; width:100%; aspect-ratio: 9/16; object-fit:cover; background:#000; }
+  .video-card{
+    border-radius:16px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03);
+    display:block; transition: border-color .2s ease, transform .2s ease;
+  }
+  a.video-card:hover{ border-color: var(--hover-border); transform: translateY(-2px); }
+  .video-card video, .video-card iframe{
+    display:block; width:100%; aspect-ratio: var(--vratio, 9/16); object-fit:cover; background:#000; border:0;
+  }
+  .video-card-thumb{
+    position:relative; width:100%; aspect-ratio: var(--vratio, 9/16); background-size:cover; background-position:center;
+    background-color:#141418;
+    background-image: linear-gradient(135deg, rgba(139,120,255,0.28), rgba(90,150,255,0.14));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .video-card-play{
+    width:46px; height:46px; border-radius:50%; background: rgba(8,8,10,0.55); border:1px solid rgba(255,255,255,0.25);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; backdrop-filter: blur(4px);
+  }
   .video-card-info{ padding: 10px 14px 14px; }
   .video-card-info h4{ font-size:13.5px; font-weight:600; }
   .video-card-info .cat{ font-size:11.5px; color: var(--ink-dim); margin-top:3px; display:block; }
-  .video-empty-note{ font-size:13.5px; color: var(--ink-dim); text-align:center; padding: 18px 4px; }
+  .video-empty-note{ font-size:13.5px; color: var(--ink-dim); text-align:center; padding: 18px 4px; grid-column: 1/-1; }
 
   /* ================= SCREEN 4 — ABOUT ================= */
   #about{ align-items:center; padding-top: var(--nav-h); }
@@ -560,7 +575,6 @@
   /* ================= RESPONSIVE / MOBILE ================= */
   @media (max-width: 900px){
     .screen{ min-height: 100vh; min-height: 100dvh; }
-    html{ scroll-snap-type: y proximity; }
 
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
@@ -706,8 +720,8 @@
       </div>
     </div>
     <div class="secret-cue">
-      <button id="secretCue" aria-label="???" title="???">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      <button id="secretCue" aria-label="Скоро новое" title="Скоро новое">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>
       </button>
       <div class="secret-tooltip" id="secretTooltip">Тут скоро будет кое-что интересное 👀 пока не готово</div>
     </div>
@@ -727,42 +741,42 @@
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
         <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Поднебесье Настоящего МГУ</h3>
           <div class="cat">Behance</div>
         </a>
            <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>ШумГрант | Центр социального проектирования</h3>
           <div class="cat">Behance</div>
         </a>
           <a class="flat-card" href="#" target="_blank" rel="noopener" style="background-image:url('img/cyberx-community-2.png')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>CyberX Community</h3>
           <div class="cat">Дизайн карточек мероприятий</div>
         </a>
            <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>LUMMB POSTER | This feelings</h3>
           <div class="cat">Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>i hate being here, there and wherever else</h3>
           <div class="cat">Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background-image:url('img/balcony.jpg')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Balcony</h3>
           <div class="cat">Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener" style="background-image:url('img/midjourney-post.jpg')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Пример оформления поста с использованием MidJourney</h3>
           <div class="cat">Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
-          <div class="flat-icon">↗</div>
+          <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Серия плакатов (концепция)</h3>
           <div class="cat">Behance</div>
         </a>
@@ -774,21 +788,13 @@
 
     <!--
       ВИДЕО-РАБОТЫ (спойлер).
-      Как добавить видео, когда материалы готовы:
-      1) Залей файлы (mp4 + постеры-превью, если нужны) в репозиторий на GitHub Pages,
-         например в папку /video/.
-      2) Удали строку с .video-empty-note ниже.
-      3) На каждое видео добавь карточку по образцу:
-
-         <div class="video-card">
-           <video src="video/nazvanie.mp4" controls preload="metadata" poster="video/nazvanie-poster.jpg"></video>
-           <div class="video-card-info">
-             <h4>Название работы</h4>
-             <span class="cat">Реклама</span> -- или "Личная работа"
-           </div>
-         </div>
-
-      Спойлер по умолчанию свёрнут, так что пока внутри пусто — блок не бросается в глаза.
+      Список видео редактируется в JS, ищи по тексту "СПИСОК ВИДЕО" в конце файла —
+      там простой массив videoWorks с примерами на все три случая:
+        1) mp4-файл, залитый в этот же репозиторий на GitHub Pages;
+        2) ссылка на YouTube или Vimeo — встраивается плеером;
+        3) ссылка на любой другой ресурс (VK Видео, RuTube, Google Диск и т.п.) —
+           рендерится как карточка-ссылка, открывается в новой вкладке.
+      Ничего в этом HTML-блоке трогать не нужно, всё собирается автоматически.
     -->
     <div class="video-spoiler reveal">
       <button class="video-spoiler-toggle" id="videoSpoilerToggle" aria-expanded="false" aria-controls="videoSpoilerBody">
@@ -796,7 +802,7 @@
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
         <span class="video-spoiler-text">
-          <span class="vs-title">Видео-работы <span class="video-spoiler-badge">Скоро</span></span>
+          <span class="vs-title">Видео-работы <span class="video-spoiler-badge" id="videoSpoilerBadge">Скоро</span></span>
           <span class="vs-sub">Реклама и личные проекты в видео</span>
         </span>
         <span class="video-spoiler-arrow">
@@ -927,6 +933,7 @@
         <a href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Behance</a>
         <a href="https://instagram.com/gallarados" target="_blank" rel="noopener">Instagram</a>
         <a href="https://soundcloud.com/lummb" target="_blank" rel="noopener">SoundCloud</a>
+        <a href="https://www.youtube.com/@lummusicb" target="_blank" rel="noopener">YouTube</a>
       </div>
     </div>
     <footer>© 2026 lummb. Все права защищены.</footer>
@@ -1227,8 +1234,125 @@
         const isOpen = videoSpoilerToggle.getAttribute('aria-expanded') === 'true';
         videoSpoilerToggle.setAttribute('aria-expanded', String(!isOpen));
         videoSpoilerBody.hidden = isOpen;
+        if (!isOpen){
+          setTimeout(() => videoSpoilerToggle.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+        }
       });
     }
+
+    // =====================================================================
+    // СПИСОК ВИДЕО — редактируй здесь. Раскомментируй/скопируй нужный тип
+    // объекта для каждого нового видео. Порядок в массиве = порядок на сайте.
+    //
+    // Поля title / category — необязательны, но желательны.
+    // По умолчанию карточка вертикальная (9/16, формат reels/shorts).
+    // Если видео горизонтальное — добавь `vertical: false`.
+    // =====================================================================
+    const videoWorks = [
+
+      // --- Тип 1: mp4-файл, лежащий прямо в этом репозитории (GitHub Pages) ---
+      // Залей файл (и, по желанию, картинку-превью) в папку /video/ рядом с index.html.
+      // { src: 'video/reklama-1.mp4', poster: 'video/reklama-1.jpg', title: 'Название работы', category: 'Реклама' },
+
+      // --- Тип 2: ссылка на YouTube — распознаётся автоматически, встраивается плеером ---
+      // { url: 'https://www.youtube.com/watch?v=XXXXXXXXXXX', title: 'Название работы', category: 'Личный проект', vertical: false },
+
+      // --- Тип 3: ссылка на Vimeo — тоже встраивается плеером ---
+      // { url: 'https://vimeo.com/XXXXXXXXX', title: 'Название работы', category: 'Реклама', vertical: false },
+
+      // --- Тип 4: ссылка на любой другой ресурс (VK Видео, RuTube, Диск и т.п.) ---
+      // Плеер туда не встроить, поэтому карточка кликабельна и открывает ссылку в новой вкладке.
+      // Можно указать poster — картинку-превью, иначе будет однотонная заглушка со стрелкой.
+      // { url: 'https://vk.com/video-XXXXXXXX_XXXXXXXXX', title: 'Название работы', category: 'Реклама', poster: 'video/preview.jpg' },
+
+    ];
+
+    function escapeHtml(str){
+      return String(str == null ? '' : str).replace(/[&<>"']/g, (c) => (
+        { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+      ));
+    }
+
+    // Достаём embed-ссылку из обычной ссылки на YouTube/Vimeo. Если ресурс не
+    // распознан — вернём null, и карточка отрисуется как внешняя ссылка (тип 4).
+    function getVideoEmbedUrl(rawUrl){
+      let u;
+      try { u = new URL(rawUrl); } catch(e){ return null; }
+      const host = u.hostname.replace(/^www\./, '');
+
+      if (host === 'youtu.be'){
+        const id = u.pathname.slice(1);
+        return id ? `https://www.youtube.com/embed/${id}` : null;
+      }
+      if (host === 'youtube.com' || host === 'm.youtube.com'){
+        let id = u.searchParams.get('v');
+        if (!id && u.pathname.startsWith('/shorts/')) id = u.pathname.split('/')[2];
+        if (!id && u.pathname.startsWith('/embed/')) id = u.pathname.split('/')[2];
+        return id ? `https://www.youtube.com/embed/${id}` : null;
+      }
+      if (host === 'vimeo.com' || host === 'player.vimeo.com'){
+        const id = u.pathname.split('/').filter(Boolean).pop();
+        return id && /^\d+$/.test(id) ? `https://player.vimeo.com/video/${id}` : null;
+      }
+      return null;
+    }
+
+    function renderVideoWorks(){
+      const grid = document.getElementById('videoGrid');
+      const badge = document.getElementById('videoSpoilerBadge');
+      if (!grid) return;
+
+      if (!videoWorks.length){
+        grid.innerHTML = '<p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>';
+        if (badge) badge.textContent = 'Скоро';
+        return;
+      }
+
+      if (badge) badge.textContent = videoWorks.length === 1 ? '1 видео' : `${videoWorks.length} видео`;
+
+      grid.innerHTML = videoWorks.map((item) => {
+        const ratioStyle = item.vertical === false ? 'style="--vratio:16/9"' : '';
+        const title = escapeHtml(item.title || '');
+        const cat = item.category ? `<span class="cat">${escapeHtml(item.category)}</span>` : '';
+        const info = `<div class="video-card-info"><h4>${title}</h4>${cat}</div>`;
+
+        // Тип 1 — локальный mp4-файл
+        if (item.src){
+          const posterAttr = item.poster ? ` poster="${escapeHtml(item.poster)}"` : '';
+          return `<div class="video-card" ${ratioStyle}>
+            <video src="${escapeHtml(item.src)}"${posterAttr} controls preload="metadata" playsinline></video>
+            ${info}
+          </div>`;
+        }
+
+        if (item.url){
+          const embedUrl = getVideoEmbedUrl(item.url);
+
+          // Тип 2/3 — YouTube или Vimeo, встраиваем плеером
+          if (embedUrl){
+            return `<div class="video-card" ${ratioStyle}>
+              <iframe src="${embedUrl}" loading="lazy" title="${title}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+              ${info}
+            </div>`;
+          }
+
+          // Тип 4 — произвольная ссылка, встроить нельзя — открываем в новой вкладке
+          const thumbStyle = item.poster
+            ? ` style="background-image:url('${escapeHtml(item.poster)}')"`
+            : '';
+          return `<a class="video-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener" ${ratioStyle}>
+            <div class="video-card-thumb"${thumbStyle}><span class="video-card-play">↗</span></div>
+            ${info}
+          </a>`;
+        }
+
+        return '';
+      }).join('');
+    }
+
+    renderVideoWorks();
 
     const navBurger = document.getElementById('navBurger');
     const mobileMenu = document.getElementById('mobileMenu');
