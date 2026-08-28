@@ -119,11 +119,18 @@
   .nav-right{ display:flex; align-items:center; gap:14px; }
   .nav-cta-wrap{ position:relative; }
 
-  .theme-toggle{ position:relative; }
-  .theme-toggle .icon-sun{ display:none; }
-  .theme-toggle .icon-moon{ display:block; }
-  html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
-  html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
+  .theme-toggle{
+    width: 62px; height: 32px; border: 1px solid var(--line); border-radius: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 10px; background: transparent; cursor: pointer; flex-shrink: 0;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .theme-toggle:hover{ background: var(--hover-bg); border-color: var(--hover-border); }
+  .theme-toggle svg { width: 14px; height: 14px; transition: opacity .2s ease, color .2s ease; color: var(--ink-dim); }
+  .theme-toggle .icon-sun { opacity: 0.3; }
+  .theme-toggle .icon-moon { opacity: 1; color: var(--ink); }
+  html[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; color: var(--ink); }
+  html[data-theme="light"] .theme-toggle .icon-moon { opacity: 0.3; color: var(--ink-dim); }
 
   .nav-burger{
     display:none; width:36px; height:36px; border:1px solid var(--line); border-radius:50%;
@@ -146,6 +153,7 @@
   .mobile-menu ul{ list-style:none; text-align:center; }
   .mobile-menu li{ font-size: 26px; font-weight:600; letter-spacing:-0.02em; padding: 18px 0; color: var(--ink-dim); cursor:pointer; transition: color .2s ease; }
   .mobile-menu li:hover, .mobile-menu li.active{ color: var(--ink); }
+  
   .nav-cta{
     width:36px; height:36px; border:1px solid var(--line); border-radius:50%;
     display:flex; align-items:center; justify-content:center; color: var(--ink);
@@ -185,9 +193,9 @@
   #hero::before{
     content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
     background:
-      radial-gradient(42% 38% at calc(30% + var(--mx)) calc(35% + var(--my)), rgba(150,130,255,var(--aurora-a1)), transparent 70%),
-      radial-gradient(38% 34% at calc(72% - var(--mx)) calc(60% - var(--my)), rgba(255,130,190,var(--aurora-a2)), transparent 70%),
-      radial-gradient(34% 32% at calc(58% + var(--my)) calc(18% + var(--mx)), rgba(110,230,210,var(--aurora-a3)), transparent 70%);
+      radial-gradient(42% 38% at calc(30% + var(--mx)) calc(35% + var(--my)), rgba(255,0,200,var(--aurora-a1)), transparent 70%),
+      radial-gradient(38% 34% at calc(72% - var(--mx)) calc(60% - var(--my)), rgba(0,255,255,var(--aurora-a2)), transparent 70%),
+      radial-gradient(34% 32% at calc(58% + var(--my)) calc(18% + var(--mx)), rgba(120,50,255,var(--aurora-a3)), transparent 70%);
     filter: blur(64px);
     animation: auroraMove 14s ease-in-out infinite alternate;
   }
@@ -204,15 +212,15 @@
   .eyebrow span{ width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
   #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
   .hero-quote{
-    position:relative; z-index:2; margin: 26px auto 0; max-width: 620px;
+    position:relative; z-index:2; margin: 26px auto 0; max-width: 680px;
     font-family: 'Space Mono', 'Courier New', ui-monospace, monospace;
   }
   .hero-quote p{ margin:0; color: var(--ink-dim); line-height: 1.75; }
   .hero-quote .hq-question{
-    font-size: clamp(12px, 1.55vw, 15px); opacity:.68; letter-spacing:0.01em;
+    font-size: clamp(14px, 1.8vw, 18px); opacity:.8; letter-spacing:0.02em;
   }
   .hero-quote .hq-answer{
-    margin-top: 12px; font-size: clamp(12.5px, 1.7vw, 16px); letter-spacing:0.01em; color: var(--ink);
+    margin-top: 14px; font-size: clamp(14px, 1.8vw, 18px); letter-spacing:0.02em; color: var(--ink);
   }
   .hero-quote .hq-cursor{
     display:inline-block; margin-left:2px; color: var(--ink); animation: hqBlink 1s steps(1,end) infinite;
@@ -588,9 +596,9 @@
 
     #hero{ text-align:center; }
     #hero h1{ font-size: clamp(38px, 11vw, 56px); }
-    .hero-quote{ max-width: 300px; margin-left:auto; margin-right:auto; }
-    .hero-quote .hq-question{ font-size: 12.5px; }
-    .hero-quote .hq-answer{ font-size: 13px; }
+    .hero-quote{ max-width: 340px; margin-left:auto; margin-right:auto; }
+    .hero-quote .hq-question{ font-size: 13px; }
+    .hero-quote .hq-answer{ font-size: 14px; }
 
     .section-top{ flex-direction:column; padding: 0 18px; gap:12px; }
     .section-copy h2{ font-size: clamp(26px, 7.2vw, 36px); }
@@ -655,14 +663,14 @@
     <div class="logo">lummb</div>
     <ul class="nav-links">
       <li data-target="about">Обо мне</li>
-      <li data-target="portfolio">Реализованные проекты</li>
+      <li data-target="portfolio">Реализованные проектов</li>
       <li data-target="experience">Опыт работы</li>
       <li data-target="contacts">Контакты</li>
     </ul>
     <div class="nav-right">
-      <button class="nav-cta theme-toggle" id="themeToggle" aria-label="Переключить тему">
-        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+        <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       </button>
       <div class="nav-cta-wrap">
         <div class="nav-cta" id="topBtn">
@@ -1052,7 +1060,7 @@
           'Готовил презентации и каталоги продукции',
           'Занимался анимацией и монтажом коротких видео',
           'Создавал логотипы и фирменный стиль для клиентов',
-          'Проектировал дизайн для сайтов и мобильных приложений'
+          'Проектировал дизайн для сайтов и моби приложений'
         ]
       },
       ija: {
