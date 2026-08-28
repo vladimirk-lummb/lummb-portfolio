@@ -1254,31 +1254,17 @@
       });
     }
 
-    // =====================================================================
-    // СПИСОК ВИДЕО — редактируй здесь. Раскомментируй/скопируй нужный тип
-    // объекта для каждого нового видео. Порядок в массиве = порядок на сайте.
-    //
-    // Поля title / category — необязательны, но желательны.
-    // По умолчанию карточка вертикальная (9/16, формат reels/shorts).
-    // Если видео горизонтальное — добавь `vertical: false`.
-    // =====================================================================
     const videoWorks = [
-
-      // --- Тип 1: mp4-файл, лежащий прямо в этом репозитории (GitHub Pages) ---
-      // Залей файл (и, по желанию, картинку-превью) в папку /video/ рядом с index.html.
-      // { src: 'video/reklama-1.mp4', poster: 'video/reklama-1.jpg', title: 'Название работы', category: 'Реклама' },
-
-      // --- Тип 2: ссылка на YouTube — распознаётся автоматически, встраивается плеером ---
-      // { url: 'https://www.youtube.com/watch?v=XXXXXXXXXXX', title: 'Название работы', category: 'Личный проект', vertical: false },
-
-      // --- Тип 3: ссылка на Vimeo — тоже встраивается плеером ---
-      // { url: 'https://vimeo.com/XXXXXXXXX', title: 'Название работы', category: 'Реклама', vertical: false },
-
-      // --- Тип 4: ссылка на любой другой ресурс (VK Видео, RuTube, Диск и т.п.) ---
-      // Плеер туда не встроить, поэтому карточка кликабельна и открывает ссылку в новой вкладке.
-      // Можно указать poster — картинку-превью, иначе будет однотонная заглушка со стрелкой.
-      // { url: 'https://vk.com/video-XXXXXXXX_XXXXXXXXX', title: 'Название работы', category: 'Реклама', poster: 'video/preview.jpg' },
-
+      { 
+        url: 'https://www.youtube.com/shorts/mo7K3sMHIG0', 
+        title: 'im so glad i didnt d**d in 2023 #edit', 
+        category: 'YouTube Shorts' 
+      },
+      { 
+        url: 'https://www.youtube.com/shorts/r_paqahn7Uc', 
+        title: 'How 2023 actually feels #auto #edit', 
+        category: 'YouTube Shorts' 
+      }
     ];
 
     function escapeHtml(str){
