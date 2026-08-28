@@ -177,7 +177,8 @@
   .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
   .back-to-top:hover{ background: var(--backtotop-bg-hover); }
 
-  .screen{ position:relative; min-height:100vh; scroll-snap-align: start; display:flex; flex-direction:column; }
+  .screen{ position:relative; height:100vh; scroll-snap-align: start; scroll-snap-stop: always; display:flex; flex-direction:column; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; }
+  .screen::-webkit-scrollbar{ display:none; }
 
   /* ================= SCREEN 1 — HERO ================= */
   #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; --mx:0px; --my:0px; }
@@ -230,7 +231,7 @@
   /* shared section header row */
   .section-top{
     display:flex; justify-content:space-between; align-items:flex-start;
-    padding: 0 56px 0 48px; gap: 40px;
+    padding: 0 56px 0 48px; gap: 40px; flex-shrink:0;
   }
   .section-copy h2{ font-size: clamp(34px, 4.6vw, 54px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; max-width: 640px; }
   .section-copy p{ margin-top: 14px; font-size: 16px; color: var(--ink-dim); line-height: 1.55; max-width: 380px; }
@@ -301,21 +302,21 @@
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
 
   /* ================= SCREEN 3 — PORTFOLIO (carousel) ================= */
-  #portfolio{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
-  .carousel-wrap{ position:relative; flex:1; display:flex; align-items:center; gap: 14px; padding: 0 48px; }
+  #portfolio{ padding-top: calc(var(--nav-h) + 32px); justify-content:flex-start; }
+  .carousel-wrap{ position:relative; flex: 1 1 auto; min-height:0; display:flex; align-items:stretch; gap: 14px; padding: 0 48px; }
   .flat-grid{
-    flex:1; display:flex; gap: 18px; overflow-x:auto; scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch; padding: 40px 4px 56px; scrollbar-width:none;
+    flex:1; min-width:0; display:flex; gap: 18px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; padding: 20px 4px 24px; scrollbar-width:none;
     cursor: grab;
   }
   .flat-grid.dragging{ cursor: grabbing; scroll-snap-type: none; user-select:none; }
   .flat-grid.dragging .flat-card{ pointer-events:none; }
   .flat-grid::-webkit-scrollbar{ display:none; }
   .flat-card{
-    position:relative; flex: 0 0 auto; width: 290px; scroll-snap-align:center;
+    position:relative; flex: 0 0 auto; width: 290px; height:100%; scroll-snap-align:center;
     border-radius: 20px; border: 1px solid var(--line);
     padding: 22px; display:flex; flex-direction:column; justify-content:flex-end;
-    overflow:hidden; min-height: 420px; box-shadow: 0 24px 50px -24px rgba(0,0,0,0.6);
+    overflow:hidden; min-height: 240px; max-height: 460px; box-shadow: 0 24px 50px -24px rgba(0,0,0,0.6);
     transition: transform .35s ease; background-size: cover; background-position: center;
   }
   .flat-card:hover{ transform: translateY(-8px); }
@@ -335,19 +336,19 @@
     flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
     background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:18px;
     display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5;
-    transition: background .2s ease;
+    transition: background .2s ease; align-self:center;
   }
   .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
   .portfolio-more{
-    display:inline-flex; align-items:center; gap:8px; margin: 8px 48px 40px; font-size: 14px;
-    color: var(--ink-dim); border: 1px solid var(--line); border-radius: 30px; padding: 10px 20px;
-    transition: background .2s ease, color .2s ease, border-color .2s ease; width: fit-content;
+    display:inline-flex; align-items:center; gap:8px; margin: 4px 48px 14px; font-size: 14px;
+    color: var(--ink-dim); border: 1px solid var(--line); border-radius: 30px; padding: 9px 18px;
+    transition: background .2s ease, color .2s ease, border-color .2s ease; width: fit-content; flex-shrink:0;
   }
   .portfolio-more:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); }
 
   /* ---- Видео-работы: спойлер (скрыт до загрузки материалов) ---- */
   .video-spoiler{
-    position:relative; margin: 8px 48px 40px; border-radius: 22px; overflow: hidden;
+    position:relative; margin: 0 48px 20px; border-radius: 22px; overflow: hidden; flex-shrink:0;
     background: linear-gradient(135deg, rgba(139,120,255,0.10), rgba(90,150,255,0.05) 45%, transparent 75%);
     border: 1px solid rgba(139,120,255,0.22);
     box-shadow: 0 18px 40px -26px rgba(90,80,220,0.55);
@@ -379,10 +380,7 @@
     transition: transform .3s ease, background .2s ease;
   }
   .video-spoiler-toggle:hover .video-spoiler-arrow{ background: var(--hover-bg); color: var(--ink); }
-  .video-spoiler-toggle[aria-expanded="true"] .video-spoiler-arrow{ transform: rotate(180deg); }
-  .video-spoiler-body{ border-top: 1px solid rgba(139,120,255,0.18); padding: 22px; max-height: 52vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .video-spoiler-body[hidden]{ display:none; }
-  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; margin-top: 20px; }
   .video-card{
     border-radius:16px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03);
     display:block; transition: border-color .2s ease, transform .2s ease;
@@ -571,10 +569,12 @@
   .modal-box ul{ margin-top: 22px; list-style:none; }
   .modal-box ul li{ position:relative; padding-left: 18px; font-size: 14.5px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; }
   .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: var(--ink-faint); }
+  .video-modal-box{ max-width: 780px; }
+  .video-modal-box h3{ margin-top: 0; }
 
   /* ================= RESPONSIVE / MOBILE ================= */
   @media (max-width: 900px){
-    .screen{ min-height: 100vh; min-height: 100dvh; }
+    .screen{ height: 100vh; height: 100dvh; }
 
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
@@ -797,7 +797,7 @@
       Ничего в этом HTML-блоке трогать не нужно, всё собирается автоматически.
     -->
     <div class="video-spoiler reveal">
-      <button class="video-spoiler-toggle" id="videoSpoilerToggle" aria-expanded="false" aria-controls="videoSpoilerBody">
+      <button class="video-spoiler-toggle" id="videoSpoilerToggle" aria-haspopup="dialog" aria-controls="videoModalOverlay">
         <span class="video-spoiler-icon">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
@@ -806,14 +806,9 @@
           <span class="vs-sub">Реклама и личные проекты в видео</span>
         </span>
         <span class="video-spoiler-arrow">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg>
         </span>
       </button>
-      <div class="video-spoiler-body" id="videoSpoilerBody" hidden>
-        <div class="video-grid" id="videoGrid">
-          <p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -986,6 +981,17 @@
       <h3 id="modalTitle"></h3>
       <div class="modal-role" id="modalRole"></div>
       <ul id="modalList"></ul>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="videoModalOverlay">
+    <div class="modal-box video-modal-box" id="videoModalBox">
+      <button class="modal-close" id="videoModalClose" aria-label="Закрыть">×</button>
+      <h3>Видео-работы</h3>
+      <div class="modal-role">Реклама и личные проекты в видео</div>
+      <div class="video-grid" id="videoGrid">
+        <p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>
+      </div>
     </div>
   </div>
 
