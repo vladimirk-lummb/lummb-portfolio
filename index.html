@@ -203,25 +203,26 @@
   }
   .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
   .eyebrow{
+   .hero-badges {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .eyebrow {
     display:inline-flex; align-items:center; gap:8px; font-size: 13px; color: var(--ink-dim);
-    border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px; margin-bottom: 28px;
+    border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px;
   }
-  .eyebrow span{ width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
-  #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
-  .hero-quote{
-    position:relative; z-index:2; margin: 26px auto 0; max-width: 680px;
-    font-family: 'Space Mono', 'Courier New', ui-monospace, monospace;
+  .eyebrow span { width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
+
+  .resume-btn {
+    display:inline-flex; align-items:center; gap:6px; font-size: 13px; color: var(--ink); font-weight: 600;
+    border: 1px solid var(--line); border-radius: 20px; padding: 6px 16px;
+    background: rgba(255,255,255,0.04); cursor:pointer;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
   }
-  .hero-quote p{ margin:0; color: var(--ink-dim); line-height: 1.75; }
-  .hero-quote .hq-question{
-    font-size: clamp(14px, 1.8vw, 18px); opacity:.8; letter-spacing:0.02em;
+  .resume-btn:hover {
+    background: var(--hover-bg); border-color: var(--hover-border); transform: translateY(-2px);
   }
-  .hero-quote .hq-answer{
-    margin-top: 14px; font-size: clamp(14px, 1.8vw, 18px); letter-spacing:0.02em; color: var(--ink);
-  }
-  .hero-quote .hq-cursor{
-    display:inline-block; margin-left:2px; color: var(--ink); animation: hqBlink 1s steps(1,end) infinite;
-  }
+  html[data-theme="light"] .resume-btn { background: rgba(0,0,0,0.03); }
   @keyframes hqBlink{ 50%{ opacity:0; } }
 
   .scroll-cue{ position:absolute; left:50%; bottom: 44px; transform: translateX(-50%); z-index: 3; }
@@ -694,20 +695,23 @@
     </ul>
   </div>
 
-  <!-- SCREEN 1 — HERO -->
+<!-- SCREEN 1 — HERO -->
   <section class="screen" id="hero">
     <div class="hero-inner">
-      <div class="eyebrow"><span></span>Открыт для новых проектов</div>
+      
+      <div class="hero-badges">
+        <div class="eyebrow"><span></span>Открыт для новых проектов</div>
+        <a href="https://saransk.hh.ru/resume/a5dde66bff0af970400039ed1f354248795971" target="_blank" rel="noopener" class="resume-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Резюме на hh.ru
+        </a>
+      </div>
+
       <h1>Моё портфолио</h1>
       <div class="hero-quote">
         <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
         <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
       </div>
-    </div>
-    <div class="scroll-cue">
-      <button id="scrollBtn" aria-label="Перейти к работам">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-      </button>
     </div>
   </section>
 
