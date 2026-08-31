@@ -202,8 +202,8 @@
     100%{ transform: translate3d(-4%, 3%, 0) scale(1); }
   }
   .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
-  .eyebrow{
-   .hero-badges {
+  
+  .hero-badges {
     display: flex; align-items: center; justify-content: center; gap: 12px;
     margin-bottom: 28px; flex-wrap: wrap;
   }
@@ -223,6 +223,22 @@
     background: var(--hover-bg); border-color: var(--hover-border); transform: translateY(-2px);
   }
   html[data-theme="light"] .resume-btn { background: rgba(0,0,0,0.03); }
+
+  #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
+  .hero-quote{
+    position:relative; z-index:2; margin: 26px auto 0; max-width: 680px;
+    font-family: 'Space Mono', 'Courier New', ui-monospace, monospace;
+  }
+  .hero-quote p{ margin:0; color: var(--ink-dim); line-height: 1.75; }
+  .hero-quote .hq-question{
+    font-size: clamp(14px, 1.8vw, 18px); opacity:.8; letter-spacing:0.02em;
+  }
+  .hero-quote .hq-answer{
+    margin-top: 14px; font-size: clamp(14px, 1.8vw, 18px); letter-spacing:0.02em; color: var(--ink);
+  }
+  .hero-quote .hq-cursor{
+    display:inline-block; margin-left:2px; color: var(--ink); animation: hqBlink 1s steps(1,end) infinite;
+  }
   @keyframes hqBlink{ 50%{ opacity:0; } }
 
   .scroll-cue{ position:absolute; left:50%; bottom: 44px; transform: translateX(-50%); z-index: 3; }
@@ -695,10 +711,9 @@
     </ul>
   </div>
 
-<!-- SCREEN 1 — HERO -->
+  <!-- SCREEN 1 — HERO -->
   <section class="screen" id="hero">
     <div class="hero-inner">
-      
       <div class="hero-badges">
         <div class="eyebrow"><span></span>Открыт для новых проектов</div>
         <a href="https://saransk.hh.ru/resume/a5dde66bff0af970400039ed1f354248795971" target="_blank" rel="noopener" class="resume-btn">
@@ -706,12 +721,16 @@
           Резюме на hh.ru
         </a>
       </div>
-
       <h1>Моё портфолио</h1>
       <div class="hero-quote">
         <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
         <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
       </div>
+    </div>
+    <div class="scroll-cue">
+      <button id="scrollBtn" aria-label="Перейти к работам">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </button>
     </div>
   </section>
 
