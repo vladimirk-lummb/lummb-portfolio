@@ -213,19 +213,22 @@
   .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
   
   .hero-badges {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    margin-bottom: 28px; flex-wrap: wrap;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin-bottom: 36px; flex-wrap: wrap;
   }
   .eyebrow {
-    display:inline-flex; align-items:center; gap:8px; font-size: 13px; color: var(--ink-dim);
-    border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px;
+    display:inline-flex; align-items:center; gap:10px; font-size: 15px; color: var(--ink-dim);
+    border: 1px solid var(--line); border-radius: 30px; padding: 10px 22px; font-weight: 600;
   }
-  .eyebrow span { width:6px; height:6px; border-radius:50%; background:#5eff9a; display:inline-block; }
+  .eyebrow span { 
+    width:8px; height:8px; border-radius:50%; background:#5eff9a; 
+    display:inline-block; box-shadow: 0 0 8px rgba(94,255,154,0.6); 
+  }
 
   .resume-btn {
-    display:inline-flex; align-items:center; gap:6px; font-size: 13px; color: var(--ink); font-weight: 600;
-    border: 1px solid var(--line); border-radius: 20px; padding: 6px 16px;
-    background: rgba(255,255,255,0.04); cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px; font-size: 15px; color: var(--ink); font-weight: 600;
+    border: 1px solid var(--line); border-radius: 30px; padding: 10px 24px;
+    background: rgba(255,255,255,0.06); cursor:pointer;
     transition: background .2s ease, border-color .2s ease, transform .2s ease;
   }
   .resume-btn:hover {
@@ -320,7 +323,7 @@
   }
   .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
 
-  /* ---- НОВЫЕ КНОПКИ КАТЕГОРИЙ С ВЕЕРОМ ---- */
+  /* ---- НОВЫЕ КНОПКИ КАТЕГОРИЙ С ВЕЕРОМ (АДАПТИВНЫЕ) ---- */
   .cat-decks-wrap {
     position: relative; z-index: 10; display: flex; justify-content: center; 
     gap: 12px; padding: 0 48px; margin: 30px 0 20px; flex-wrap: wrap;
@@ -363,7 +366,8 @@
   .cat-mini-card {
     position: absolute; bottom: -10px; left: -40px; width: 80px; height: 105px;
     border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
-    background-size: cover; background-position: center; background-image: var(--bg-img);
+    background-size: cover; background-position: center; 
+    background-image: var(--bg);
     transform-origin: bottom center;
     transform: translateX(0) rotate(0) translateY(20px) scale(0.6);
     opacity: 0; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -790,11 +794,11 @@
       <div class="hero-badges">
         <div class="eyebrow"><span></span>Открыт для новых проектов</div>
         <a href="https://saransk.hh.ru/resume/a5dde66bff0af970400039ed1f354248795971" target="_blank" rel="noopener" class="resume-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           Резюме на hh.ru
         </a>
       </div>
-      <h1>Моё портфолио</h1>
+      <h1>Дизайн, который продаёт</h1>
       <div class="hero-quote">
         <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
         <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
@@ -842,7 +846,7 @@
       <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
     </div>
 
-    <!-- Основная карусель проектов (ВОССТАНОВЛЕНЫ 8 КАРТОЧЕК) -->
+    <!-- Основная карусель проектов -->
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
@@ -895,32 +899,32 @@
       
       <div class="cat-deck" data-cat="identity">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')"></div>
-          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')"></div>
+          <div class="cat-mini-card" style="--r:-10deg; --x:-20px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')"></div>
+          <div class="cat-mini-card" style="--r:10deg; --x:20px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')"></div>
         </div>
         <button class="cat-btn">Айдентика</button>
       </div>
 
       <div class="cat-deck" data-cat="posters">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:-18deg; --x:-35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')"></div>
-          <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/lummb-poster-this-feelings.jpg')"></div>
-          <div class="cat-mini-card" style="--r:18deg; --x:35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')"></div>
+          <div class="cat-mini-card" style="--r:-10deg; --x:-20px; --bg:url('img/balcony.jpg')"></div>
+          <div class="cat-mini-card" style="--r:10deg; --x:20px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')"></div>
         </div>
         <button class="cat-btn">Плакаты / Фото</button>
       </div>
 
       <div class="cat-deck" data-cat="ai">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('img/balcony.jpg')"></div>
-          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('img/midjourney-post.jpg')"></div>
+          <div class="cat-mini-card" style="--r:-10deg; --x:-20px; --bg:url('img/midjourney-post.jpg')"></div>
+          <div class="cat-mini-card" style="--r:10deg; --x:20px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')"></div>
         </div>
         <button class="cat-btn">AI-дизайн</button>
       </div>
 
       <div class="cat-deck" data-cat="smm">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/cyberx-community-2.png')"></div>
+          <div class="cat-mini-card" style="--r:-10deg; --x:-20px; --bg:url('img/cyberx-community-2.png')"></div>
+          <div class="cat-mini-card" style="--r:10deg; --x:20px; --bg:url('img/midjourney-post.jpg')"></div>
         </div>
         <button class="cat-btn">SMM</button>
       </div>
@@ -1381,6 +1385,7 @@
       });
     }
 
+    /* Обновленные массивы проектов под карточки */
     const categoryData = {
       identity: {
         title: 'Айдентика', sub: 'Брендинг и логотипы',
@@ -1392,8 +1397,7 @@
       posters: {
         title: 'Плакаты / Фото', sub: 'Постеры и графические эксперименты',
         items: [
-          { title: 'Серия плакатов (концепция)', url: 'https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png' },
-          { title: 'LUMMB POSTER | This feelings', url: 'https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings', img: 'img/lummb-poster-this-feelings.jpg' },
+          { title: 'Balcony', url: 'https://www.behance.net/gallery/217430181/Balcony-lummb', img: 'img/balcony.jpg' },
           { title: 'i hate being here, there...', url: 'https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg' }
         ]
       },
@@ -1401,12 +1405,13 @@
         title: 'AI-дизайн', sub: 'Генерации и нейросети',
         items: [
           { title: 'MidJourney для постов', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
-          { title: 'Balcony', url: 'https://www.behance.net/gallery/217430181/Balcony-lummb', img: 'img/balcony.jpg' }
+          { title: 'Серия плакатов (концепция)', url: 'https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png' }
         ]
       },
       smm: {
         title: 'SMM', sub: 'Оформление соцсетей',
         items: [
+          { title: 'MidJourney для постов', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
           { title: 'CyberX Community', url: '#', img: 'img/cyberx-community-2.png' }
         ]
       }
