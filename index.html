@@ -83,7 +83,6 @@
     html{ scroll-behavior:auto; }
   }
 
-  /* reveal-on-scroll */
   .reveal{ opacity:0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.16,.8,.4,1), transform .8s cubic-bezier(.16,.8,.4,1); }
   .reveal.is-visible{ opacity:1; transform:none; }
 
@@ -108,9 +107,20 @@
   }
   .nav-links li:hover{ color: var(--ink); }
   .nav-links li.active{ color: var(--ink); }
+  
+  .nav-links li::after{
+    content: ''; position: absolute; left: 0; bottom: 20px; width: 100%; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    transform: scaleX(0); transform-origin: center;
+    transition: transform .3s ease, box-shadow .3s ease, opacity .3s ease;
+    opacity: 0;
+  }
   .nav-links li.active::after{
-    content:''; position:absolute; left:50%; bottom:22px; width:4px; height:4px;
-    border-radius:50%; background: var(--ink); transform: translateX(-50%);
+    transform: scaleX(1); opacity: 1;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+  html[data-theme="light"] .nav-links li.active::after {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   }
 
   .nav-right{ display:flex; align-items:center; gap:14px; }
@@ -182,7 +192,6 @@
   .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
   .back-to-top:hover{ background: var(--backtotop-bg-hover); }
 
-  /* Убрана жесткая высота 100vh, чтобы исправить кривой скролл */
   .screen{ position:relative; min-height:100vh; display:flex; flex-direction:column; padding-bottom: 40px; }
 
   /* ================= SCREEN 1 — HERO ================= */
@@ -253,11 +262,181 @@
   /* shared section header row */
   .section-top{
     display:flex; justify-content:space-between; align-items:flex-start;
-    padding: 0 56px 0 48px; gap: 40px; flex-shrink:0; margin-bottom: 20px;
+    padding: 0 56px 0 48px; gap: 40px; flex-shrink:0; margin-bottom: 12px;
   }
   .section-copy h2{ font-size: clamp(34px, 4.6vw, 54px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; max-width: 640px; }
-  .section-copy p{ margin-top: 14px; font-size: 16px; color: var(--ink-dim); line-height: 1.55; max-width: 380px; }
-  .section-note{ text-align:right; font-size: 15px; color: var(--ink-dim); line-height: 1.6; max-width: 300px; padding-top: 10px; flex-shrink:0; }
+  .section-copy p{ margin-top: 10px; font-size: 15px; color: var(--ink-dim); line-height: 1.5; max-width: 380px; }
+  .section-note{ text-align:right; font-size: 14px; color: var(--ink-dim); line-height: 1.5; max-width: 300px; padding-top: 8px; flex-shrink:0; }
+
+  /* ================= SCREEN 3 — PORTFOLIO (carousel & cats) ================= */
+  #portfolio{ padding-top: calc(var(--nav-h) + 16px); justify-content:flex-start; }
+  
+  .carousel-wrap{ position:relative; flex: 0 0 auto; display:flex; align-items:stretch; gap: 14px; padding: 0 48px; }
+  .flat-grid{
+    flex:1; min-width:0; display:flex; gap: 14px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; padding: 10px 4px 14px; scrollbar-width:none;
+    cursor: grab;
+  }
+  .flat-grid.dragging{ cursor: grabbing; scroll-snap-type: none; user-select:none; }
+  .flat-grid.dragging .flat-card{ pointer-events:none; }
+  .flat-grid::-webkit-scrollbar{ display:none; }
+  
+  /* Эффект отдаления карусели при наведении на категории */
+  .flat-card{
+    position:relative; flex: 0 0 auto; width: 260px; height: 250px; scroll-snap-align:center;
+    border-radius: 18px; border: 1px solid var(--line);
+    padding: 20px; display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden; box-shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+    background-size: cover; background-position: center;
+  }
+  .flat-card:hover{ transform: translateY(-6px); }
+  
+  /* Класс shrink-cards добавляется через JS к .flat-grid */
+  .flat-grid.shrink-cards .flat-card {
+    transform: translateY(-16px) scale(0.92);
+    opacity: 0.4;
+    pointer-events: none; /* Защита от случайного ховера уезжающих карточек */
+  }
+
+  .flat-card::before{
+    content:''; position:absolute; inset:0; z-index:1;
+    background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%);
+  }
+  .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; color:#fff; margin:0; }
+  .flat-card .cat{ font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; position:relative; z-index:2; }
+  .flat-icon{
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.16);
+    display:flex; align-items:center; justify-content:center; position:absolute; top:16px; right:16px; z-index:2;
+    color:#fff; line-height:0;
+  }
+  .flat-icon svg{ display:block; width:12px; height:12px; }
+  
+  .carousel-arrow{
+    flex-shrink:0; width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:18px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5;
+    transition: background .2s ease; align-self:center;
+  }
+  .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
+
+  /* ---- НОВЫЕ КНОПКИ КАТЕГОРИЙ С ВЕЕРОМ ---- */
+  .cat-decks-wrap {
+    position: relative; z-index: 10; display: flex; justify-content: center; 
+    gap: 12px; padding: 0 48px; margin: 30px 0 20px; flex-wrap: wrap;
+  }
+  .cat-deck { 
+    position: relative; 
+    transition: margin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    z-index: 1; 
+  }
+  .cat-deck:hover { 
+    z-index: 20; 
+    margin: 0 25px; 
+  }
+  
+  .cat-btn {
+    position: relative; z-index: 2; display: block;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px 24px; color: var(--ink); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.4s ease; backdrop-filter: blur(12px);
+    white-space: nowrap;
+  }
+  
+  .cat-deck:hover .cat-btn {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08); 
+  }
+  .cat-deck[data-cat="identity"]:hover .cat-btn { border-color: rgba(139, 120, 255, 0.5); box-shadow: 0 8px 20px rgba(139, 120, 255, 0.2); }
+  .cat-deck[data-cat="posters"]:hover .cat-btn { border-color: rgba(94, 255, 154, 0.5); box-shadow: 0 8px 20px rgba(94, 255, 154, 0.2); }
+  .cat-deck[data-cat="ai"]:hover .cat-btn { border-color: rgba(255, 47, 110, 0.5); box-shadow: 0 8px 20px rgba(255, 47, 110, 0.2); }
+  .cat-deck[data-cat="smm"]:hover .cat-btn { border-color: rgba(255, 176, 140, 0.5); box-shadow: 0 8px 20px rgba(255, 176, 140, 0.2); }
+  
+  html[data-theme="light"] .cat-btn { background: rgba(0,0,0,0.03); }
+  html[data-theme="light"] .cat-deck:hover .cat-btn { background: rgba(0,0,0,0.06); }
+
+  /* Веер карточек */
+  .cat-fan {
+    position: absolute; bottom: 100%; left: 50%; width: 0; height: 0;
+    z-index: 1; pointer-events: none;
+  }
+  .cat-mini-card {
+    position: absolute; bottom: -10px; left: -40px; width: 80px; height: 105px;
+    border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
+    background-size: cover; background-position: center; background-image: var(--bg-img);
+    transform-origin: bottom center;
+    transform: translateX(0) rotate(0) translateY(20px) scale(0.6);
+    opacity: 0; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.8);
+  }
+  .cat-deck:hover .cat-mini-card {
+    opacity: 1;
+    transform: translateX(var(--x)) rotate(var(--r)) translateY(-10px) scale(1);
+  }
+
+  /* ---- Видео-работы: аккордеон ---- */
+  .video-spoiler{
+    position:relative; margin: 0 48px 10px; border-radius: 20px; overflow: hidden; flex-shrink:0;
+    background: linear-gradient(135deg, rgba(139,120,255,0.08), rgba(90,150,255,0.04) 45%, transparent 75%);
+    border: 1px solid rgba(139,120,255,0.22);
+    box-shadow: 0 18px 40px -26px rgba(90,80,220,0.4);
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .video-spoiler:hover{ border-color: rgba(139,120,255,0.4); box-shadow: 0 22px 50px -24px rgba(90,80,220,0.6); }
+  .video-spoiler-toggle{
+    width:100%; display:flex; align-items:center; gap:14px;
+    padding: 16px 20px; background: transparent; border:none; cursor:pointer; text-align:left; outline: none;
+  }
+  .video-spoiler-icon{
+    flex-shrink:0; width:38px; height:38px; border-radius:50%;
+    background: linear-gradient(135deg, #8b78ff, #5a96ff);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 18px -6px rgba(139,120,255,0.6);
+  }
+  .video-spoiler-icon svg{ width:14px; height:14px; fill:#fff; margin-left:2px; }
+  .video-spoiler-text{ flex:1; min-width:0; }
+  .video-spoiler-text .vs-title{ display:flex; align-items:center; gap:10px; font-size: 14.5px; font-weight:700; color: var(--ink); letter-spacing:-0.01em; }
+  .video-spoiler-badge{
+    font-size:10px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
+    color:#c3b8ff; background: rgba(139,120,255,0.14); border:1px solid rgba(139,120,255,0.3);
+    padding:2px 8px; border-radius:20px;
+  }
+  .video-spoiler-toggle .vs-sub{ display:block; margin-top:3px; font-size:12px; font-weight:400; color: var(--ink-dim); }
+  
+  .video-spoiler-arrow{
+    flex-shrink:0; width:28px; height:28px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; color: var(--ink-dim);
+    transition: transform .3s ease, background .2s ease;
+  }
+  .video-spoiler-toggle:hover .video-spoiler-arrow{ background: var(--hover-bg); color: var(--ink); }
+  .video-spoiler-toggle[aria-expanded="true"] .video-spoiler-arrow { transform: rotate(180deg); }
+  
+  .video-spoiler-body { padding: 0 20px 20px; }
+  .video-spoiler-body[hidden] { display: none; }
+
+  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:14px; margin-top: 6px; }
+  .video-card{
+    border-radius:14px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03);
+    display:block; transition: border-color .2s ease, transform .2s ease; text-decoration: none; color: inherit;
+  }
+  a.video-card:hover{ border-color: var(--hover-border); transform: translateY(-2px); }
+  .video-card video, .video-card iframe{
+    display:block; width:100%; aspect-ratio: var(--vratio, 9/16); object-fit:cover; background:#000; border:0;
+  }
+  .video-card-thumb{
+    position:relative; width:100%; aspect-ratio: var(--vratio, 9/16); background-size:cover; background-position:center;
+    background-color:#141418;
+    background-image: linear-gradient(135deg, rgba(139,120,255,0.28), rgba(90,150,255,0.14));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .video-card-play{
+    width:42px; height:42px; border-radius:50%; background: rgba(8,8,10,0.55); border:1px solid rgba(255,255,255,0.25);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; backdrop-filter: blur(4px);
+  }
+  .video-card-info{ padding: 10px 14px 14px; }
+  .video-card-info h4{ font-size:13px; font-weight:600; line-height: 1.4; margin:0; }
+  .video-card-info .cat{ font-size:11px; color: var(--ink-dim); margin-top:4px; display:block; }
+  .video-empty-note{ font-size:13px; color: var(--ink-dim); text-align:center; padding: 18px 4px; grid-column: 1/-1; }
 
   /* ================= SCREEN 2 — EXPERIENCE (fan) ================= */
   #experience{ padding-top: calc(var(--nav-h) + 70px); justify-content:flex-start; }
@@ -322,116 +501,6 @@
   .card-list li{ position:relative; padding-left: 14px; margin-bottom: 6px;}
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
 
-  /* ================= SCREEN 3 — PORTFOLIO (carousel) ================= */
-  #portfolio{ padding-top: calc(var(--nav-h) + 32px); justify-content:flex-start; }
-  .carousel-wrap{ position:relative; flex: 1 1 auto; min-height:0; display:flex; align-items:stretch; gap: 14px; padding: 0 48px; }
-  .flat-grid{
-    flex:1; min-width:0; display:flex; gap: 18px; overflow-x:auto; scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch; padding: 20px 4px 24px; scrollbar-width:none;
-    cursor: grab;
-  }
-  .flat-grid.dragging{ cursor: grabbing; scroll-snap-type: none; user-select:none; }
-  .flat-grid.dragging .flat-card{ pointer-events:none; }
-  .flat-grid::-webkit-scrollbar{ display:none; }
-  .flat-card{
-    position:relative; flex: 0 0 auto; width: 290px; height:100%; scroll-snap-align:center;
-    border-radius: 20px; border: 1px solid var(--line);
-    padding: 22px; display:flex; flex-direction:column; justify-content:flex-end;
-    overflow:hidden; min-height: 240px; max-height: 460px; box-shadow: 0 24px 50px -24px rgba(0,0,0,0.6);
-    transition: transform .35s ease; background-size: cover; background-position: center;
-  }
-  .flat-card:hover{ transform: translateY(-8px); }
-  .flat-card::before{
-    content:''; position:absolute; inset:0; z-index:1;
-    background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%);
-  }
-  .flat-card h3{ font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height:1.25; position:relative; z-index:2; color:#fff; }
-  .flat-card .cat{ font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; position:relative; z-index:2; }
-  .flat-icon{
-    width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.16);
-    display:flex; align-items:center; justify-content:center; position:absolute; top:20px; right:20px; z-index:2;
-    color:#fff; line-height:0;
-  }
-  .flat-icon svg{ display:block; }
-  .carousel-arrow{
-    flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
-    background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:18px;
-    display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5;
-    transition: background .2s ease; align-self:center;
-  }
-  .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
-  .portfolio-more{
-    display:inline-flex; align-items:center; gap:8px; margin: 4px 48px 14px; font-size: 14px;
-    color: var(--ink-dim); border: 1px solid var(--line); border-radius: 30px; padding: 9px 18px;
-    transition: background .2s ease, color .2s ease, border-color .2s ease; width: fit-content; flex-shrink:0;
-  }
-  .portfolio-more:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); }
-
-  /* ---- Видео-работы: аккордеон ---- */
-  .video-spoiler{
-    position:relative; margin: 0 48px 20px; border-radius: 22px; overflow: hidden; flex-shrink:0;
-    background: linear-gradient(135deg, rgba(139,120,255,0.10), rgba(90,150,255,0.05) 45%, transparent 75%);
-    border: 1px solid rgba(139,120,255,0.22);
-    box-shadow: 0 18px 40px -26px rgba(90,80,220,0.55);
-    transition: border-color .25s ease, box-shadow .25s ease;
-  }
-  .video-spoiler:hover{ border-color: rgba(139,120,255,0.4); box-shadow: 0 22px 50px -24px rgba(90,80,220,0.7); }
-  .video-spoiler-toggle{
-    width:100%; display:flex; align-items:center; gap:16px;
-    padding: 20px 22px; background: transparent; border:none; cursor:pointer; text-align:left; outline: none;
-  }
-  .video-spoiler-icon{
-    flex-shrink:0; width:42px; height:42px; border-radius:50%;
-    background: linear-gradient(135deg, #8b78ff, #5a96ff);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow: 0 8px 18px -6px rgba(139,120,255,0.6);
-  }
-  .video-spoiler-icon svg{ width:16px; height:16px; fill:#fff; margin-left:2px; }
-  .video-spoiler-text{ flex:1; min-width:0; }
-  .video-spoiler-text .vs-title{ display:flex; align-items:center; gap:10px; font-size: 15px; font-weight:700; color: var(--ink); letter-spacing:-0.01em; }
-  .video-spoiler-badge{
-    font-size:10.5px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
-    color:#c3b8ff; background: rgba(139,120,255,0.14); border:1px solid rgba(139,120,255,0.3);
-    padding:3px 9px; border-radius:20px;
-  }
-  .video-spoiler-toggle .vs-sub{ display:block; margin-top:4px; font-size:12.5px; font-weight:400; color: var(--ink-dim); }
-  
-  /* Стрелка вниз/вверх */
-  .video-spoiler-arrow{
-    flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; color: var(--ink-dim);
-    transition: transform .3s ease, background .2s ease;
-  }
-  .video-spoiler-toggle:hover .video-spoiler-arrow{ background: var(--hover-bg); color: var(--ink); }
-  .video-spoiler-toggle[aria-expanded="true"] .video-spoiler-arrow { transform: rotate(180deg); }
-  
-  .video-spoiler-body { padding: 0 22px 22px; }
-  .video-spoiler-body[hidden] { display: none; }
-
-  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; margin-top: 10px; }
-  .video-card{
-    border-radius:16px; overflow:hidden; border:1px solid var(--line); background: rgba(255,255,255,0.03);
-    display:block; transition: border-color .2s ease, transform .2s ease;
-  }
-  a.video-card:hover{ border-color: var(--hover-border); transform: translateY(-2px); }
-  .video-card video, .video-card iframe{
-    display:block; width:100%; aspect-ratio: var(--vratio, 9/16); object-fit:cover; background:#000; border:0;
-  }
-  .video-card-thumb{
-    position:relative; width:100%; aspect-ratio: var(--vratio, 9/16); background-size:cover; background-position:center;
-    background-color:#141418;
-    background-image: linear-gradient(135deg, rgba(139,120,255,0.28), rgba(90,150,255,0.14));
-    display:flex; align-items:center; justify-content:center;
-  }
-  .video-card-play{
-    width:46px; height:46px; border-radius:50%; background: rgba(8,8,10,0.55); border:1px solid rgba(255,255,255,0.25);
-    display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; backdrop-filter: blur(4px);
-  }
-  .video-card-info{ padding: 10px 14px 14px; }
-  .video-card-info h4{ font-size:13.5px; font-weight:600; line-height: 1.4; margin:0; }
-  .video-card-info .cat{ font-size:11.5px; color: var(--ink-dim); margin-top:4px; display:block; }
-  .video-empty-note{ font-size:13.5px; color: var(--ink-dim); text-align:center; padding: 18px 4px; grid-column: 1/-1; }
-
   /* ================= SCREEN 4 — ABOUT ================= */
   #about{ align-items:center; padding-top: var(--nav-h); }
   .about-wrap{
@@ -484,7 +553,7 @@
 
   footer{ position:absolute; left:0; right:0; bottom:18px; z-index:2; text-align:center; font-size: 12.5px; color: var(--ink-faint); }
 
-  /* ================= SECRET CUE (under About) ================= */
+  /* ================= SECRET CUE ================= */
   .secret-cue{ position:absolute; left:50%; bottom: 18px; transform:translateX(-50%); z-index:3; }
   .secret-cue button{
     width:40px; height:40px; border-radius:50%; border:1px dashed var(--ink-faint); background:transparent;
@@ -507,7 +576,7 @@
     border-right:1px solid var(--line); border-bottom:1px solid var(--line); transform: translateX(-50%) rotate(45deg);
   }
 
-  /* ================= HIDDEN SCREEN — VIBES (easter egg overlay) ================= */
+  /* ================= HIDDEN SCREEN — VIBES ================= */
   body.vibes-open{ overflow:hidden; }
   .vibes-overlay{
     position:fixed; inset:0; z-index: 400; display:flex; align-items:center; justify-content:center;
@@ -571,7 +640,7 @@
   }
   .vibes-close:hover{ transform: translateY(-2px); }
 
-  /* ================= MODAL ================= */
+  /* ================= MODALS ================= */
   .modal-overlay{
     position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center;
     background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
@@ -588,7 +657,7 @@
   .modal-close{
     position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%;
     border: 1px solid var(--line); background: var(--hover-bg); color: var(--ink);
-    font-size:18px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:18px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10;
   }
   .modal-close:hover{ background: var(--hover-border); }
   .modal-period{ font-size: 12px; color: var(--ink-dim); background: var(--pill-bg); display:inline-block; padding: 5px 10px; border-radius: 20px; }
@@ -597,6 +666,10 @@
   .modal-box ul{ margin-top: 22px; list-style:none; }
   .modal-box ul li{ position:relative; padding-left: 18px; font-size: 14.5px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; }
   .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: var(--ink-faint); }
+  
+  /* Каталог модалка */
+  .cat-modal-box { max-width: 820px; }
+  .cat-modal-box h3 { margin-top: 0; }
 
   /* ================= RESPONSIVE / MOBILE ================= */
   @media (max-width: 900px){
@@ -605,7 +678,6 @@
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
 
-    /* large blurred aurora backgrounds are expensive to paint — shrink them on mobile GPUs */
     #hero::before{ filter: blur(34px); }
     #contacts::before{ filter: blur(40px); }
     .logo{ font-size:17px; }
@@ -615,16 +687,13 @@
     #hero{ text-align:center; }
     #hero h1{ font-size: clamp(38px, 11vw, 56px); }
     .hero-quote{ max-width: 340px; margin-left:auto; margin-right:auto; }
-    .hero-quote .hq-question{ font-size: 13px; }
-    .hero-quote .hq-answer{ font-size: 14px; }
 
-    .section-top{ flex-direction:column; padding: 0 18px; gap:12px; margin-bottom:14px; }
+    .section-top{ flex-direction:column; padding: 0 18px; gap:8px; margin-bottom:12px; }
     .section-copy h2{ font-size: clamp(26px, 7.2vw, 36px); }
     .section-note{ text-align:left; max-width:100%; }
 
     #experience{ padding-top: calc(var(--nav-h) + 18px); }
     .stage{ margin-top: 18px; padding: 0 0 26px; justify-content:flex-start; }
-    /* swap the fan layout for a swipeable, uniformly-sized card carousel */
     .cards{ display:flex; justify-content:flex-start; max-width:100%; width:100%;
       overflow-x:auto; overflow-y:visible; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
       gap:14px; padding: 10px 18px 16px; }
@@ -634,13 +703,17 @@
     .cards .card:not(.selected):hover{ transform:none !important; }
     .cards .card.selected{ transform: translateY(-6px) !important; }
 
-    #portfolio{ padding-top: calc(var(--nav-h) + 18px); }
+    #portfolio{ padding-top: calc(var(--nav-h) + 16px); }
     .carousel-wrap{ padding: 0 12px; gap: 6px; }
     .carousel-arrow{ display:none; }
-    .flat-grid{ padding: 16px 12px 32px; gap: 12px; }
-    .flat-card{ width: 76vw; max-width: 280px; min-height: 240px; padding:16px; }
+    .flat-grid{ padding: 10px 12px 20px; gap: 12px; }
+    .flat-card{ width: 76vw; max-width: 280px; height: 240px; padding:16px; }
     .flat-card h3{ font-size:15px; }
-    .portfolio-more{ margin: 4px 18px 28px; font-size: 13px; }
+    
+    .cat-decks-wrap { padding: 0 16px; gap: 8px; margin: 20px 0 10px; }
+    .cat-deck:hover { margin: 0 8px; }
+    .cat-btn { padding: 8px 16px; font-size: 12.5px; }
+    .cat-mini-card { width: 60px; height: 80px; left: -30px; }
 
     .about-wrap{ grid-template-columns: 1fr; padding: 32px 18px; gap: 24px; }
     .about-photo-grid{ max-width: 260px; margin: 0 auto; }
@@ -769,6 +842,7 @@
       <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
     </div>
 
+    <!-- Основная карусель проектов (ВОССТАНОВЛЕНЫ 8 КАРТОЧЕК) -->
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
@@ -777,17 +851,17 @@
           <h3>Поднебесье Настоящего МГУ</h3>
           <div class="cat">Behance</div>
         </a>
-           <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
           <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>ШумГрант | Центр социального проектирования</h3>
           <div class="cat">Behance</div>
         </a>
-          <a class="flat-card" href="#" target="_blank" rel="noopener" style="background-image:url('img/cyberx-community-2.png')">
+        <a class="flat-card" href="#" target="_blank" rel="noopener" style="background-image:url('img/cyberx-community-2.png')">
           <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>CyberX Community</h3>
           <div class="cat">Дизайн карточек мероприятий</div>
         </a>
-           <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
+        <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
           <div class="flat-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>LUMMB POSTER | This feelings</h3>
           <div class="cat">Behance</div>
@@ -812,11 +886,46 @@
           <h3>Серия плакатов (концепция)</h3>
           <div class="cat">Behance</div>
         </a>
-          </div>
+      </div>
       <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
     </div>
 
-    <a class="portfolio-more reveal" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
+    <!-- КНОПКИ КАТЕГОРИЙ (С ВЕЕРОМ) -->
+    <div class="cat-decks-wrap reveal">
+      
+      <div class="cat-deck" data-cat="identity">
+        <div class="cat-fan">
+          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')"></div>
+          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')"></div>
+        </div>
+        <button class="cat-btn">Айдентика</button>
+      </div>
+
+      <div class="cat-deck" data-cat="posters">
+        <div class="cat-fan">
+          <div class="cat-mini-card" style="--r:-18deg; --x:-35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')"></div>
+          <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/lummb-poster-this-feelings.jpg')"></div>
+          <div class="cat-mini-card" style="--r:18deg; --x:35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')"></div>
+        </div>
+        <button class="cat-btn">Плакаты / Фото</button>
+      </div>
+
+      <div class="cat-deck" data-cat="ai">
+        <div class="cat-fan">
+          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('img/balcony.jpg')"></div>
+          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('img/midjourney-post.jpg')"></div>
+        </div>
+        <button class="cat-btn">AI-дизайн</button>
+      </div>
+
+      <div class="cat-deck" data-cat="smm">
+        <div class="cat-fan">
+          <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/cyberx-community-2.png')"></div>
+        </div>
+        <button class="cat-btn">SMM</button>
+      </div>
+
+    </div>
 
     <!-- ВИДЕО-РАБОТЫ (АККОРДЕОН) -->
     <div class="video-spoiler reveal">
@@ -828,16 +937,12 @@
           <span class="vs-title">Видео-работы <span class="video-spoiler-badge" id="videoSpoilerBadge">Скоро</span></span>
           <span class="vs-sub">Реклама и личные проекты в видео</span>
         </span>
-        <!-- Стрелка заменена на галочку вниз, которая крутится при открытии -->
         <span class="video-spoiler-arrow">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </span>
       </button>
-      
       <div class="video-spoiler-body" id="videoSpoilerBody" hidden>
-        <div class="video-grid" id="videoGrid">
-          <p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>
-        </div>
+        <div class="video-grid" id="videoGrid"></div>
       </div>
     </div>
   </section>
@@ -1004,6 +1109,7 @@
     <button class="vibes-close" id="vibesClose" aria-label="Закрыть">×</button>
   </div>
 
+  <!-- MODALS -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box" id="modalBox">
       <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
@@ -1011,6 +1117,19 @@
       <h3 id="modalTitle"></h3>
       <div class="modal-role" id="modalRole"></div>
       <ul id="modalList"></ul>
+    </div>
+  </div>
+
+  <!-- КАТАЛОГ КАТЕГОРИИ -->
+  <div class="modal-overlay" id="catModalOverlay">
+    <div class="modal-box cat-modal-box" id="catModalBox">
+      <button class="modal-close" id="catModalClose" aria-label="Закрыть">×</button>
+      <h3 id="catModalTitle">Каталог</h3>
+      <div class="modal-role" id="catModalSub">Подборка проектов</div>
+      <div class="video-grid" id="catGrid"></div>
+      <div style="margin-top:24px; text-align:center;">
+        <a class="portfolio-more" href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Смотреть всё на Behance →</a>
+      </div>
     </div>
   </div>
 
@@ -1125,7 +1244,15 @@
     vibesClose.addEventListener('click', closeVibes);
     vibesOverlay.addEventListener('click', (e) => { if (e.target === vibesOverlay) closeVibes(); });
 
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeModal(); closeVibes(); toggleMobileMenu(false); secretTooltip.classList.remove('show'); } });
+    document.addEventListener('keydown', (e) => { 
+      if (e.key === 'Escape'){ 
+        closeModal(); 
+        closeVibes(); 
+        closeCatModal();
+        toggleMobileMenu(false); 
+        secretTooltip.classList.remove('show'); 
+      } 
+    });
 
     const jobCards = document.querySelectorAll('#experience .card');
     jobCards.forEach(card => {
@@ -1243,53 +1370,107 @@
       }, true);
     }
 
-    /* Исправленная логика аккордеона видео-работ */
+    /* ---- ЛОГИКА КАТАЛОГА КАТЕГОРИЙ И ФОКУСА ОСНОВНОЙ КАРУСЕЛИ ---- */
+    const catDecksWrap = document.querySelector('.cat-decks-wrap');
+    if (catDecksWrap && portfolioTrack) {
+      catDecksWrap.addEventListener('mouseenter', () => {
+        portfolioTrack.classList.add('shrink-cards');
+      });
+      catDecksWrap.addEventListener('mouseleave', () => {
+        portfolioTrack.classList.remove('shrink-cards');
+      });
+    }
+
+    const categoryData = {
+      identity: {
+        title: 'Айдентика', sub: 'Брендинг и логотипы',
+        items: [
+          { title: 'Поднебесье Настоящего МГУ', url: 'https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png' },
+          { title: 'ШумГрант | Центр проектирования', url: 'https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png' }
+        ]
+      },
+      posters: {
+        title: 'Плакаты / Фото', sub: 'Постеры и графические эксперименты',
+        items: [
+          { title: 'Серия плакатов (концепция)', url: 'https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png' },
+          { title: 'LUMMB POSTER | This feelings', url: 'https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings', img: 'img/lummb-poster-this-feelings.jpg' },
+          { title: 'i hate being here, there...', url: 'https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg' }
+        ]
+      },
+      ai: {
+        title: 'AI-дизайн', sub: 'Генерации и нейросети',
+        items: [
+          { title: 'MidJourney для постов', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
+          { title: 'Balcony', url: 'https://www.behance.net/gallery/217430181/Balcony-lummb', img: 'img/balcony.jpg' }
+        ]
+      },
+      smm: {
+        title: 'SMM', sub: 'Оформление соцсетей',
+        items: [
+          { title: 'CyberX Community', url: '#', img: 'img/cyberx-community-2.png' }
+        ]
+      }
+    };
+
+    const catModalOverlay = document.getElementById('catModalOverlay');
+    const catModalTitle = document.getElementById('catModalTitle');
+    const catModalSub = document.getElementById('catModalSub');
+    const catGrid = document.getElementById('catGrid');
+
+    function openCatModal(key){
+      const data = categoryData[key];
+      if (!data) return;
+      catModalTitle.textContent = data.title;
+      catModalSub.textContent = data.sub;
+      
+      catGrid.innerHTML = data.items.map(item => `
+        <a class="video-card" href="${item.url}" target="_blank" rel="noopener" style="--vratio: 4/3">
+          <div class="video-card-thumb" style="background-image:url('${item.img}')"><span class="video-card-play">↗</span></div>
+          <div class="video-card-info"><h4>${item.title}</h4><span class="cat">Behance</span></div>
+        </a>
+      `).join('');
+      
+      catModalOverlay.classList.add('open');
+    }
+    
+    function closeCatModal(){ catModalOverlay.classList.remove('open'); }
+    
+    document.getElementById('catModalClose').addEventListener('click', closeCatModal);
+    catModalOverlay.addEventListener('click', (e) => { if (e.target === catModalOverlay) closeCatModal(); });
+
+    document.querySelectorAll('.cat-deck').forEach(deck => {
+      deck.addEventListener('click', () => openCatModal(deck.dataset.cat));
+    });
+
+    /* ---- Видео-работы: аккордеон ---- */
     const videoSpoilerToggle = document.getElementById('videoSpoilerToggle');
     const videoSpoilerBody = document.getElementById('videoSpoilerBody');
     
     if (videoSpoilerToggle && videoSpoilerBody){
       videoSpoilerToggle.addEventListener('click', () => {
         const isOpen = videoSpoilerToggle.getAttribute('aria-expanded') === 'true';
-        // Меняем состояние атрибута для переворота стрелки
         videoSpoilerToggle.setAttribute('aria-expanded', String(!isOpen));
-        // Показываем или скрываем сам блок с сеткой видео
         videoSpoilerBody.hidden = isOpen;
-        
         if (!isOpen){
-          // Если открыли, плавно подскролливаем блок, чтобы видео было видно
           setTimeout(() => videoSpoilerBody.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
         }
       });
     }
 
     const videoWorks = [
-      { 
-        url: 'https://www.youtube.com/shorts/mo7K3sMHIG0', 
-        title: 'im so glad i didnt d**d in 2023 #edit', 
-        category: 'YouTube Shorts' 
-      },
-      { 
-        url: 'https://www.youtube.com/shorts/r_paqahn7Uc', 
-        title: 'How 2023 actually feels #auto #edit', 
-        category: 'YouTube Shorts' 
-      }
+      { url: 'https://www.youtube.com/shorts/mo7K3sMHIG0', title: 'im so glad i didnt d**d in 2023 #edit', category: 'YouTube Shorts' },
+      { url: 'https://www.youtube.com/shorts/r_paqahn7Uc', title: 'How 2023 actually feels #auto #edit', category: 'YouTube Shorts' }
     ];
 
     function escapeHtml(str){
-      return String(str == null ? '' : str).replace(/[&<>"']/g, (c) => (
-        { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
-      ));
+      return String(str == null ? '' : str).replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
     }
 
     function getVideoEmbedUrl(rawUrl){
       let u;
       try { u = new URL(rawUrl); } catch(e){ return null; }
       const host = u.hostname.replace(/^www\./, '');
-
-      if (host === 'youtu.be'){
-        const id = u.pathname.slice(1);
-        return id ? `https://www.youtube.com/embed/${id}` : null;
-      }
+      if (host === 'youtu.be'){ const id = u.pathname.slice(1); return id ? `https://www.youtube.com/embed/${id}` : null; }
       if (host === 'youtube.com' || host === 'm.youtube.com'){
         let id = u.searchParams.get('v');
         if (!id && u.pathname.startsWith('/shorts/')) id = u.pathname.split('/')[2];
@@ -1307,13 +1488,11 @@
       const grid = document.getElementById('videoGrid');
       const badge = document.getElementById('videoSpoilerBadge');
       if (!grid) return;
-
       if (!videoWorks.length){
         grid.innerHTML = '<p class="video-empty-note">Материалы в процессе загрузки — скоро здесь появятся видео.</p>';
         if (badge) badge.textContent = 'Скоро';
         return;
       }
-
       if (badge) badge.textContent = videoWorks.length === 1 ? '1 видео' : `${videoWorks.length} видео`;
 
       grid.innerHTML = videoWorks.map((item) => {
@@ -1324,29 +1503,16 @@
 
         if (item.src){
           const posterAttr = item.poster ? ` poster="${escapeHtml(item.poster)}"` : '';
-          return `<div class="video-card" ${ratioStyle}>
-            <video src="${escapeHtml(item.src)}"${posterAttr} controls preload="metadata" playsinline></video>
-            ${info}
-          </div>`;
+          return `<div class="video-card" ${ratioStyle}><video src="${escapeHtml(item.src)}"${posterAttr} controls preload="metadata" playsinline></video>${info}</div>`;
         }
 
         if (item.url){
           const embedUrl = getVideoEmbedUrl(item.url);
           if (embedUrl){
-            return `<div class="video-card" ${ratioStyle}>
-              <iframe src="${embedUrl}" loading="lazy" title="${title}"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-              ${info}
-            </div>`;
+            return `<div class="video-card" ${ratioStyle}><iframe src="${embedUrl}" loading="lazy" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>${info}</div>`;
           }
-          const thumbStyle = item.poster
-            ? ` style="background-image:url('${escapeHtml(item.poster)}')"`
-            : '';
-          return `<a class="video-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener" ${ratioStyle}>
-            <div class="video-card-thumb"${thumbStyle}><span class="video-card-play">↗</span></div>
-            ${info}
-          </a>`;
+          const thumbStyle = item.poster ? ` style="background-image:url('${escapeHtml(item.poster)}')"` : '';
+          return `<a class="video-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener" ${ratioStyle}><div class="video-card-thumb"${thumbStyle}><span class="video-card-play">↗</span></div>${info}</a>`;
         }
         return '';
       }).join('');
@@ -1363,15 +1529,10 @@
       navBurger.setAttribute('aria-expanded', String(shouldOpen));
     }
     navBurger.addEventListener('click', () => toggleMobileMenu());
-    document.querySelectorAll('.mobile-menu li').forEach(li => {
-      li.addEventListener('click', () => toggleMobileMenu(false));
-    });
+    document.querySelectorAll('.mobile-menu li').forEach(li => li.addEventListener('click', () => toggleMobileMenu(false)));
 
     const navTooltip = document.getElementById('navTooltip');
-    document.getElementById('topBtn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      navTooltip.classList.toggle('show');
-    });
+    document.getElementById('topBtn').addEventListener('click', (e) => { e.stopPropagation(); navTooltip.classList.toggle('show'); });
     document.addEventListener('click', () => navTooltip.classList.remove('show'));
 
     const backToTop = document.getElementById('backToTop');
@@ -1384,15 +1545,13 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-
         const id = entry.target.id;
         nav.classList.toggle('scrolled', id !== 'hero');
         backToTop.classList.toggle('show', id !== 'hero');
 
         navItems.forEach(li => li.classList.remove('active'));
         if (navMap[id]){
-          document.querySelectorAll(`.nav-links li[data-target="${id}"], .mobile-menu li[data-target="${id}"]`)
-            .forEach(match => match.classList.add('active'));
+          document.querySelectorAll(`.nav-links li[data-target="${id}"], .mobile-menu li[data-target="${id}"]`).forEach(match => match.classList.add('active'));
         }
       });
     }, { threshold: 0.55 });
@@ -1400,11 +1559,7 @@
     Object.values(sections).forEach(s => observer.observe(s));
 
     const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
