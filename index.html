@@ -253,10 +253,9 @@
   .section-copy p{ margin-top: 12px; font-size: 16px; color: var(--ink-dim); line-height: 1.6; max-width: 420px; font-weight: 400; }
   .section-note{ text-align:right; font-size: 14px; color: var(--ink-dim); line-height: 1.6; max-width: 300px; padding-top: 8px; flex-shrink:0; }
 
-  /* ================= SCREEN 4 — ABOUT (С ШВЕЙЦАРСКОЙ СЕТКОЙ) ================= */
+  /* ================= SCREEN 4 — ABOUT ================= */
   #about{ align-items:center; justify-content:center; padding-top: var(--nav-h); }
   
-  /* Жесткая швейцарская сетка 4:7 с выравниванием по верхнему краю (align-items: start) */
   .about-wrap{ 
     flex:1; width:100%; max-width: 1200px; margin: 0 auto; padding: 40px 48px; 
     display:grid; grid-template-columns: 4fr 7fr; gap: 80px; align-items:start; align-content: center;
@@ -270,7 +269,6 @@
   .about-photo-grid::before{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%); pointer-events:none; z-index:2; }
   .about-photo-grid img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; }
   
-  /* Текстовый блок и виджеты */
   .about-copy .eyebrow{ margin-bottom: 22px; }
   .about-copy h2{ font-size: clamp(32px, 4.2vw, 48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin:0; }
   .about-copy p{ margin-top: 20px; font-size: 16px; font-weight: 400; color: var(--ink-dim); line-height: 1.7; max-width: 520px; }
@@ -279,7 +277,6 @@
   .about-facts div b{ display:block; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
   .about-facts div span{ font-size: 14px; font-weight: 500; color: var(--ink-dim); margin-top: 4px; display: block;}
 
-  /* --- LIVE FOCUS & STACK WIDGET --- */
   .live-focus-widget { margin-top: 36px; padding: 18px 22px; border-radius: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
   html[data-theme="light"] .live-focus-widget { background: rgba(0,0,0,0.03); }
   .live-focus-header { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 18px; flex-wrap: wrap; }
@@ -337,7 +334,7 @@
   .video-spoiler-icon{ flex-shrink:0; width:38px; height:38px; border-radius:50%; background: linear-gradient(135deg, #8b78ff, #5a96ff); display:flex; align-items:center; justify-content:center; box-shadow: 0 8px 18px -6px rgba(139,120,255,0.6); }
   .video-spoiler-icon svg{ width:14px; height:14px; fill:#fff; margin-left:2px; }
   .video-spoiler-text{ flex:1; min-width:0; }
-  .video-spoiler-text .vs-title{ display:flex; align-items:center; gap:10px; font-size: 14.5px; font-weight:700; color: var(--ink); letter-spacing:-0.01em; margin: 0;}
+  .video-spoiler-text .vs-title{ display:flex; align-items:center; gap:10px; font-size: 14.5px; font-weight:700; color: var(--ink); letter-spacing:-0.01em; }
   .video-spoiler-badge{ font-size:10px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase; color:#c3b8ff; background: rgba(139,120,255,0.14); border:1px solid rgba(139,120,255,0.3); padding:2px 8px; border-radius:20px; }
   .video-spoiler-toggle .vs-sub{ display:block; margin-top:3px; font-size:12px; font-weight:400; color: var(--ink-dim); }
   .video-spoiler-arrow{ flex-shrink:0; width:28px; height:28px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color: var(--ink-dim); transition: transform .3s ease, background .2s ease; }
@@ -399,9 +396,11 @@
   .card-5 .art{ position:absolute; left:-25%; right:-15%; bottom:-18%; top:56%; border-radius: 50% 50% 0 0 / 60% 60% 0 0; background: radial-gradient(circle at 35% 25%, #c3d3ea 0%, #8398b8 18%, #34455f 42%, #0b1220 70%); box-shadow: inset -20px -10px 60px rgba(0,0,0,0.55); opacity:0.6; }
   .card-5 .art::after{ content:''; position:absolute; left:10%; top:8%; width:34%; height:22%; background: rgba(255,255,255,0.2); border-radius: 50%; filter: blur(10px); }
   .card-6 .art{ position:absolute; right:-18%; bottom:-14%; width:70%; height:52%; border-radius: 50%; background: radial-gradient(circle at 60% 35%, var(--accent-glow), transparent 60%); border: 10px solid rgba(255,255,255,0.05); }
+  
   .card-body{ position:relative; z-index:2; flex-grow: 1; display:flex; flex-direction:column; }
-  .card-list{ margin-top: 16px; list-style:none; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); line-height: 1.6; flex-grow:1; }
-  .card-list li{ position:relative; padding-left: 16px; margin-bottom: 8px;}
+  /* Улучшенные стили списков в карточках */
+  .card-list{ margin-top: 16px; list-style:none; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); line-height: 1.5; flex-grow:1; }
+  .card-list li{ position:relative; padding-left: 16px; margin-bottom: 10px;}
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
 
   /* ================= SCREEN 5 — CONTACTS ================= */
@@ -457,7 +456,7 @@
   /* ================= MODALS ================= */
   .modal-overlay{ position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center; background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px; }
   .modal-overlay.open{ opacity:1; pointer-events:auto; }
-  .modal-box{ position:relative; width:100%; max-width: 520px; max-height: 84vh; overflow-y:auto; background: linear-gradient(165deg, var(--modal-from), var(--modal-to) 80%); border: 1px solid var(--line); border-radius: 26px; padding: 48px 40px; transform: translateY(14px) scale(0.98); transition: transform .25s ease; }
+  .modal-box{ position:relative; width:100%; max-width: 580px; max-height: 84vh; overflow-y:auto; background: linear-gradient(165deg, var(--modal-from), var(--modal-to) 80%); border: 1px solid var(--line); border-radius: 26px; padding: 48px 40px; transform: translateY(14px) scale(0.98); transition: transform .25s ease; }
   .modal-overlay.open .modal-box{ transform: none; }
   .modal-close{ position:absolute; top:20px; right:20px; width:40px; height:40px; border-radius:50%; border: 1px solid var(--line); background: var(--hover-bg); color: var(--ink); font-size:20px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10; }
   .modal-close:hover{ background: var(--hover-border); }
@@ -613,7 +612,8 @@
           Резюме на hh.ru
         </a>
       </div>
-      <h1>Привет, я Владимир</h1>
+      <!-- Неразрывный пробел &nbsp; -->
+      <h1>Привет, я&nbsp;Владимир</h1>
       <div class="hero-quote">
         <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
         <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
@@ -626,16 +626,14 @@
     </div>
   </section>
 
-  <!-- ================= SCREEN 4 — ABOUT (С ШВЕЙЦАРСКОЙ СЕТКОЙ) ================= -->
+  <!-- ================= SCREEN 4 — ABOUT ================= -->
   <section class="screen" id="about">
     <div class="about-wrap reveal">
       
-      <!-- Колонка 1: Фото -->
       <div class="about-photo-grid reveal">
         <img src="profile.jpg" alt="Фото Владимира" loading="lazy">
       </div>
       
-      <!-- Колонка 2: Текст и виджеты -->
       <div class="about-copy">
         <div class="eyebrow" style="margin-top:0;"><span></span>Обо мне</div>
         <h2>Создаю дизайн, который работает на результат</h2>
@@ -650,14 +648,16 @@
           <div class="live-focus-header">
             <span class="pulse-dot"></span>
             <span class="lf-title">LIVE FOCUS:</span>
-            <span class="lf-text">Midjourney KV • Python Pipelines • Motion</span>
+            <!-- Обновленный текст на английском -->
+            <span class="lf-text">Exploring 3D • Gen AI Tools • Motion Design • Photography</span>
           </div>
           <div class="stack-badges">
-            <span class="stack-badge" title="UX/UI & Вёрстка">Figma</span>
-            <span class="stack-badge" title="Моушен & Анимация">After Effects</span>
-            <span class="stack-badge" title="Генерация визуала">Midjourney</span>
-            <span class="stack-badge" title="Скрипты & Боты">Python</span>
-            <span class="stack-badge" title="Монтаж Reels">Premiere Pro</span>
+            <!-- Обновленный стек бейджей -->
+            <span class="stack-badge" title="UI/UX & Layout">Figma</span>
+            <span class="stack-badge" title="Motion Design">After Effects</span>
+            <span class="stack-badge" title="3D Exploration">Cinema 4D</span>
+            <span class="stack-badge" title="Creative AI">Gen AI</span>
+            <span class="stack-badge" title="Color & Retouch">Lightroom</span>
           </div>
         </div>
       </div>
@@ -800,13 +800,19 @@
 
     <div class="stage">
       <div class="cards reveal">
+        
+        <!-- 1. Альма-матер -->
         <div class="card card-1" data-detail="almamater">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Альма-матер</span>
             <div class="title">МГУ им. Н.П. Огарёва</div>
-            <div class="role">Студент / Дизайнер</div>
-            <ul class="card-list"><li>Основы дизайна и проектирования</li><li>Участие в студенческом совете</li><li>Первые визуальные концепции</li></ul>
+            <div class="role">Специалист / Дизайнер</div>
+            <ul class="card-list">
+              <li>Дизайн печатной продукции</li>
+              <li>Оформление социальных сетей</li>
+              <li>Организация ивентов</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">УНИВЕРСИТЕТ</span>
@@ -814,13 +820,18 @@
           </div>
         </div>
 
+        <!-- 2. FarTeam -->
         <div class="card card-2" data-detail="farteam">
           <div class="art"></div>
           <div class="card-body">
-            <span class="period">Апрель 2023 —</span>
+            <span class="period">Апрель 2023 — Сентябрь 2023</span>
             <div class="title">FarTeam</div>
             <div class="role">Web-дизайнер</div>
-            <ul class="card-list"><li>Оформление соцсетей</li><li>Рекламные креативы</li><li>Превью для YouTube</li></ul>
+            <ul class="card-list">
+              <li>Оформление социальных сетей</li>
+              <li>Рекламные креативы и баннеры</li>
+              <li>Превью для YouTube</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">FARTEAM</span>
@@ -828,13 +839,18 @@
           </div>
         </div>
 
+        <!-- 3. IJA -->
         <div class="card card-3" data-detail="ija">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Ноябрь 2023 — Февраль 2024</span>
             <div class="title">IJA</div>
             <div class="role">Дизайнер</div>
-            <ul class="card-list"><li>Оформление офферов и рассылок</li><li>Работа с MidJourney и AI</li><li>Монтаж Reels</li></ul>
+            <ul class="card-list">
+              <li>Оформление офферов и рассылок</li>
+              <li>ИИ-генерации (Midjourney)</li>
+              <li>Вёрстка страниц и монтаж Reels</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">IJA</span>
@@ -842,13 +858,18 @@
           </div>
         </div>
 
+        <!-- 4. ИП Костенков -->
         <div class="card card-4" data-detail="kostenkov">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Март 2024 — Август 2025</span>
             <div class="title">ИП Костенков</div>
             <div class="role">Графический дизайнер</div>
-            <ul class="card-list"><li>Макеты для соцсетей</li><li>Логотипы и фирменный стиль</li><li>Дизайн для веб и приложений</li></ul>
+            <ul class="card-list">
+              <li>SMM-дизайн и логотипы</li>
+              <li>Анимация и монтаж (Reels)</li>
+              <li>Вёрстка презентаций и полиграфии</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">nymo</span>
@@ -856,13 +877,18 @@
           </div>
         </div>
 
+        <!-- 5. Синергиум -->
         <div class="card card-5" data-detail="sinergium">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Август 2025 — Февраль 2026</span>
             <div class="title">Синергиум</div>
             <div class="role">Креативный дизайнер</div>
-            <ul class="card-list"><li>Креативы для таргета и контекста</li><li>Карточки компаний Яндекс</li><li>Работа с нейросетями и ИИ</li></ul>
+            <ul class="card-list">
+              <li>Рекламные креативы и анимация</li>
+              <li>Глубокое внедрение ИИ-инструментов</li>
+              <li>Оформление Яндекс Карт и соцсетей</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">СИНЕРГИУМ</span>
@@ -870,20 +896,27 @@
           </div>
         </div>
 
+        <!-- 6. Госинформ -->
         <div class="card card-6" data-detail="gosinform">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Март 2026 — настоящее время</span>
             <div class="title">ГАУ РМ «Госинформ»</div>
-            <div class="role">Аналитик</div>
-            <ul class="card-list"><li>Дизайн презентаций</li><li>Рекламные материалы</li><li>Инфографика</li><li>Вёрстка сайтов</li></ul>
+            <div class="role">Дизайнер</div>
+            <ul class="card-list">
+              <li>Разработка инфосистем и сайтов</li>
+              <li>Motion-дизайн и инфографика</li>
+              <li>Реклама и бизнес-презентации</li>
+            </ul>
           </div>
           <div class="card-footer">
             <span class="brand">ГОСИНФОРМ</span>
             <button class="details-btn" data-detail="gosinform">Подробнее →</button>
           </div>
         </div>
+        
       </div>
+      <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
     </div>
   </section>
 
@@ -1017,64 +1050,27 @@
       }
     });
 
-    /* ================= ОСТАЛЬНАЯ ЛОГИКА ================= */
+    /* ================= ОСТАЛЬНАЯ ЛОГИКА (ОБНОВЛЕННЫЙ JSON ОПЫТА РАБОТЫ) ================= */
     const jobDetails = {
       almamater: {
         period: 'Альма-матер',
         title: 'МГУ им. Н.П. Огарёва',
-        role: 'Студент / Дизайнер',
+        role: 'Специалист по работе с молодёжью / Дизайнер',
         points: [
-          'Заложил фундамент в проектировании и дизайне',
-          'Разрабатывал визуальные концепции для студенческого совета',
-          'Организовывал креативные проекты и мероприятия внутри вуза',
-          'Получил базу, с которой стартовал коммерческий путь'
+          'Разработка дизайна печатной продукции, вёрстка плакатов и афиш.',
+          'Создание графики и оформление постов для социальных сетей.',
+          'Управление ивентами, организация студенческой активности и курирование проектов.',
+          'Выполнение обязанностей оператора ЭВМ (с материальной ответственностью).'
         ]
       },
       farteam: {
-        period: 'Апрель 2023 —',
+        period: 'Апрель 2023 — Сентябрь 2023',
         title: 'FarTeam',
         role: 'Web-дизайнер',
         points: [
-          'Оформлял соцсети компании: посты, шапки, сторис в единой визуальной стилистике',
-          'Разрабатывал рекламные креативы для таргетированной рекламы',
-          'Делал превью и обложки для YouTube-роликов',
-          'Собирал баннеры для сайта и партнёрских размещений'
-        ]
-      },
-      sinergium: {
-        period: 'Август 2025 — Февраль 2026',
-        title: 'Синергиум',
-        role: 'Креативный дизайнер',
-        points: [
-          'Создавал рекламные креативы для таргета и контекстной рекламы под разные ниши клиентов',
-          'Оформлял соцсети и брендинг для партнёров агентства',
-          'Делал карточки товаров и компаний для Яндекса',
-          'Внедрял нейросети в рабочий процесс: генерация и обработка визуала',
-          'Занимался анимацией, монтажом и инфографикой для рекламных роликов'
-        ]
-      },
-      gosinform: {
-        period: 'Март 2026 — настоящее время',
-        title: 'ГАУ РМ «Госинформ»',
-        role: 'Аналитик',
-        points: [
-          'Разрабатываю дизайн презентаций для внутренних и внешних задач учреждения',
-          'Готовлю рекламные и информационные материалы',
-          'Визуализирую данные и делаю инфографику для отчётов',
-          'Верстаю сайты и информационные системы',
-          'Собираю моушен-инфографику и монтирую видеоролики'
-        ]
-      },
-      kostenkov: {
-        period: 'Март 2024 — Август 2025',
-        title: 'ИП Костенков',
-        role: 'Графический дизайнер',
-        points: [
-          'Разрабатывал макеты для соцсетей и рекламных кампаний',
-          'Готовил презентации и каталоги продукции',
-          'Занимался анимацией и монтажом коротких видео',
-          'Создавал логотипы и фирменный стиль для клиентов',
-          'Проектировал дизайн для сайтов и моби приложений'
+          'Комплексное оформление социальных сетей.',
+          'Создание статических рекламных креативов и веб-баннеров.',
+          'Разработка кликабельных превью (обложек) для видеороликов на YouTube.'
         ]
       },
       ija: {
@@ -1082,11 +1078,46 @@
         title: 'IJA',
         role: 'Дизайнер',
         points: [
-          'Оформлял офферы и email/push-рассылки',
-          'Делал баннеры для акций и распродаж',
-          'Работал с MidJourney и другими нейросетями для генерации визуала',
-          'Верстал страницы сайта',
-          'Монтировал Reels для соцсетей бренда'
+          'Оформление акционных офферов, email-рассылок и социальных сетей.',
+          'Работа с ИИ: генерация изображений в Midjourney с последующей ретушью и интеграцией в макеты (Photoshop).',
+          'Редактирование веб-страниц: создание продуктовых карточек и вёрстка промо-лендингов.',
+          'Динамичный монтаж коротких видеороликов (Reels) в CapCut.'
+        ]
+      },
+      kostenkov: {
+        period: 'Март 2024 — Август 2025',
+        title: 'ИП Костенков',
+        role: 'Графический дизайнер',
+        points: [
+          'Оформление социальных сетей (посты, обложки, истории для VK и Telegram).',
+          'Создание анимации (After Effects) и монтаж форматов Reels, Shorts, VK Клипы (Premiere Pro).',
+          'Вёрстка бизнес-презентаций, каталогов и подготовка графики к печати.',
+          'Разработка логотипов, айдентики и креативов для веб-сайтов, блогов и приложений.',
+          'Ретушь фото, поиск референсов и генерация художественных идей.'
+        ]
+      },
+      sinergium: {
+        period: 'Август 2025 — Февраль 2026',
+        title: 'Синергиум',
+        role: 'Креативный дизайнер',
+        points: [
+          'Разработка статических и анимированных креативов для таргета и контекста (разные площадки).',
+          'Продвинутая работа с ИИ: генерация графики, аудио, видео и внедрение нейросетей в дизайн-пайплайн.',
+          'Создание анимации, VFX и видеомонтаж рекламных/имиджевых роликов.',
+          'Визуальное сопровождение соцсетей брендов и оформление карточек в сервисах Яндекса.',
+          'Разработка сложной инфографики и анализ дизайнерских решений конкурентов.'
+        ]
+      },
+      gosinform: {
+        period: 'Март 2026 — настоящее время',
+        title: 'ГАУ РМ «Госинформ»',
+        role: 'Дизайнер',
+        points: [
+          'Разработка интерфейсов информационных систем и вёрстка сайтов.',
+          'Создание 2D/3D motion-инфографики и статической аналитической графики.',
+          'Монтаж видеороликов, ретушь и сложная обработка изображений.',
+          'Проектирование рекламных материалов для соцсетей и бизнес-презентаций.',
+          'Генерация креативных концепций, подготовка макетов к печати и анализ конкурентов.'
         ]
       }
     };
