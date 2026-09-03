@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>lummb — Портфолио</title>
 
-<!-- OpenGraph Мета-теги для красивого превью в мессенджерах (Telegram, VK, WhatsApp) -->
 <meta property="og:title" content="lummb — Дизайн, который продаёт">
 <meta property="og:description" content="Привет, я Владимир. Коммерческий дизайнер. Создаю промо-материалы, сильные презентации, рекламные креативы и AI-генерации.">
 <meta property="og:type" content="website">
@@ -14,7 +13,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #08080a;
@@ -396,9 +395,7 @@
   .card-5 .art{ position:absolute; left:-25%; right:-15%; bottom:-18%; top:56%; border-radius: 50% 50% 0 0 / 60% 60% 0 0; background: radial-gradient(circle at 35% 25%, #c3d3ea 0%, #8398b8 18%, #34455f 42%, #0b1220 70%); box-shadow: inset -20px -10px 60px rgba(0,0,0,0.55); opacity:0.6; }
   .card-5 .art::after{ content:''; position:absolute; left:10%; top:8%; width:34%; height:22%; background: rgba(255,255,255,0.2); border-radius: 50%; filter: blur(10px); }
   .card-6 .art{ position:absolute; right:-18%; bottom:-14%; width:70%; height:52%; border-radius: 50%; background: radial-gradient(circle at 60% 35%, var(--accent-glow), transparent 60%); border: 10px solid rgba(255,255,255,0.05); }
-  
   .card-body{ position:relative; z-index:2; flex-grow: 1; display:flex; flex-direction:column; }
-  /* Улучшенные стили списков в карточках */
   .card-list{ margin-top: 16px; list-style:none; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); line-height: 1.5; flex-grow:1; }
   .card-list li{ position:relative; padding-left: 16px; margin-bottom: 10px;}
   .card-list li::before{ content:'✓'; position:absolute; left:0; color: var(--accent-bright); }
@@ -417,41 +414,64 @@
   .social-row a:hover{ background: var(--hover-bg); color: var(--ink); border-color: var(--hover-border); transform: translateY(-2px); }
   footer{ position:absolute; left:0; right:0; bottom:24px; z-index:2; text-align:center; font-size: 13px; font-weight: 500; color: var(--ink-faint); }
 
-  /* ================= SECRET CUE & VIBES ================= */
+  /* ================= SECRET 3D OVERLAY ================= */
   .secret-cue{ position:absolute; left:50%; bottom: 24px; transform:translateX(-50%); z-index:3; }
   .secret-cue button{ width:44px; height:44px; border-radius:50%; border:1px dashed var(--ink-faint); background:transparent; color: var(--ink-faint); display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.5; transition: opacity .3s ease, transform .3s ease, color .3s ease, border-color .3s ease; animation: bob 3s ease-in-out infinite; }
-  .secret-cue button:hover{ opacity:1; color:#ff2f6e; border-color:#ff2f6e; border-style:solid; transform: scale(1.08); }
-  .secret-tooltip{ position:absolute; left:50%; bottom: 62px; width:220px; background: var(--tooltip-bg); border:1px solid var(--line); color: var(--ink); font-size:13px; line-height:1.5; padding:14px 18px; border-radius:14px; text-align:center; opacity:0; transform: translateX(-50%) translateY(6px); pointer-events:none; transition: opacity .2s ease, transform .2s ease; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); }
-  .secret-tooltip.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+  .secret-cue button:hover{ opacity:1; color:#ccff00; border-color:#ccff00; border-style:solid; transform: scale(1.08); }
+  
+  .secret-tooltip{ position:absolute; left:50%; bottom: 62px; width:220px; background: var(--tooltip-bg); border:1px solid var(--line); color: var(--ink); font-size:13px; font-weight: 600; line-height:1.5; padding:14px 18px; border-radius:14px; text-align:center; opacity:0; transform: translateX(-50%) translateY(6px); pointer-events:none; transition: opacity .2s ease, transform .2s ease; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); }
+  .secret-cue button:hover + .secret-tooltip { opacity:1; transform: translateX(-50%) translateY(0); }
   .secret-tooltip::after{ content:''; position:absolute; left:50%; bottom:-6px; width:12px; height:12px; background: var(--tooltip-bg); border-right:1px solid var(--line); border-bottom:1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
 
   body.vibes-open{ overflow:hidden; }
-  .vibes-overlay{ position:fixed; inset:0; z-index: 400; display:flex; align-items:center; justify-content:center; overflow-y:auto; -webkit-overflow-scrolling:touch; text-align:center; background: linear-gradient(120deg, #ff5fae, #ff9d4d 28%, #ffe14d 52%, #6ee7ff 76%, #b98bff 100%); background-size: 300% 300%; animation: vibesGradient 16s ease-in-out infinite; opacity:0; pointer-events:none; transform: scale(0.98); transition: opacity .35s ease, transform .35s ease; color:#14141a; }
-  .vibes-overlay.open{ opacity:1; pointer-events:auto; transform:none; }
-  @keyframes vibesGradient{ 0%{ background-position: 0% 50%; } 50%{ background-position: 100% 50%; } 100%{ background-position: 0% 50%; } }
-  .vibes-marquee{ position:absolute; left:-4%; right:-4%; z-index:2; overflow:hidden; white-space:nowrap; background: #14141a; padding: 12px 0; }
-  .vibes-marquee.top{ top: 26px; transform: rotate(-1.4deg); }
-  .vibes-marquee.bottom{ bottom: 26px; transform: rotate(1.4deg); }
-  .marquee-track{ display:inline-flex; width:max-content; animation: marqueeScroll 24s linear infinite; }
-  .marquee-track.reverse{ animation-direction: reverse; }
-  .marquee-track span{ display:inline-block; padding-right: 26px; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:#fff; }
-  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-  .vibes-inner{ position:relative; z-index:3; max-width: 720px; padding: 100px 24px 90px; }
-  .vibes-badge{ display:inline-flex; align-items:center; gap:8px; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800; background:#14141a; color:#fff; border-radius:30px; padding:10px 20px; margin-bottom: 26px; transform: rotate(-2deg); }
-  .vibes-title{ display:flex; flex-direction:column; gap:2px; font-size: clamp(38px, 8.6vw, 92px); font-family: 'Manrope', sans-serif; font-weight:900; line-height:0.96; letter-spacing:-0.02em; text-transform:uppercase; }
-  .vibes-title span{ -webkit-text-stroke: 2px #14141a; text-shadow: 4px 4px 0 #14141a; }
-  .vibes-title span:nth-child(1){ color:#ff2f6e; transform: rotate(-2deg); }
-  .vibes-title span:nth-child(2){ color:#ffd23f; transform: rotate(1.4deg); }
-  .vibes-title span:nth-child(3){ color:#3fd6ff; transform: rotate(-1deg); }
-  .vibes-sub{ margin: 24px auto 0; max-width: 460px; font-size:17px; font-weight:600; line-height: 1.5; }
-  .sticker-grid{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top: 48px; }
-  .sticker{ background:#14141a; color:#fff; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800; letter-spacing:0.02em; padding: 14px 22px; border-radius: 40px; border: 2px solid #14141a; box-shadow: 4px 4px 0 rgba(20,20,26,0.45); transition: transform .25s ease, box-shadow .25s ease; }
-  .sticker:hover{ transform: translateY(-4px) rotate(-2deg) scale(1.05); box-shadow: 6px 6px 0 rgba(20,20,26,0.5); }
-  .sticker.s1{ transform: rotate(-3deg); } .sticker.s2{ transform: rotate(2deg); } .sticker.s3{ transform: rotate(-1.5deg); } .sticker.s4{ transform: rotate(3deg); } .sticker.s5{ transform: rotate(-2.5deg); } .sticker.s6{ transform: rotate(1.5deg); }
-  .vibes-cta{ display:inline-block; margin-top: 48px; background:#14141a; color:#fff; font-family: 'Manrope', sans-serif; font-weight:800; font-size:16px; padding: 16px 32px; border-radius: 40px; border:2px solid #14141a; box-shadow: 5px 5px 0 rgba(20,20,26,0.4); transition: transform .2s ease, box-shadow .2s ease; }
-  .vibes-cta:hover{ transform: translateY(-3px); box-shadow: 7px 7px 0 rgba(20,20,26,0.45); }
-  .vibes-close{ position:absolute; top: 78px; right: 28px; z-index:5; width:48px; height:48px; border-radius:50%; border:2px solid #14141a; background:#fff; color:#14141a; font-size:22px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow: 3px 3px 0 rgba(20,20,26,0.3); transition: transform .2s ease; }
-  .vibes-close:hover{ transform: translateY(-2px); }
+  
+  .secret-3d-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background-color: #050505; color: #ccff00;
+      font-family: 'Space Mono', monospace;
+      opacity: 0; pointer-events: none;
+      transform: translateY(100%);
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease;
+  }
+  .secret-3d-overlay.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  
+  #webgl-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
+  #webgl-container canvas { display: block; }
+
+  .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; padding: 2rem; box-sizing: border-box; }
+  
+  .brutal-badge {
+      position: absolute; border: 2px solid #ccff00; background: #000;
+      padding: 10px 20px; font-weight: 700; text-transform: uppercase;
+      font-size: 1.2rem; box-shadow: 6px 6px 0 #ccff00; pointer-events: auto;
+      transition: all 0.15s ease; cursor: crosshair; letter-spacing: 0.05em; color: #ccff00;
+  }
+  .brutal-badge:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 #ccff00; background: #ccff00; color: #000; }
+  
+  .top-left { top: 2rem; left: 2rem; }
+  .top-right { top: 2rem; right: 2rem; cursor: pointer; }
+  
+  .floating-text {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 700; text-align: center;
+      line-height: 0.95; mix-blend-mode: difference; pointer-events: none; white-space: nowrap;
+  }
+  .floating-text span { display: block; }
+  
+  .subtitle {
+      position: absolute; bottom: 6rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.85rem; opacity: 0.7; text-align: center; max-width: 26rem; pointer-events: none;
+  }
+  .coords {
+      position: absolute; bottom: 2rem; left: 2rem; font-size: 0.75rem;
+      opacity: 0.6; pointer-events: none; line-height: 1.6; text-align: left;
+  }
+  
+  #secretLoading {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: #050505; z-index: 5; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; letter-spacing: 0.1em; transition: opacity 0.4s ease;
+  }
 
   /* ================= MODALS ================= */
   .modal-overlay{ position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center; background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px; }
@@ -536,8 +556,14 @@
     .cat-modal-box .modal-role { margin-bottom: 24px; }
     
     .secret-cue{ bottom: 14px; }
-    .vibes-inner{ padding: 118px 18px 70px; }
-    .vibes-close{ top: 16px; right: 16px; }
+
+    .ui-layer { padding: 1rem; }
+    .brutal-badge { font-size: 0.9rem; padding: 8px 14px; box-shadow: 4px 4px 0 #ccff00; }
+    .brutal-badge:hover { box-shadow: 6px 6px 0 #ccff00; }
+    .top-left { top: 1rem; left: 1rem; }
+    .top-right { top: 1rem; right: 1rem; }
+    .coords { bottom: 1rem; left: 1rem; font-size: 0.65rem; }
+    .subtitle { bottom: 4rem; width: 90%; font-size: 0.75rem; }
 
     .back-to-top{ right: 16px; bottom: 16px; width:48px; height:48px; }
     .back-to-top{ right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
@@ -612,7 +638,6 @@
           Резюме на hh.ru
         </a>
       </div>
-      <!-- Неразрывный пробел &nbsp; -->
       <h1>Привет, я&nbsp;Владимир</h1>
       <div class="hero-quote">
         <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
@@ -648,11 +673,9 @@
           <div class="live-focus-header">
             <span class="pulse-dot"></span>
             <span class="lf-title">LIVE FOCUS:</span>
-            <!-- Обновленный текст на английском -->
             <span class="lf-text">Exploring 3D • Gen AI Tools • Motion Design • Photography</span>
           </div>
           <div class="stack-badges">
-            <!-- Обновленный стек бейджей -->
             <span class="stack-badge" title="UI/UX & Layout">Figma</span>
             <span class="stack-badge" title="Motion Design">After Effects</span>
             <span class="stack-badge" title="3D Exploration">Cinema 4D</span>
@@ -665,10 +688,10 @@
     </div>
     
     <div class="secret-cue">
-      <button id="secretCue" aria-label="Скоро новое" title="Скоро новое">
+      <button id="secretCue" aria-label="Открыть креатив" title="Открыть 3D">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>
       </button>
-      <div class="secret-tooltip" id="secretTooltip">Тут скоро будет кое-что интересное 👀 пока не готово</div>
+      <div class="secret-tooltip" id="secretTooltip">CHAOTIC GOOD [CLICK]</div>
     </div>
   </section>
 
@@ -682,7 +705,6 @@
       <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
     </div>
 
-    <!-- Основная карусель проектов -->
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
@@ -730,9 +752,8 @@
       <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
     </div>
 
-    <!-- КНОПКИ КАТЕГОРИЙ (С ВЕЕРОМ) -->
+    <!-- КНОПКИ КАТЕГОРИЙ -->
     <div class="cat-decks-wrap reveal">
-      
       <div class="cat-deck" data-cat="identity">
         <div class="cat-fan">
           <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')"></div>
@@ -765,7 +786,6 @@
         </div>
         <button class="cat-btn">SMM</button>
       </div>
-
     </div>
 
     <!-- ВИДЕО-РАБОТЫ -->
@@ -801,7 +821,6 @@
     <div class="stage">
       <div class="cards reveal">
         
-        <!-- 1. Альма-матер -->
         <div class="card card-1" data-detail="almamater">
           <div class="art"></div>
           <div class="card-body">
@@ -820,7 +839,6 @@
           </div>
         </div>
 
-        <!-- 2. FarTeam -->
         <div class="card card-2" data-detail="farteam">
           <div class="art"></div>
           <div class="card-body">
@@ -839,7 +857,6 @@
           </div>
         </div>
 
-        <!-- 3. IJA -->
         <div class="card card-3" data-detail="ija">
           <div class="art"></div>
           <div class="card-body">
@@ -858,7 +875,6 @@
           </div>
         </div>
 
-        <!-- 4. ИП Костенков -->
         <div class="card card-4" data-detail="kostenkov">
           <div class="art"></div>
           <div class="card-body">
@@ -877,7 +893,6 @@
           </div>
         </div>
 
-        <!-- 5. Синергиум -->
         <div class="card card-5" data-detail="sinergium">
           <div class="art"></div>
           <div class="card-body">
@@ -896,7 +911,6 @@
           </div>
         </div>
 
-        <!-- 6. Госинформ -->
         <div class="card card-6" data-detail="gosinform">
           <div class="art"></div>
           <div class="card-body">
@@ -944,35 +958,26 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
   </button>
 
-  <!-- ================= HIDDEN SCREEN — VIBES ================= -->
-  <div class="vibes-overlay" id="vibesOverlay">
-    <div class="vibes-marquee top">
-      <div class="marquee-track">
-        <span>✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦</span>
-        <span aria-hidden="true">✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦ GOOD VIBES ONLY ✦ STAY WEIRD ✦ KEEP CREATING ✦ LUMMB ✦</span>
-      </div>
+  <!-- ================= НОВЫЙ SECRET 3D OVERLAY ================= -->
+  <div class="secret-3d-overlay" id="secret3dOverlay">
+    <div id="secretLoading">INITIALIZING CHAOS...</div>
+    <div id="webgl-container"></div>
+    <div class="ui-layer">
+        <div class="brutal-badge top-left">LUMMB</div>
+        <div class="brutal-badge top-right" id="closeSecretBtn">CLOSE ✕</div>
+
+        <div class="floating-text">
+            <span>CHAOTIC</span>
+            <span>GOOD</span>
+            <span>EARTH</span>
+        </div>
+
+        <div class="subtitle">
+            a structure built from disorder — drag to disturb the surface, it always finds its shape again.
+        </div>
+
+        <div class="coords" id="coords">X 0.00 / Y 0.00</div>
     </div>
-    <div class="vibes-inner">
-      <div class="vibes-badge">👀 ты нашёл секретную страничку</div>
-      <h2 class="vibes-title"><span>ХОРОШИЕ</span><span>ВАЙБЫ</span><span>ТОЛЬКО</span></h2>
-      <p class="vibes-sub">Тут я не дизайнер на зарплате, а просто чувак, который любит яркое, громкое и немного безумное.</p>
-      <div class="sticker-grid">
-        <div class="sticker s1">🎧 24/7 В НАУШНИКАХ</div>
-        <div class="sticker s2">✌️ NO CAP, ONLY VIBES</div>
-        <div class="sticker s3">🛹 MADE IN MORDOVIA</div>
-        <div class="sticker s4">🌈 DESIGN. VIBE. REPEAT.</div>
-        <div class="sticker s5">🔥 CHAOTIC GOOD ENERGY</div>
-        <div class="sticker s6">🎵 SLIDE INTO SOUNDCLOUD</div>
-      </div>
-      <a class="vibes-cta" href="https://soundcloud.com/lummb" target="_blank" rel="noopener">Послушать мои треки →</a>
-    </div>
-    <div class="vibes-marquee bottom">
-      <div class="marquee-track reverse">
-        <span>✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦</span>
-        <span aria-hidden="true">✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦ ХОРОШИЕ ВАЙБЫ ТОЛЬКО ✦ ОСТАВАЙСЯ СТРАННЫМ ✦ НЕ ПРИНИМАЙ ВСЁ ВСЕРЬЁЗ ✦</span>
-      </div>
-    </div>
-    <button class="vibes-close" id="vibesClose" aria-label="Закрыть">×</button>
   </div>
 
   <!-- ================= MODALS ================= -->
@@ -997,6 +1002,9 @@
       </div>
     </div>
   </div>
+
+  <!-- ПОДКЛЮЧЕНИЕ БИБЛИОТЕКИ THREE.JS ДЛЯ SECRET-ОКНА -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
     /* ================= АУДИО ДВИЖОК ================= */
@@ -1043,14 +1051,14 @@
     }
 
     document.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('button, a, .card, .nav-links li, .mobile-menu li, .cat-btn, .video-spoiler-toggle, .logo, .theme-toggle, .sound-toggle, .stack-badge')) {
+      if (e.target.closest('button, a, .card, .nav-links li, .mobile-menu li, .cat-btn, .video-spoiler-toggle, .logo, .theme-toggle, .sound-toggle, .stack-badge, .brutal-badge')) {
         if (!e.target.closest('#soundToggle')) {
             playUiClick(1100, 0.025, 0.04);
         }
       }
     });
 
-    /* ================= ОСТАЛЬНАЯ ЛОГИКА (ОБНОВЛЕННЫЙ JSON ОПЫТА РАБОТЫ) ================= */
+    /* ================= ОСТАЛЬНАЯ ЛОГИКА ================= */
     const jobDetails = {
       almamater: {
         period: 'Альма-матер',
@@ -1142,33 +1150,160 @@
     document.getElementById('modalClose').addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
+    /* ================= ЛОГИКА НОВОГО SECRET-ЭКРАНА (3D СЛАЙДЕР) ================= */
     const secretCue = document.getElementById('secretCue');
-    const secretTooltip = document.getElementById('secretTooltip');
-    const vibesOverlay = document.getElementById('vibesOverlay');
-    const vibesClose = document.getElementById('vibesClose');
-    function openVibes(){ vibesOverlay.classList.add('open'); document.body.classList.add('vibes-open'); }
-    function closeVibes(){ vibesOverlay.classList.remove('open'); document.body.classList.remove('vibes-open'); }
-    let secretTooltipTimer = null;
+    const secretOverlay = document.getElementById('secret3dOverlay');
+    const closeSecretBtn = document.getElementById('closeSecretBtn');
+    
+    let sScene, sCamera, sRenderer, earthGroup, particlesMesh, ring1, ring2;
+    let sMouseX = 0, sMouseY = 0;
+    let baseRotY = 0, baseRotX = 0;
+    let secret3dInitialized = false;
+
+    function initSecret3D() {
+        if(secret3dInitialized) return;
+        secret3dInitialized = true;
+
+        const container = document.getElementById('webgl-container');
+        sScene = new THREE.Scene();
+        sScene.fog = new THREE.FogExp2(0x050505, 0.03);
+
+        sCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        sCamera.position.z = 15;
+
+        sRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        sRenderer.setSize(window.innerWidth, window.innerHeight);
+        sRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(sRenderer.domElement);
+
+        earthGroup = new THREE.Group();
+        sScene.add(earthGroup);
+
+        const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0x222222, wireframe: true, transparent: true, opacity: 0.3 });
+        const earthWireframe = new THREE.Mesh(sphereGeometry, wireframeMaterial);
+        earthGroup.add(earthWireframe);
+
+        const pointsMaterial = new THREE.PointsMaterial({ color: 0xccff00, size: 0.1 });
+        const earthPoints = new THREE.Points(sphereGeometry, pointsMaterial);
+        earthGroup.add(earthPoints);
+
+        const ringGeometry1 = new THREE.RingGeometry(7, 7.05, 64);
+        const ringMaterial1 = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });
+        ring1 = new THREE.Mesh(ringGeometry1, ringMaterial1);
+        ring1.rotation.x = Math.PI / 2;
+        ring1.rotation.y = 0.2;
+        earthGroup.add(ring1);
+
+        const ringGeometry2 = new THREE.RingGeometry(8, 8.02, 64);
+        const ringMaterial2 = new THREE.MeshBasicMaterial({ color: 0xccff00, side: THREE.DoubleSide });
+        ring2 = new THREE.Mesh(ringGeometry2, ringMaterial2);
+        ring2.rotation.x = Math.PI / 2.5;
+        ring2.rotation.y = -0.2;
+        earthGroup.add(ring2);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 700;
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 40;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.8 });
+        particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        sScene.add(particlesMesh);
+
+        window.addEventListener('resize', () => {
+            if(!document.getElementById('secret3dOverlay').classList.contains('open')) return;
+            sCamera.aspect = window.innerWidth / window.innerHeight;
+            sCamera.updateProjectionMatrix();
+            sRenderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Отслеживание мыши (ПК)
+        secretOverlay.addEventListener('mousemove', (e) => {
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+            sMouseX = (e.clientX - windowHalfX) * 0.001;
+            sMouseY = (e.clientY - windowHalfY) * 0.001;
+
+            const rawX = (e.clientX / window.innerWidth) * 2 - 1;
+            const rawY = (e.clientY / window.innerHeight) * 2 - 1;
+            document.getElementById('coords').textContent = 'X ' + rawX.toFixed(2) + ' / Y ' + rawY.toFixed(2);
+        });
+
+        // Отслеживание пальца (Мобилки)
+        secretOverlay.addEventListener('touchmove', (e) => {
+            if(!e.touches.length) return;
+            const t = e.touches[0];
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+            sMouseX = (t.clientX - windowHalfX) * 0.001;
+            sMouseY = (t.clientY - windowHalfY) * 0.001;
+
+            const rawX = (t.clientX / window.innerWidth) * 2 - 1;
+            const rawY = (t.clientY / window.innerHeight) * 2 - 1;
+            document.getElementById('coords').textContent = 'X ' + rawX.toFixed(2) + ' / Y ' + rawY.toFixed(2);
+        }, { passive: true });
+
+        setTimeout(() => {
+            document.getElementById('secretLoading').style.opacity = '0';
+            setTimeout(() => document.getElementById('secretLoading').style.display = 'none', 400);
+        }, 600);
+
+        animateSecret3D();
+    }
+
+    function animateSecret3D() {
+        requestAnimationFrame(animateSecret3D);
+        if(!document.getElementById('secret3dOverlay').classList.contains('open')) return;
+
+        baseRotY += 0.002;
+        baseRotX += 0.0005;
+
+        ring1.rotation.z -= 0.005;
+        ring2.rotation.z += 0.003;
+
+        const targetY = baseRotY + sMouseX * 2;
+        const targetX = baseRotX + sMouseY * 2;
+        
+        earthGroup.rotation.y += 0.05 * (targetY - earthGroup.rotation.y);
+        earthGroup.rotation.x += 0.05 * (targetX - earthGroup.rotation.x);
+        
+        particlesMesh.rotation.y = -sMouseX * 0.5;
+        particlesMesh.rotation.x = -sMouseY * 0.5;
+
+        sRenderer.render(sScene, sCamera);
+    }
+
+    function openSecret(){ 
+      secretOverlay.classList.add('open'); 
+      document.body.classList.add('vibes-open'); 
+      initSecret3D();
+    }
+    
+    function closeSecret(){ 
+      secretOverlay.classList.remove('open'); 
+      document.body.classList.remove('vibes-open'); 
+    }
+
     secretCue.addEventListener('click', (e) => {
       e.stopPropagation();
-      secretTooltip.classList.add('show');
-      clearTimeout(secretTooltipTimer);
-      secretTooltipTimer = setTimeout(() => secretTooltip.classList.remove('show'), 2600);
+      openSecret();
     });
-    document.addEventListener('click', () => secretTooltip.classList.remove('show'));
-    vibesClose.addEventListener('click', closeVibes);
-    vibesOverlay.addEventListener('click', (e) => { if (e.target === vibesOverlay) closeVibes(); });
+
+    closeSecretBtn.addEventListener('click', closeSecret);
 
     document.addEventListener('keydown', (e) => { 
       if (e.key === 'Escape'){ 
         closeModal(); 
-        closeVibes(); 
         closeCatModal();
+        closeSecret();
         toggleMobileMenu(false); 
-        secretTooltip.classList.remove('show'); 
       } 
     });
 
+    /* ================= НАВИГАЦИЯ И КАРТОЧКИ ================= */
     const jobCards = document.querySelectorAll('#experience .card');
     jobCards.forEach(card => {
       card.addEventListener('click', (e) => {
