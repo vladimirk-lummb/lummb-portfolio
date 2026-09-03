@@ -211,21 +211,32 @@
   .screen{ position:relative; min-height:100vh; display:flex; flex-direction:column; padding-bottom: 40px; }
 
   /* ================= SCREEN 1 — HERO ================= */
-  #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; --mx:0px; --my:0px; }
-  #hero::before{
-    content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(42% 38% at calc(30% + var(--mx)) calc(35% + var(--my)), rgba(255,0,200,var(--aurora-a1)), transparent 70%),
-      radial-gradient(38% 34% at calc(72% - var(--mx)) calc(60% - var(--my)), rgba(0,255,255,var(--aurora-a2)), transparent 70%),
-      radial-gradient(34% 32% at calc(58% + var(--my)) calc(18% + var(--mx)), rgba(120,50,255,var(--aurora-a3)), transparent 70%);
-    filter: blur(64px);
-    animation: auroraMove 14s ease-in-out infinite alternate;
+  #hero{ align-items:center; justify-content:center; padding-top: var(--nav-h); text-align:center; overflow:hidden; }
+
+  /* Оптимизированный анимированный фон: вынесен на GPU-слой */
+  .hero-aurora{
+    position:absolute; inset:-20%; z-index:0; pointer-events:none;
+    will-change: transform;
+    transform: translate3d(0,0,0);
   }
+  .hero-aurora::before{
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(45% 42% at 30% 35%, rgba(255,0,200,var(--aurora-a1)), transparent 70%),
+      radial-gradient(42% 38% at 72% 60%, rgba(0,255,255,var(--aurora-a2)), transparent 70%),
+      radial-gradient(38% 36% at 58% 18%, rgba(120,50,255,var(--aurora-a3)), transparent 70%);
+    filter: blur(36px);
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    animation: auroraMove 16s ease-in-out infinite alternate;
+  }
+
   @keyframes auroraMove{
     0%{ transform: translate3d(0,0,0) scale(1); }
-    50%{ transform: translate3d(3%, -4%, 0) scale(1.12); }
+    50%{ transform: translate3d(3%, -4%, 0) scale(1.10); }
     100%{ transform: translate3d(-4%, 3%, 0) scale(1); }
   }
+
   .hero-inner{ position:relative; z-index:2; max-width: 760px; padding: 0 24px; }
   
   .hero-badges {
@@ -448,7 +459,6 @@
   }
   a.video-card:hover{ border-color: var(--hover-border); transform: translateY(-2px); }
   
-  /* Стили Скелетона загрузки */
   @keyframes skeletonLoad {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
@@ -481,7 +491,7 @@
   }
   
   .video-card-info{ padding: 14px 16px 16px; }
-  .video-card-info h4{ font-size:14px; font-weight:600; line-height: 1.4; margin:0 0 6px 0; }
+  .video-card-info h4{ font-size:14px; font-family: 'Manrope', sans-serif; font-weight:700; line-height: 1.4; margin:0 0 6px 0; }
   .video-card-info .cat{ font-size:12px; font-weight: 500; color: var(--ink-dim); margin-top:0; display:block; }
   .video-empty-note{ font-size:13px; color: var(--ink-dim); text-align:center; padding: 18px 4px; grid-column: 1/-1; }
 
@@ -506,7 +516,7 @@
 
   .card .period{ font-size: 11px; font-weight: 500; color: var(--accent-bright); background: var(--accent-soft); border: 1px solid var(--accent-line); display:inline-block; padding: 5px 10px; border-radius: 20px; align-self:flex-start; white-space:nowrap; }
   .card .role{ font-size: 13px; font-weight: 500; color: var(--accent-bright); margin-top: 6px; opacity:.85; }
-  .card .title{ font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; line-height:1.2; font-style: italic; text-transform: uppercase; color:#f5f5f8; }
+  .card .title{ font-size: 20px; font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; line-height:1.2; font-style: italic; text-transform: uppercase; color:#f5f5f8; }
   .card .brand{ font-weight: 700; font-size: 14px; letter-spacing: 0.02em; color: var(--accent-bright); }
 
   .card-footer{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top: 20px; }
@@ -571,24 +581,28 @@
   .about-facts div span{ font-size: 14px; font-weight: 500; color: var(--ink-dim); margin-top: 4px; display: block;}
 
   /* ================= SCREEN 5 — CONTACTS ================= */
-  #contacts{ align-items:center; justify-content:center; text-align:center; padding-top: var(--nav-h); }
+  #contacts{ align-items:center; justify-content:center; text-align:center; padding-top: var(--nav-h); overflow:hidden; }
+  
+  /* Оптимизированный фон контактов: снижение блюра до 36px и GPU-изоляция */
   #contacts::before{
     content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none;
     background:
       radial-gradient(36% 32% at 35% 60%, rgba(150,130,255,0.16), transparent 70%),
       radial-gradient(32% 28% at 68% 40%, rgba(255,130,190,0.10), transparent 70%),
       radial-gradient(28% 26% at 55% 75%, rgba(110,230,210,0.10), transparent 70%);
-    filter: blur(80px);
+    filter: blur(36px);
+    will-change: transform;
+    transform: translate3d(0,0,0);
     animation: auroraMove 26s ease-in-out infinite alternate;
   }
-  .contacts-inner{ position:relative; z-index:2; max-width: 640px; padding: 0 24px; }
   
+  .contacts-inner{ position:relative; z-index:2; max-width: 640px; padding: 0 24px; }
   .contacts-inner a.eyebrow{ margin-bottom: 28px; }
   
   #contacts h2{ margin: 0; font-size: clamp(38px, 5.6vw, 64px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
   #contacts p{ margin: 24px auto 0; font-size: 17px; font-weight: 400; color: var(--ink-dim); line-height: 1.6; max-width: 440px; }
   .contact-email{
-    display:inline-block; margin-top: 36px; font-size: 22px; font-weight: 700;
+    display:inline-block; margin-top: 36px; font-size: 22px; font-family: 'Manrope', sans-serif; font-weight: 700;
     border-bottom: 2px solid var(--line); padding-bottom: 6px; transition: border-color .2s ease, color .2s ease;
   }
   .contact-email:hover{ border-color: var(--ink); color: var(--ink); }
@@ -647,16 +661,16 @@
   .vibes-marquee.bottom{ bottom: 26px; transform: rotate(1.4deg); }
   .marquee-track{ display:inline-flex; width:max-content; animation: marqueeScroll 24s linear infinite; }
   .marquee-track.reverse{ animation-direction: reverse; }
-  .marquee-track span{ display:inline-block; padding-right: 26px; font-size:14px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:#fff; }
+  .marquee-track span{ display:inline-block; padding-right: 26px; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:#fff; }
   @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
   .vibes-inner{ position:relative; z-index:3; max-width: 720px; padding: 100px 24px 90px; }
   .vibes-badge{
-    display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:800;
+    display:inline-flex; align-items:center; gap:8px; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800;
     background:#14141a; color:#fff; border-radius:30px; padding:10px 20px; margin-bottom: 26px;
     transform: rotate(-2deg);
   }
-  .vibes-title{ display:flex; flex-direction:column; gap:2px; font-size: clamp(38px, 8.6vw, 92px); font-weight:900; line-height:0.96; letter-spacing:-0.02em; text-transform:uppercase; }
+  .vibes-title{ display:flex; flex-direction:column; gap:2px; font-size: clamp(38px, 8.6vw, 92px); font-family: 'Manrope', sans-serif; font-weight:900; line-height:0.96; letter-spacing:-0.02em; text-transform:uppercase; }
   .vibes-title span{ -webkit-text-stroke: 2px #14141a; text-shadow: 4px 4px 0 #14141a; }
   .vibes-title span:nth-child(1){ color:#ff2f6e; transform: rotate(-2deg); }
   .vibes-title span:nth-child(2){ color:#ffd23f; transform: rotate(1.4deg); }
@@ -665,7 +679,7 @@
 
   .sticker-grid{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top: 48px; }
   .sticker{
-    background:#14141a; color:#fff; font-size:14px; font-weight:800; letter-spacing:0.02em;
+    background:#14141a; color:#fff; font-size:14px; font-family: 'Manrope', sans-serif; font-weight:800; letter-spacing:0.02em;
     padding: 14px 22px; border-radius: 40px; border: 2px solid #14141a;
     box-shadow: 4px 4px 0 rgba(20,20,26,0.45);
     transition: transform .25s ease, box-shadow .25s ease;
@@ -676,7 +690,7 @@
   .sticker.s5{ transform: rotate(-2.5deg); } .sticker.s6{ transform: rotate(1.5deg); }
 
   .vibes-cta{
-    display:inline-block; margin-top: 48px; background:#14141a; color:#fff; font-weight:800;
+    display:inline-block; margin-top: 48px; background:#14141a; color:#fff; font-family: 'Manrope', sans-serif; font-weight:800;
     font-size:16px; padding: 16px 32px; border-radius: 40px; border:2px solid #14141a;
     box-shadow: 5px 5px 0 rgba(20,20,26,0.4); transition: transform .2s ease, box-shadow .2s ease;
   }
@@ -718,7 +732,6 @@
   .modal-box ul li{ position:relative; padding-left: 20px; font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.7; margin-bottom: 14px; }
   .modal-box ul li::before{ content:'–'; position:absolute; left:0; color: var(--ink-faint); }
   
-  /* Каталог модалка — Улучшенные отступы */
   .cat-modal-box { max-width: 860px; padding: 56px 48px; }
   .cat-modal-box h3 { margin-top: 0; font-size: 34px; letter-spacing: -0.02em; margin-bottom: 10px; }
   .cat-modal-box .modal-role { font-size: 16px; margin-bottom: 32px; color: var(--ink-dim); display: block; }
@@ -740,8 +753,8 @@
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
 
-    #hero::before{ filter: blur(34px); }
-    #contacts::before{ filter: blur(40px); }
+    .hero-aurora::before{ filter: blur(24px); }
+    #contacts::before{ filter: blur(28px); }
     .logo{ font-size:18px; }
     .nav-links{ display:none; }
     .nav-burger{ display:flex; }
@@ -855,6 +868,9 @@
 
   <!-- SCREEN 1 — HERO -->
   <section class="screen" id="hero">
+    <!-- Оптимизированный GPU-слой с мягким свечением -->
+    <div class="hero-aurora" id="heroAurora"></div>
+    
     <div class="hero-inner">
       <div class="hero-badges">
         <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" class="eyebrow">
@@ -974,7 +990,7 @@
 
       <div class="cat-deck" data-cat="posters">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:-18deg; --x:-35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')"></div>
+          <div class="cat-mini-card" style="--r:-18deg; --x:-35px; --bg:url('img/balcony.jpg')"></div>
           <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/lummb-poster-this-feelings.jpg')"></div>
           <div class="cat-mini-card" style="--r:18deg; --x:35px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')"></div>
         </div>
@@ -983,15 +999,16 @@
 
       <div class="cat-deck" data-cat="ai">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('img/balcony.jpg')"></div>
-          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('img/midjourney-post.jpg')"></div>
+          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('img/midjourney-post.jpg')"></div>
+          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')"></div>
         </div>
         <button class="cat-btn">AI-дизайн</button>
       </div>
 
       <div class="cat-deck" data-cat="smm">
         <div class="cat-fan">
-          <div class="cat-mini-card" style="--r:0deg; --x:0px; --bg:url('img/cyberx-community-2.png')"></div>
+          <div class="cat-mini-card" style="--r:-12deg; --x:-25px; --bg:url('img/midjourney-post.jpg')"></div>
+          <div class="cat-mini-card" style="--r:12deg; --x:25px; --bg:url('img/cyberx-community-2.png')"></div>
         </div>
         <button class="cat-btn">SMM</button>
       </div>
@@ -1381,33 +1398,43 @@
 
     document.getElementById('scrollBtn').addEventListener('click', () => goTo('about'));
 
+    // Оптимизированный параллакс для фона Hero: трансформация слоя на GPU
     const heroSection = document.getElementById('hero');
+    const heroAurora = document.getElementById('heroAurora');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    if (heroSection && !prefersReducedMotion && hasFinePointer){
+
+    if (heroSection && heroAurora && !prefersReducedMotion && hasFinePointer){
       let targetMX = 0, targetMY = 0, curMX = 0, curMY = 0, rafId = null;
-      function ensureTicking(){
-        if (rafId !== null) return;
-        rafId = requestAnimationFrame(tickAurora);
-      }
+      
       function tickAurora(){
-        curMX += (targetMX - curMX) * 0.07;
-        curMY += (targetMY - curMY) * 0.07;
-        heroSection.style.setProperty('--mx', curMX.toFixed(2) + 'px');
-        heroSection.style.setProperty('--my', curMY.toFixed(2) + 'px');
+        curMX += (targetMX - curMX) * 0.08;
+        curMY += (targetMY - curMY) * 0.08;
+        heroAurora.style.transform = `translate3d(${curMX.toFixed(2)}px, ${curMY.toFixed(2)}px, 0)`;
         const settled = Math.abs(targetMX - curMX) < 0.05 && Math.abs(targetMY - curMY) < 0.05;
         if (settled){ rafId = null; return; }
         rafId = requestAnimationFrame(tickAurora);
       }
+      
+      function ensureTicking(){
+        if (rafId !== null) return;
+        rafId = requestAnimationFrame(tickAurora);
+      }
+      
       heroSection.addEventListener('mousemove', (e) => {
         const r = heroSection.getBoundingClientRect();
         const relX = (e.clientX - r.left) / r.width - 0.5;
         const relY = (e.clientY - r.top) / r.height - 0.5;
-        targetMX = relX * 70;
-        targetMY = relY * 70;
+        targetMX = relX * 45;
+        targetMY = relY * 45;
         ensureTicking();
       });
-      heroSection.addEventListener('mouseleave', () => { targetMX = 0; targetMY = 0; ensureTicking(); });
+      
+      heroSection.addEventListener('mouseleave', () => {
+        targetMX = 0;
+        targetMY = 0;
+        ensureTicking();
+      });
     }
 
     const portfolioTrack = document.getElementById('portfolioTrack');
@@ -1460,7 +1487,6 @@
       });
     }
 
-    /* Обновленные массивы проектов под карточки */
     const categoryData = {
       identity: {
         title: 'Айдентика', sub: 'Брендинг и логотипы',
