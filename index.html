@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>lummb — Портфолио</title>
+<title>Владимир Кленин (lummb) — Графический, Web, Motion & AI-дизайнер</title>
 
-<meta property="og:title" content="lummb — Дизайн, который продаёт">
-<meta property="og:description" content="Привет, я Владимир. Коммерческий дизайнер. Создаю промо-материалы, сильные презентации, рекламные креативы и AI-генерации.">
+<meta name="description" content="Портфолио Владимира Кленина (lummb). Графический, Web, Motion и AI-дизайнер с опытом 8+ лет. Сильные презентации, айдентика, интерфейсы, рекламные креативы и внедрение ИИ в дизайн-пайплайны.">
+<meta property="og:title" content="Владимир Кленин (lummb) — Дизайн, который приносит бизнесу результат">
+<meta property="og:description" content="Коммерческий мультидисциплинарный дизайнер (8+ лет опыта). Создаю промо-материалы, бизнес-презентации, веб-интерфейсы, motion-графику и AI-креативы под ключ.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png">
 <meta property="og:site_name" content="lummb Portfolio">
@@ -232,6 +233,102 @@
   }
   .resume-btn:hover { background: var(--hover-bg); border-color: var(--hover-border); transform: translateY(-2px); }
   html[data-theme="light"] .resume-btn { background: rgba(0,0,0,0.03); }
+
+  .cta-primary-btn {
+    display:inline-flex; align-items:center; gap:8px; font-size: 15px; color: #08080a; font-weight: 700;
+    border: 1px solid #5eff9a; border-radius: 30px; padding: 10px 24px; background: #5eff9a; cursor:pointer;
+    box-shadow: 0 8px 24px -6px rgba(94, 255, 154, 0.45);
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .cta-primary-btn:hover { background: #7affac; transform: translateY(-2px); box-shadow: 0 12px 28px -6px rgba(94, 255, 154, 0.65); }
+  html[data-theme="light"] .cta-primary-btn { background: #14141a; color: #ffffff; border-color: #14141a; box-shadow: 0 8px 24px -6px rgba(20, 20, 26, 0.28); }
+  html[data-theme="light"] .cta-primary-btn:hover { background: #2a2a35; }
+
+  .hero-role-tags {
+    margin-top: 14px; font-family: 'Manrope', sans-serif; font-size: clamp(14px, 1.6vw, 17px);
+    font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink); opacity: 0.9;
+  }
+  .hero-role-tags span { color: #5eff9a; margin: 0 6px; }
+  html[data-theme="light"] .hero-role-tags span { color: #4b3fb0; }
+
+  .stack-badge:nth-child(6):hover { border-color: rgba(94, 255, 154, 0.5); box-shadow: 0 4px 12px rgba(94, 255, 154, 0.2); }
+
+  /* ================= 2026 STUDIO REBRAND ADDITIONS ================= */
+  .logo-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 400;
+    color: var(--ink-dim); border: 1px solid var(--line); border-radius: 6px;
+    padding: 2px 6px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.04em;
+    background: var(--pill-bg);
+  }
+
+  .hero-trust-bar {
+    margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line);
+    display: inline-flex; align-items: center; justify-content: center; gap: 18px;
+    flex-wrap: wrap; font-family: 'Space Mono', monospace; font-size: 11.5px;
+    color: var(--ink-dim); letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .hero-trust-bar b { color: var(--ink); font-family: 'Manrope', sans-serif; font-weight: 700; }
+  .hero-trust-sep { color: var(--ink-faint); opacity: 0.5; }
+
+  /* Bento Services Matrix inside About */
+  .services-bento {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 26px;
+  }
+  .bento-item {
+    padding: 15px 18px; border-radius: 16px; background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line); transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  html[data-theme="light"] .bento-item { background: rgba(0,0,0,0.025); }
+  .bento-item:hover {
+    transform: translateY(-2px); border-color: var(--hover-border); background: var(--hover-bg);
+  }
+  .bento-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;
+  }
+  .bento-title {
+    font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .bento-num {
+    font-family: 'Space Mono', monospace; font-size: 11px; color: #5eff9a; opacity: 0.85;
+  }
+  html[data-theme="light"] .bento-num { color: #4b3fb0; }
+  .bento-desc {
+    font-size: 12.5px; color: var(--ink-dim); line-height: 1.45; margin: 0 !important;
+  }
+
+  /* Case-Study Pill Badge on Portfolio Cards */
+  .flat-badge {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; color: #fff;
+    background: rgba(8, 8, 10, 0.62); border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* Work Format Pills & One-Click Copy Email in Contacts */
+  .work-formats {
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 22px;
+  }
+  .format-pill {
+    font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-dim);
+    border: 1px solid var(--line); background: var(--pill-bg);
+    padding: 5px 12px; border-radius: 20px; letter-spacing: 0.02em;
+  }
+  .email-copy-wrap {
+    margin-top: 30px; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  }
+  .contact-email { margin-top: 0 !important; }
+  .copy-email-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+    border-radius: 20px; border: 1px solid var(--line); background: var(--pill-bg);
+    color: var(--ink-dim); font-family: 'Space Mono', monospace; font-size: 11px;
+    cursor: pointer; transition: all .2s ease;
+  }
+  .copy-email-btn:hover { color: var(--ink); border-color: var(--hover-border); background: var(--hover-bg); }
+  .copy-email-btn.copied { color: #5eff9a; border-color: rgba(94,255,154,0.45); }
+  html[data-theme="light"] .copy-email-btn.copied { color: #1f4d3d; border-color: #1f4d3d; }
 
   #hero h1{ position:relative; z-index:2; font-size: clamp(48px, 7.2vw, 92px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin: 0; }
   .hero-quote{ position:relative; z-index:2; margin: 24px auto 0; max-width: 620px; }
@@ -572,7 +669,8 @@
   @media (max-width: 480px){
     .flat-card{ width: 82vw; }
     .cards .card{ width: 82vw; }
-    .about-facts{ gap: 22px; }
+    .about-facts{ gap: 18px; flex-wrap: wrap; }
+    .services-bento{ grid-template-columns: 1fr; }
     .social-row a{ font-size:14px; padding: 12px 18px; }
     .cat-btn { font-size: 13px; padding: 10px 16px; }
   }
@@ -583,7 +681,7 @@
 
   <!-- ================= NAV ================= -->
   <nav id="siteNav">
-    <a href="#hero" class="logo" id="logoLink">lummb</a>
+    <a href="#hero" class="logo" id="logoLink">lummb<span class="logo-tag">DESIGN &amp; AI</span></a>
     <ul class="nav-links">
       <li data-target="about">Обо мне</li>
       <li data-target="portfolio">Реализованные проекты</li>
@@ -605,10 +703,10 @@
         <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       </button>
       <div class="nav-cta-wrap">
-        <div class="nav-cta" id="topBtn">
+        <div class="nav-cta" id="topBtn" title="Быстрая связь">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </div>
-        <div class="nav-tooltip" id="navTooltip">тут ничего нет, смотри портфолио дальше, друк</div>
+        <div class="nav-tooltip" id="navTooltip">Готов обсудить ваш проект — нажмите ещё раз или напишите в <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" style="text-decoration:underline; font-weight:700;">Telegram ↗</a></div>
       </div>
       <button class="nav-burger" id="navBurger" aria-label="Открыть меню" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -620,7 +718,7 @@
     <ul>
       <li data-target="about">Обо мне</li>
       <li data-target="portfolio">Реализованные проекты</li>
-      <li data-target="experience">Работы</li>
+      <li data-target="experience">Опыт работы</li>
       <li data-target="contacts">Контакты</li>
     </ul>
   </div>
@@ -631,7 +729,10 @@
     <div class="hero-inner">
       <div class="hero-badges">
         <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" class="eyebrow">
-          <span></span>Открыт для новых проектов
+          <span></span>Открыт для проектов и предложений
+        </a>
+        <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" class="cta-primary-btn">
+          Обсудить задачу ↗
         </a>
         <a href="https://saransk.hh.ru/resume/a5dde66bff0af970400039ed1f354248795971" target="_blank" rel="noopener" class="resume-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -639,9 +740,17 @@
         </a>
       </div>
       <h1>Привет, я&nbsp;Владимир</h1>
+      <div class="hero-role-tags">Graphic <span>•</span> Web <span>•</span> Motion <span>•</span> AI&nbsp;Designer</div>
       <div class="hero-quote">
-        <p class="hq-question">Вы меня спросите: «Что вы умеете делать?»</p>
-        <p class="hq-answer">А я скажу вам: «Всё. Дизайнить, варить халву, подковать жеребца, сварить кофе, ноу-кодить, принять роды, сверстать статью. Петь… в хоре»<span class="hq-cursor">_</span></p>
+        <p class="hq-question">Превращаю бизнес-задачи в визуал, который удерживает внимание и продаёт.</p>
+        <p class="hq-answer">А если спросите, что я умею — отвечу: «Всё. Упаковать продукт, собрать промо и лендинг, оживить 2D/3D моушн, приручить нейросети и сварить идеальный кофе под дедлайн»<span class="hq-cursor">_</span></p>
+      </div>
+      <div class="hero-trust-bar">
+        <span><b>8+ лет</b> практики</span>
+        <span class="hero-trust-sep">/</span>
+        <span><b>B2B • GovTech • Agencies</b></span>
+        <span class="hero-trust-sep">/</span>
+        <span><b>Full-Cycle + AI</b> продакшн</span>
       </div>
     </div>
     <div class="scroll-cue">
@@ -660,27 +769,48 @@
       </div>
       
       <div class="about-copy">
-        <div class="eyebrow" style="margin-top:0;"><span></span>Обо мне</div>
-        <h2>Создаю дизайн, который работает на результат</h2>
-        <p>Я коммерческий дизайнер. Специализируюсь на создании промо-материалов, сильных презентаций, рекламных креативов для статики и видео, а также визуализации данных. В работе активно внедряю нейросети и инструменты автоматизации, экспериментируя с темами: от строгой корпоративной аналитики до выразительной ретро-эстетики.</p>
+        <div class="eyebrow" style="margin-top:0;"><span></span>Обо мне и подходе</div>
+        <h2>Дизайн на стыке маркетинга, эстетики и ИИ-технологий</h2>
+        <p>Мультидисциплинарный коммерческий дизайнер: закрываю задачи под ключ — от идеи, айдентики и веб-интерфейсов до динамичного моушна, бизнес-презентаций и аналитической инфографики. Встраиваю генеративный ИИ и автоматизацию прямо в рабочий процесс, поэтому выдаю продакшн-качество быстрее классических пайплайнов и без раздутых бюджетов.</p>
         
         <div class="about-facts">
-          <div><b>8+</b><span>лет ломаю пиксели</span></div>
-          <div><b>5</b><span>мест, где меня терпели</span></div>
+          <div><b>8+ лет</b><span>в коммерческом дизайне</span></div>
+          <div><b>6 компаний</b><span>от агентств до госсектора</span></div>
+          <div><b>360°</b><span>Full-stack визуал & AI</span></div>
+        </div>
+
+        <div class="services-bento">
+          <div class="bento-item">
+            <div class="bento-head"><span class="bento-title">UI/Web &amp; Презентации</span><span class="bento-num">01</span></div>
+            <p class="bento-desc">Промо-лендинги, интерфейсы инфосистем, инфографика и сильные питч-деки.</p>
+          </div>
+          <div class="bento-item">
+            <div class="bento-head"><span class="bento-title">Айдентика &amp; Упаковка</span><span class="bento-num">02</span></div>
+            <p class="bento-desc">Логотипы, бренд-системы, носители, вывески и визуальная упаковка соцсетей.</p>
+          </div>
+          <div class="bento-item">
+            <div class="bento-head"><span class="bento-title">Motion &amp; Reels Продакшн</span><span class="bento-num">03</span></div>
+            <p class="bento-desc">2D/3D анимация, динамичный монтаж, VFX и рекламные ролики с высоким удержанием.</p>
+          </div>
+          <div class="bento-item">
+            <div class="bento-head"><span class="bento-title">AI-Пайплайны &amp; Креативы</span><span class="bento-num">04</span></div>
+            <p class="bento-desc">Коммерческий генеративный арт (Midjourney + ретушь) и баннеры с высоким CTR.</p>
+          </div>
         </div>
 
         <div class="live-focus-widget">
           <div class="live-focus-header">
             <span class="pulse-dot"></span>
             <span class="lf-title">LIVE FOCUS:</span>
-            <span class="lf-text">Exploring 3D • Gen AI Tools • Motion Design • Photography</span>
+            <span class="lf-text">UI/Web Systems • Motion & 3D • Gen AI Pipelines • Brand Visuals</span>
           </div>
           <div class="stack-badges">
-            <span class="stack-badge" title="UI/UX & Layout">Figma</span>
-            <span class="stack-badge" title="Motion Design">After Effects</span>
-            <span class="stack-badge" title="3D Exploration">Cinema 4D</span>
-            <span class="stack-badge" title="Creative AI">Gen AI</span>
-            <span class="stack-badge" title="Color & Retouch">Lightroom</span>
+            <span class="stack-badge" title="UI/UX, Web & Presentations">Figma</span>
+            <span class="stack-badge" title="Motion Design & VFX">After Effects</span>
+            <span class="stack-badge" title="Video Editing & Reels">Premiere Pro</span>
+            <span class="stack-badge" title="Midjourney & AI Workflows">Gen AI</span>
+            <span class="stack-badge" title="3D Graphics & WebGL">3D / Cinema 4D</span>
+            <span class="stack-badge" title="Retouch & Color Grading">Photoshop & LR</span>
           </div>
         </div>
       </div>
@@ -700,53 +830,61 @@
     <div class="section-top reveal">
       <div class="section-copy">
         <h2>Реализованные проекты</h2>
-        <p>Готовые работы: от концепции до финального результата.</p>
+        <p>Кейсы, которые решают задачи брендов: упаковка, промо-кампании, визуальные концепции и ИИ-продакшн.</p>
       </div>
-      <div class="section-note">Подборка кейсов, которые уже увидели свет.</div>
+      <div class="section-note">Листайте карусель или выберите направление ниже, чтобы отфильтровать работы по задаче.</div>
     </div>
 
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
         <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
+          <span class="flat-badge">BRANDING</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Поднебесье Настоящего МГУ</h3>
-          <div class="cat">Behance</div>
+          <div class="cat">Айдентика и медиа-упаковка • Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+          <span class="flat-badge">IDENTITY</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>ШумГрант | Центр социального проектирования</h3>
-          <div class="cat">Behance</div>
+          <div class="cat">Брендинг и визуальная система • Behance</div>
         </a>
-        <a class="flat-card" href="#" onclick="event.preventDefault();" style="background-image:url('img/cyberx-community-2.png')">
+        <a class="flat-card" href="#portfolio" onclick="event.preventDefault(); openCatModal('smm');" style="background-image:url('img/cyberx-community-2.png')">
+          <span class="flat-badge">ESPORTS SMM</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>CyberX Community</h3>
-          <div class="cat">Дизайн карточек мероприятий</div>
+          <div class="cat">Ивент-промо и SMM-карточки</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
+          <span class="flat-badge">POSTER ART</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>LUMMB POSTER | This feelings</h3>
-          <div class="cat">Behance</div>
+          <div class="cat">Постер-дизайн и типографика • Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
+          <span class="flat-badge">VISUAL ART</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>i hate being here, there and wherever else</h3>
-          <div class="cat">Behance</div>
+          <div class="cat">Арт-дирекшн и графика • Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background-image:url('img/balcony.jpg')">
+          <span class="flat-badge">RETRO &amp; PHOTO</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Balcony</h3>
-          <div class="cat">Behance</div>
+          <div class="cat">Визуальная концепция и ретушь • Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener" style="background-image:url('img/midjourney-post.jpg')">
+          <span class="flat-badge">GEN AI + SMM</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
-          <h3>Пример оформления поста с использованием MidJourney</h3>
-          <div class="cat">Behance</div>
+          <h3>Оформление промо-поста с MidJourney</h3>
+          <div class="cat">AI-дизайн и коммерческий SMM • Behance</div>
         </a>
         <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+          <span class="flat-badge">AI CONCEPT</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
-          <h3>Серия плакатов (концепция)</h3>
-          <div class="cat">Behance</div>
+          <h3>Серия концептуальных плакатов</h3>
+          <div class="cat">AI + Графический дизайн • Behance</div>
         </a>
       </div>
       <button class="carousel-arrow" id="portfolioNext" aria-label="Следующий проект">›</button>
@@ -795,8 +933,8 @@
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
         <span class="video-spoiler-text">
-          <span class="vs-title">Видео-работы <span class="video-spoiler-badge" id="videoSpoilerBadge">Скоро</span></span>
-          <span class="vs-sub">Реклама и личные проекты в видео</span>
+          <span class="vs-title">Motion & Video Production <span class="video-spoiler-badge" id="videoSpoilerBadge">2 видео</span></span>
+          <span class="vs-sub">Динамичный монтаж, Reels/Shorts, анимация и саунд-дизайн</span>
         </span>
         <span class="video-spoiler-arrow">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -812,10 +950,10 @@
   <section class="screen" id="experience">
     <div class="section-top reveal">
       <div class="section-copy">
-        <h2>Места, где я работал</h2>
-        <p>Компании и проекты, которые сформировали мой опыт и подход к дизайну.</p>
+        <h2>Коммерческий опыт</h2>
+        <p>Прошёл путь от локальных ивентов и SMM до разработки государственных инфосистем, перформанс-маркетинга и AI-пайплайнов.</p>
       </div>
-      <div class="section-note">От первых шагов до масштабных задач — каждый проект сделал меня тем, кем я являюсь сегодня.</div>
+      <div class="section-note">Нажмите на любую карточку, чтобы выдвинуть её и посмотреть подробный стек задач.</div>
     </div>
 
     <div class="stage">
@@ -824,13 +962,13 @@
         <div class="card card-1" data-detail="almamater">
           <div class="art"></div>
           <div class="card-body">
-            <span class="period">Альма-матер</span>
+            <span class="period">Старт карьеры • Альма-матер</span>
             <div class="title">МГУ им. Н.П. Огарёва</div>
             <div class="role">Специалист / Дизайнер</div>
             <ul class="card-list">
-              <li>Дизайн печатной продукции</li>
-              <li>Оформление социальных сетей</li>
-              <li>Организация ивентов</li>
+              <li>Айдентика и полиграфия ивентов</li>
+              <li>Медиа-упаковка соцсетей ВУЗа</li>
+              <li>Организация масштабных событий</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -846,9 +984,9 @@
             <div class="title">FarTeam</div>
             <div class="role">Web-дизайнер</div>
             <ul class="card-list">
-              <li>Оформление социальных сетей</li>
-              <li>Рекламные креативы и баннеры</li>
-              <li>Превью для YouTube</li>
+              <li>Высококонверсионные баннеры</li>
+              <li>Комплексная упаковка соцсетей</li>
+              <li>Кликабельные обложки YouTube</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -864,9 +1002,9 @@
             <div class="title">IJA</div>
             <div class="role">Дизайнер</div>
             <ul class="card-list">
-              <li>Оформление офферов и рассылок</li>
-              <li>ИИ-генерации (Midjourney)</li>
-              <li>Вёрстка страниц и монтаж Reels</li>
+              <li>Дизайн промо-лендингов и офферов</li>
+              <li>Коммерческий AI-арт (Midjourney)</li>
+              <li>Динамичный монтаж Reels</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -882,9 +1020,9 @@
             <div class="title">ИП Костенков</div>
             <div class="role">Графический дизайнер</div>
             <ul class="card-list">
-              <li>SMM-дизайн и логотипы</li>
-              <li>Анимация и монтаж (Reels)</li>
-              <li>Вёрстка презентаций и полиграфии</li>
+              <li>Айдентика, логотипы и SMM-системы</li>
+              <li>Motion-анимация и видеомонтаж</li>
+              <li>Бизнес-презентации и каталоги</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -900,9 +1038,9 @@
             <div class="title">Синергиум</div>
             <div class="role">Креативный дизайнер</div>
             <ul class="card-list">
-              <li>Рекламные креативы и анимация</li>
-              <li>Глубокое внедрение ИИ-инструментов</li>
-              <li>Оформление Яндекс Карт и соцсетей</li>
+              <li>Перформанс-креативы и моушн</li>
+              <li>Интеграция ИИ в дизайн-пайплайн</li>
+              <li>Упаковка брендов и Яндекс Карт</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -911,16 +1049,16 @@
           </div>
         </div>
 
-        <div class="card card-6" data-detail="gosinform">
+        <div class="card card-6 selected" data-detail="gosinform">
           <div class="art"></div>
           <div class="card-body">
             <span class="period">Март 2026 — настоящее время</span>
             <div class="title">ГАУ РМ «Госинформ»</div>
             <div class="role">Дизайнер</div>
             <ul class="card-list">
-              <li>Разработка инфосистем и сайтов</li>
-              <li>Motion-дизайн и инфографика</li>
-              <li>Реклама и бизнес-презентации</li>
+              <li>UI/UX инфосистем и веб-сайтов</li>
+              <li>2D/3D motion и дата-инфографика</li>
+              <li>Имиджевые проекты и презентации</li>
             </ul>
           </div>
           <div class="card-footer">
@@ -937,11 +1075,23 @@
   <section class="screen" id="contacts">
     <div class="contacts-inner reveal">
       <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" class="eyebrow">
-        <span></span>На связи
+        <span></span>Доступен для проектной работы и фултайма
       </a>
-      <h2>Давайте поработаем вместе</h2>
-      <p>Опишите задачу — отвечу в течение дня и предложу, как лучше подойти к проекту.</p>
-      <a class="contact-email" href="mailto:lumbmgmt@gmail.com">lumbmgmt@gmail.com</a>
+      <h2>Обсудим ваш проект?</h2>
+      <p>Напишите мне в Telegram или на почту — разберу задачу, предложу визуальное решение и сориентирую по срокам в течение дня.</p>
+      <div class="work-formats">
+        <span class="format-pill">✓ Проекты под ключ</span>
+        <span class="format-pill">✓ Full-time / Контракт</span>
+        <span class="format-pill">✓ Арт-дирекшн &amp; AI-консалтинг</span>
+      </div>
+      <div style="margin-top: 26px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://t.me/weirdlummb" target="_blank" rel="noopener" class="cta-primary-btn">Написать в Telegram ↗</a>
+        <a href="https://saransk.hh.ru/resume/a5dde66bff0af970400039ed1f354248795971" target="_blank" rel="noopener" class="resume-btn">Резюме на hh.ru</a>
+      </div>
+      <div class="email-copy-wrap">
+        <a class="contact-email" href="mailto:lumbmgmt@gmail.com">lumbmgmt@gmail.com</a>
+        <button class="copy-email-btn" id="copyEmailBtn" type="button" aria-label="Скопировать почту">КОПИРОВАТЬ</button>
+      </div>
       <div class="social-row">
         <a href="https://t.me/weirdlummb" target="_blank" rel="noopener">Telegram</a>
         <a href="https://www.behance.net/vladimirlummb" target="_blank" rel="noopener">Behance</a>
@@ -950,7 +1100,7 @@
         <a href="https://www.youtube.com/@lummusicb" target="_blank" rel="noopener">YouTube</a>
       </div>
     </div>
-    <footer>© 2026 lummb. Все права защищены.</footer>
+    <footer>© 2026 Владимир Кленин (lummb). Все права защищены.</footer>
   </section>
 
   <button class="back-to-top" id="backToTop" aria-label="Наверх">
@@ -1073,14 +1223,14 @@
     /* ================= ОСТАЛЬНАЯ ЛОГИКА ================= */
     const jobDetails = {
       almamater: {
-        period: 'Альма-матер',
+        period: 'Старт карьеры • Альма-матер',
         title: 'МГУ им. Н.П. Огарёва',
         role: 'Специалист по работе с молодёжью / Дизайнер',
         points: [
-          'Разработка дизайна печатной продукции, вёрстка плакатов и афиш.',
-          'Создание графики и оформление постов для социальных сетей.',
-          'Управление ивентами, организация студенческой активности и курирование проектов.',
-          'Выполнение обязанностей оператора ЭВМ (с материальной ответственностью).'
+          'Разработка визуальной айдентики студенческих проектов, вёрстка афиш, плакатов и многостраничной полиграфии.',
+          'Формирование единого визуального стиля и контент-упаковка официальных сообществ в соцсетях.',
+          'Продюсирование и дизайн-сопровождение университетских ивентов и форумов.',
+          'Техническое администрирование оборудования и координация проектных команд.'
         ]
       },
       farteam: {
@@ -1088,56 +1238,55 @@
         title: 'FarTeam',
         role: 'Web-дизайнер',
         points: [
-          'Комплексное оформление социальных сетей.',
-          'Создание статических рекламных креативов и веб-баннеров.',
-          'Разработка кликабельных превью (обложек) для видеороликов на YouTube.'
+          'Комплексная визуальная упаковка брендов и сообществ в социальных сетях с прицелом на удержание аудитории.',
+          'Проектирование высококонверсионных рекламных креативов и веб-баннеров под рекламные кампании.',
+          'Разработка кликабельных обложек (CTR-focused превью) для YouTube-каналов.'
         ]
       },
       ija: {
         period: 'Ноябрь 2023 — Февраль 2024',
-        title: 'IJA',
+        title: 'Международная ювелирная академия IJA',
         role: 'Дизайнер',
         points: [
-          'Оформление акционных офферов, email-рассылок и социальных сетей.',
-          'Работа с ИИ: генерация изображений в Midjourney с последующей ретушью и интеграцией в макеты (Photoshop).',
-          'Редактирование веб-страниц: создание продуктовых карточек и вёрстка промо-лендингов.',
-          'Динамичный монтаж коротких видеороликов (Reels) в CapCut.'
+          'Дизайн продающих акционных офферов, коммерческих email-рассылок и визуала для соцсетей.',
+          'Внедрение AI-инструментов: генерация фотореалистичных концептов в Midjourney с детальной обтравкой, ретушью и композитингом в Photoshop.',
+          'Проектирование и вёрстка промо-лендингов, продуктовых карточек и посадочных страниц.',
+          'Динамичный монтаж продающих вертикальных видеороликов (Reels / Shorts).'
         ]
       },
       kostenkov: {
         period: 'Март 2024 — Август 2025',
-        title: 'ИП Костенков',
-        role: 'Графический дизайнер',
+        title: 'ИП Костенков (бренд nymo)',
+        role: 'Графический и Motion-дизайнер',
         points: [
-          'Оформление социальных сетей (посты, обложки, истории для VK и Telegram).',
-          'Создание анимации (After Effects) и монтаж форматов Reels, Shorts, VK Клипы (Premiere Pro).',
-          'Вёрстка бизнес-презентаций, каталогов и подготовка графики к печати.',
-          'Разработка логотипов, айдентики и креативов для веб-сайтов, блогов и приложений.',
-          'Ретушь фото, поиск референсов и генерация художественных идей.'
+          'Разработка логотипов, фирменного стиля и комплексного SMM-оформления для VK и Telegram.',
+          'Моушн-дизайн в After Effects и динамичный монтаж рекламных роликов в Premiere Pro (Reels, Shorts, VK Клипы).',
+          'Дизайн и вёрстка убедительных бизнес-презентаций, коммерческих предложений, каталогов и допечатная подготовка (Prepress).',
+          'Создание графики и UI-элементов для веб-сайтов, блогов и мобильных приложений.',
+          'Арт-дирекшн фотосъёмок, сложная коммерческая ретушь и цветокоррекция.'
         ]
       },
       sinergium: {
         period: 'Август 2025 — Февраль 2026',
-        title: 'Синергиум',
-        role: 'Креативный дизайнер',
+        title: 'Синергиум (Performance-агентство)',
+        role: 'Креативный и AI-дизайнер',
         points: [
-          'Разработка статических и анимированных креативов для таргета и контекста (разные площадки).',
-          'Продвинутая работа с ИИ: генерация графики, аудио, видео и внедрение нейросетей в дизайн-пайплайн.',
-          'Создание анимации, VFX и видеомонтаж рекламных/имиджевых роликов.',
-          'Визуальное сопровождение соцсетей брендов и оформление карточек в сервисах Яндекса.',
-          'Разработка сложной инфографики и анализ дизайнерских решений конкурентов.'
+          'Создание статических и анимированных performance-креативов для таргетированной и контекстной рекламы с фокусом на высокий CTR и конверсию.',
+          'Построение AI-пайплайнов: генерация графики, видео и аудио с помощью нейросетей, ускоряющая продакшн в несколько раз.',
+          '2D/VFX-анимация и монтаж рекламных и имиджевых видеороликов под ключ.',
+          'Комплексная упаковка клиентских брендов в соцсетях и геосервисах (Яндекс Карты).',
+          'Разработка понятной инфографики и проведение визуального аудита конкурентов.'
         ]
       },
       gosinform: {
         period: 'Март 2026 — настоящее время',
         title: 'ГАУ РМ «Госинформ»',
-        role: 'Дизайнер',
+        role: 'Дизайнер (UI/Web, Motion & Презентации)',
         points: [
-          'Разработка интерфейсов информационных систем и вёрстка сайтов.',
-          'Создание 2D/3D motion-инфографики и статической аналитической графики.',
-          'Монтаж видеороликов, ретушь и сложная обработка изображений.',
-          'Проектирование рекламных материалов для соцсетей и бизнес-презентаций.',
-          'Генерация креативных концепций, подготовка макетов к печати и анализ конкурентов.'
+          'Проектирование интерфейсов государственных информационных систем и дизайн современных веб-сайтов.',
+          'Создание 2D/3D motion-инфографики и сложной аналитической визуализации данных.',
+          'Разработка представительских бизнес-презентаций, отчётов и масштабных выставочных материалов (пресс-воллы, стенды).',
+          'Полный цикл видеопродакшна, коммерческая ретушь и внедрение ИИ-инструментов в государственные и корпоративные проекты.'
         ]
       }
     };
@@ -1476,31 +1625,32 @@
 
     const categoryData = {
       identity: {
-        title: 'Айдентика', sub: 'Брендинг и логотипы',
+        title: 'Айдентика и упаковка', sub: 'Визуальные системы, логотипы и бренд-платформы',
         items: [
-          { title: 'Поднебесье Настоящего МГУ', url: 'https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png' },
-          { title: 'ШумГрант | Центр проектирования', url: 'https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png' }
+          { title: 'Поднебесье Настоящего МГУ — Медиа-айдентика', url: 'https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png' },
+          { title: 'ШумГрант | Центр социального проектирования', url: 'https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png' }
         ]
       },
       posters: {
-        title: 'Плакаты / Фото', sub: 'Постеры и графические эксперименты',
+        title: 'Плакаты / Фото / Арт-дирекшн', sub: 'Выразительная графика, постеры и работа со светом',
         items: [
-          { title: 'Balcony', url: 'https://www.behance.net/gallery/217430181/Balcony-lummb', img: 'img/balcony.jpg' },
-          { title: 'i hate being here, there...', url: 'https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg' }
+          { title: 'LUMMB POSTER | This feelings', url: 'https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings', img: 'img/lummb-poster-this-feelings.jpg' },
+          { title: 'Balcony — Визуальная концепция', url: 'https://www.behance.net/gallery/217430181/Balcony-lummb', img: 'img/balcony.jpg' },
+          { title: 'i hate being here, there and wherever else', url: 'https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg' }
         ]
       },
       ai: {
-        title: 'AI-дизайн', sub: 'Генерации и нейросети',
+        title: 'AI-дизайн и нейросети', sub: 'Интеграция Midjourney и Gen AI в коммерческие макеты',
         items: [
-          { title: 'MidJourney для постов', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
-          { title: 'Серия плакатов (концепция)', url: 'https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png' }
+          { title: 'Коммерческий SMM-пост с использованием MidJourney', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
+          { title: 'Серия концептуальных плакатов (AI + Графика)', url: 'https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)', img: 'https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png' }
         ]
       },
       smm: {
-        title: 'SMM', sub: 'Оформление соцсетей',
+        title: 'SMM & Performance-креативы', sub: 'Визуал для соцсетей, ивентов и таргетированной рекламы',
         items: [
-          { title: 'MidJourney для постов', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
-          { title: 'CyberX Community', url: '#', img: 'img/cyberx-community-2.png' }
+          { title: 'Оформление промо-поста с использованием MidJourney', url: 'https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney', img: 'img/midjourney-post.jpg' },
+          { title: 'CyberX Community — Дизайн карточек киберспорт-турниров', url: 'https://www.behance.net/vladimirlummb', img: 'img/cyberx-community-2.png' }
         ]
       }
     };
@@ -1642,6 +1792,20 @@
     const navTooltip = document.getElementById('navTooltip');
     document.getElementById('topBtn').addEventListener('click', (e) => { e.stopPropagation(); navTooltip.classList.toggle('show'); });
     document.addEventListener('click', () => navTooltip.classList.remove('show'));
+
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    if (copyEmailBtn && navigator.clipboard) {
+      copyEmailBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('lumbmgmt@gmail.com').then(() => {
+          copyEmailBtn.textContent = 'СКОПИРОВАНО ✓';
+          copyEmailBtn.classList.add('copied');
+          setTimeout(() => {
+            copyEmailBtn.textContent = 'КОПИРОВАТЬ';
+            copyEmailBtn.classList.remove('copied');
+          }, 2200);
+        }).catch(() => {});
+      });
+    }
 
     const backToTop = document.getElementById('backToTop');
     backToTop.addEventListener('click', () => goTo('hero'));
