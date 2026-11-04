@@ -30,11 +30,11 @@
     --slate-1: #3d4046;  --slate-2: #23252a;
     --blue-1: #2f4f8f;   --blue-2: #15243f;
 
-    --nav-bg: rgba(8,8,10,0.5);
-    --nav-bg-scrolled: rgba(8,8,10,0.78);
+    --nav-bg: rgba(8,8,10,0.62);
+    --nav-bg-scrolled: rgba(8,8,10,0.86);
     --mobile-menu-bg: rgba(8,8,10,0.97);
     --tooltip-bg: #16171a;
-    --backtotop-bg: rgba(18,18,22,0.7);
+    --backtotop-bg: rgba(18,18,22,0.85);
     --backtotop-bg-hover: rgba(40,40,46,0.9);
     --overlay-bg: rgba(4,4,6,0.72);
     --modal-from: #17181c;
@@ -87,7 +87,6 @@
     display:flex; align-items:center; justify-content:space-between;
     padding: 0 56px 0 48px; z-index: 100;
     background: var(--nav-bg);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid transparent;
     transition: border-color .3s ease, background .3s ease;
   }
@@ -139,8 +138,7 @@
   .nav-burger.open span:nth-child(3){ transform: translateY(-6.5px) rotate(-45deg); }
 
   .mobile-menu{
-    position:fixed; inset:0; z-index:200; background: var(--mobile-menu-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform: translateY(-10px); transition: opacity .25s ease, transform .25s ease;
+    position:fixed; inset:0; z-index:200; background: var(--mobile-menu-bg); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform: translateY(-10px); transition: opacity .25s ease, transform .25s ease;
   }
   .mobile-menu.open{ opacity:1; pointer-events:auto; transform:none; }
   .mobile-menu ul{ list-style:none; text-align:center; }
@@ -165,7 +163,7 @@
 
   .back-to-top{
     position: fixed; right: 28px; bottom: 28px; width:50px; height:50px; border-radius:50%;
-    background: var(--backtotop-bg); border:1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--ink);
+    background: var(--backtotop-bg); border:1px solid var(--line); color: var(--ink);
     display:flex; align-items:center; justify-content:center; cursor:pointer; z-index: 90; opacity:0; transform: translateY(12px); pointer-events:none; transition: opacity .3s ease, transform .3s ease, background .2s ease;
   }
   .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
@@ -190,7 +188,7 @@
     background: radial-gradient(45% 42% at 30% 35%, rgba(255,0,200,var(--aurora-a1)), transparent 70%),
                 radial-gradient(42% 38% at 72% 60%, rgba(0,255,255,var(--aurora-a2)), transparent 70%),
                 radial-gradient(38% 36% at 58% 18%, rgba(120,50,255,var(--aurora-a3)), transparent 70%);
-    filter: blur(36px); will-change: transform; transform: translate3d(0,0,0); animation: auroraMove 16s ease-in-out infinite alternate;
+    will-change: transform; transform: translate3d(0,0,0); animation: auroraMove 16s ease-in-out infinite alternate;
   }
 
   /* Полупрозрачная белая геометрия-абстракция по центру перелистающихся работ */
@@ -202,15 +200,11 @@
     -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 48%, transparent 78%);
     mask-image: radial-gradient(circle at 50% 50%, #000 48%, transparent 78%);
   }
-  .hero-chaos-svg{
-    width: 100%; height: 100%;
-    will-change: transform;
-    animation: chaosSlowSpin 64s linear infinite;
-  }
-  .hero-chaos-svg .ring-cw{ transform-origin: 400px 400px; animation: chaosSlowSpin 26s linear infinite; }
-  .hero-chaos-svg .ring-ccw{ transform-origin: 400px 400px; animation: chaosSlowSpinRev 32s linear infinite; }
-  .hero-chaos-svg .core-mesh{ transform-origin: 400px 400px; animation: chaosPulseTilt 11s ease-in-out infinite alternate; }
-  .hero-chaos-svg .chaos-nodes{ transform-origin: 400px 400px; animation: chaosSlowSpinRev 44s linear infinite; }
+  .chaos-layer{ position:absolute; inset:0; width:100%; height:100%; will-change: transform; }
+  .chaos-layer.ring-cw{ animation: chaosSlowSpin 26s linear infinite; }
+  .chaos-layer.ring-ccw{ animation: chaosSlowSpinRev 32s linear infinite; }
+  .chaos-layer.core-mesh{ animation: chaosPulseTilt 11s ease-in-out infinite alternate; }
+  .chaos-layer.chaos-nodes{ animation: chaosSlowSpinRev 44s linear infinite; }
   @keyframes chaosSlowSpin{ from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
   @keyframes chaosSlowSpinRev{ from{ transform: rotate(360deg); } to{ transform: rotate(0deg); } }
   @keyframes chaosPulseTilt{
@@ -306,8 +300,7 @@
     position: absolute; top: 16px; left: 16px; z-index: 2;
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
     letter-spacing: 0.04em; text-transform: uppercase; color: #fff;
-    background: rgba(8, 8, 10, 0.62); border: 1px solid rgba(255,255,255,0.18);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    background: rgba(8, 8, 10, 0.78); border: 1px solid rgba(255,255,255,0.18);
     padding: 4px 10px; border-radius: 20px;
   }
 
@@ -396,14 +389,13 @@
   }
   .sc-tag{
     font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em;
-    text-transform: uppercase; color: #fff; background: rgba(8,8,10,0.55);
-    border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    padding: 5px 11px; border-radius: 20px;
+    text-transform: uppercase; color: #fff; background: rgba(8,8,10,0.72);
+    border: 1px solid rgba(255,255,255,0.2); padding: 5px 11px; border-radius: 20px;
   }
   .sc-open{
     width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.16);
     border: 1px solid rgba(255,255,255,0.25); color: #fff; display:flex; align-items:center; justify-content:center;
-    backdrop-filter: blur(6px); transition: background .2s ease, transform .2s ease;
+    transition: background .2s ease, transform .2s ease;
   }
   .sc-open:hover{ background: rgba(255,255,255,0.3); transform: scale(1.08); }
   .sc-bottom{ position:relative; z-index:2; text-align:left; }
@@ -504,7 +496,6 @@
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.025);
     border: 1px solid var(--line);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
@@ -533,27 +524,31 @@
   .flat-grid.dragging .flat-card{ pointer-events:none; }
   .flat-grid::-webkit-scrollbar{ display:none; }
   .flat-card{ position:relative; flex: 0 0 auto; width: 260px; height: 250px; scroll-snap-align:center; border-radius: 18px; border: 1px solid var(--line); padding: 20px; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; box-shadow: 0 18px 40px -20px rgba(0,0,0,0.6); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease; background-size: cover; background-position: center; }
+  .card-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none; user-select:none; }
   .flat-card:hover{ transform: translateY(-6px); }
+  .is-offscreen, .is-offscreen *, .is-offscreen::before, .is-offscreen::after, .is-offscreen *::before, .is-offscreen *::after{ animation-play-state: paused !important; }
+  .mobile-menu.open{ -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .modal-overlay.open{ -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
   .flat-grid.shrink-cards .flat-card { transform: translateY(-16px) scale(0.92); opacity: 0.4; pointer-events: none; }
   .flat-card::before{ content:''; position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, rgba(6,6,8,0.05) 35%, rgba(6,6,8,0.92) 100%); }
   .flat-card h3{ font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height:1.3; position:relative; z-index:2; color:#fff; margin:0; }
   .flat-card .cat{ font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); margin-top: 6px; position:relative; z-index:2; }
   .flat-icon{ width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; position:absolute; top:16px; right:16px; z-index:2; color:#fff; line-height:0; }
   .flat-icon svg{ display:block; width:14px; height:14px; }
-  .carousel-arrow{ flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background: var(--backtotop-bg); backdrop-filter: blur(10px); color: var(--ink); font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5; transition: background .2s ease; align-self:center; }
+  .carousel-arrow{ flex-shrink:0; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background: var(--backtotop-bg); color: var(--ink); font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5; transition: background .2s ease; align-self:center; }
   .carousel-arrow:hover{ background: var(--backtotop-bg-hover); }
 
   .cat-decks-wrap { position: relative; z-index: 10; display: flex; justify-content: center; gap: 14px; padding: 0 48px; margin: 30px 0 20px; flex-wrap: wrap; }
   .cat-deck { position: relative; transition: margin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; }
   .cat-deck:hover { z-index: 20; margin: 0 25px; }
-  .cat-btn { position: relative; z-index: 2; display: block; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); border-radius: 12px; padding: 14px 28px; color: var(--ink); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.4s ease; backdrop-filter: blur(12px); white-space: nowrap; }
+  .cat-btn { position: relative; z-index: 2; display: block; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); border-radius: 12px; padding: 14px 28px; color: var(--ink); font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .4s ease, background .4s ease, border-color .4s ease, box-shadow .4s ease; white-space: nowrap; }
   .cat-deck:hover .cat-btn { transform: translateY(-4px); background: rgba(255, 255, 255, 0.08); }
   .cat-deck[data-cat="identity"]:hover .cat-btn { border-color: rgba(139, 120, 255, 0.5); box-shadow: 0 8px 20px rgba(139, 120, 255, 0.2); }
   .cat-deck[data-cat="posters"]:hover .cat-btn { border-color: rgba(94, 255, 154, 0.5); box-shadow: 0 8px 20px rgba(94, 255, 154, 0.2); }
   .cat-deck[data-cat="ai"]:hover .cat-btn { border-color: rgba(255, 47, 110, 0.5); box-shadow: 0 8px 20px rgba(255, 47, 110, 0.2); }
   .cat-deck[data-cat="smm"]:hover .cat-btn { border-color: rgba(255, 176, 140, 0.5); box-shadow: 0 8px 20px rgba(255, 176, 140, 0.2); }
   .cat-fan { position: absolute; bottom: 100%; left: 50%; width: 0; height: 0; z-index: 1; pointer-events: none; }
-  .cat-mini-card { position: absolute; bottom: -10px; left: -40px; width: 80px; height: 105px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background-size: cover; background-position: center; background-image: var(--bg); transform-origin: bottom center; transform: translateX(0) rotate(0) translateY(20px) scale(0.6); opacity: 0; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.8); }
+  .cat-mini-card { position: absolute; bottom: -10px; left: -40px; width: 80px; height: 105px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background-size: cover; background-position: center; background-image: var(--bg); transform-origin: bottom center; transform: translateX(0) rotate(0) translateY(20px) scale(0.6); opacity: 0; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.8); }
   .cat-deck:hover .cat-mini-card { opacity: 1; transform: translateX(var(--x)) rotate(var(--r)) translateY(-10px) scale(1); }
 
   .video-spoiler{ position:relative; margin: 0 48px 10px; border-radius: 20px; overflow: hidden; flex-shrink:0; background: linear-gradient(135deg, rgba(139,120,255,0.08), rgba(90,150,255,0.04) 45%, transparent 75%); border: 1px solid rgba(139,120,255,0.22); box-shadow: 0 18px 40px -26px rgba(90,80,220,0.4); transition: border-color .25s ease, box-shadow .25s ease; }
@@ -581,7 +576,7 @@
   .iframe-wrap.loaded::after { display: none; }
   .iframe-wrap.loaded iframe, .iframe-wrap.loaded video { opacity: 1; }
   .video-card-thumb{ position:relative; width:100%; aspect-ratio: var(--vratio, 9/16); background-size:cover; background-position:center; background-color:#141418; background-image: linear-gradient(135deg, rgba(139,120,255,0.28), rgba(90,150,255,0.14)); display:flex; align-items:center; justify-content:center; }
-  .video-card-play{ width:42px; height:42px; border-radius:50%; background: rgba(8,8,10,0.55); border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; backdrop-filter: blur(4px); }
+  .video-card-play{ width:42px; height:42px; border-radius:50%; background: rgba(8,8,10,0.55); border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; }
   .video-card-info{ padding: 14px 16px 16px; }
   .video-card-info h4{ font-size:14px; font-weight:600; line-height: 1.4; margin:0 0 6px 0; }
   .video-card-info .cat{ font-size:12px; font-weight: 500; color: var(--ink-dim); margin-top:0; display:block; }
@@ -631,7 +626,7 @@
 
   /* ================= SCREEN 5 — CONTACTS ================= */
   #contacts{ align-items:center; justify-content:center; text-align:center; padding-top: var(--nav-h); overflow:hidden; }
-  #contacts::before{ content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none; background: radial-gradient(36% 32% at 35% 60%, rgba(150,130,255,0.16), transparent 70%), radial-gradient(32% 28% at 68% 40%, rgba(255,130,190,0.10), transparent 70%), radial-gradient(28% 26% at 55% 75%, rgba(110,230,210,0.10), transparent 70%); filter: blur(36px); will-change: transform; transform: translate3d(0,0,0); animation: auroraMove 26s ease-in-out infinite alternate; }
+  #contacts::before{ content:''; position:absolute; inset:-15%; z-index:0; pointer-events:none; background: radial-gradient(36% 32% at 35% 60%, rgba(150,130,255,0.16), transparent 70%), radial-gradient(32% 28% at 68% 40%, rgba(255,130,190,0.10), transparent 70%), radial-gradient(28% 26% at 55% 75%, rgba(110,230,210,0.10), transparent 70%); will-change: transform; transform: translate3d(0,0,0); animation: auroraMove 26s ease-in-out infinite alternate; }
   .contacts-inner{ position:relative; z-index:2; max-width: 640px; padding: 0 24px; }
   .contacts-inner a.eyebrow{ margin-bottom: 28px; }
   #contacts h2{ margin: 0; font-size: clamp(38px, 5.6vw, 64px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
@@ -725,8 +720,6 @@
     border: 1px solid rgba(94, 255, 154, 0.28);
     border-radius: 22px;
     padding: 20px 20px 18px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.85), 0 0 24px rgba(94, 255, 154, 0.08);
     opacity: 0;
     transform: translateY(24px) scale(0.96);
@@ -880,7 +873,7 @@
   }
 
   /* ================= MODALS ================= */
-  .modal-overlay{ position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center; background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px; }
+  .modal-overlay{ position:fixed; inset:0; z-index: 300; display:flex; align-items:center; justify-content:center; background: var(--overlay-bg); opacity:0; pointer-events:none; transition: opacity .25s ease; padding: 24px; }
   .modal-overlay.open{ opacity:1; pointer-events:auto; }
   .modal-box{ position:relative; width:100%; max-width: 580px; max-height: 84vh; overflow-y:auto; background: linear-gradient(165deg, var(--modal-from), var(--modal-to) 80%); border: 1px solid var(--line); border-radius: 26px; padding: 48px 40px; transform: translateY(14px) scale(0.98); transition: transform .25s ease; }
   .modal-overlay.open .modal-box{ transform: none; }
@@ -919,8 +912,6 @@
     .screen{ min-height: 100vh; min-height: 100dvh; }
     nav{ padding: 0 16px; height: 64px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     :root{ --nav-h: 64px; }
-    .hero-aurora::before{ filter: blur(24px); }
-    #contacts::before{ filter: blur(28px); }
     .logo{ font-size:18px; }
     .logo-tag{ font-size: 9px; padding: 2px 5px; margin-left: 6px; }
     .nav-links{ display:none; }
@@ -937,7 +928,7 @@
     .hero-trust-bar{ justify-content:center; font-size: 10.5px; gap: 8px 12px; margin-top: 24px; padding-top: 16px; width: 100%; }
     /* Отключаем 3D-стопку работ и вращающуюся абстракцию на мобильных экранах для чистоты и 60fps */
     .hero-showcase, .hero-chaos-bg{ display: none !important; }
-    .hero-chaos-svg, .hero-chaos-svg *{ animation: none !important; }
+    .chaos-layer{ animation: none !important; }
     .cat-fan{ display: none !important; }
     .section-top{ flex-direction:column; padding: 0 16px; gap:8px; margin-bottom:14px; }
     .section-copy h2{ font-size: clamp(26px, 6.5vw, 32px); }
@@ -1101,22 +1092,18 @@
 
       <div class="hero-showcase" aria-label="Избранные работы">
         <div class="hero-chaos-bg" aria-hidden="true">
-          <svg class="hero-chaos-svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Внешние орбитальные кольца (вращаются по часовой) -->
-            <g class="ring-cw" stroke="#ffffff">
+          <svg class="chaos-layer ring-cw" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#ffffff">
               <ellipse cx="400" cy="400" rx="370" ry="145" transform="rotate(-22 400 400)" stroke-width="1.4" stroke-opacity="0.75" stroke-dasharray="10 12"/>
               <ellipse cx="400" cy="400" rx="345" ry="125" transform="rotate(-22 400 400)" stroke-width="0.9" stroke-opacity="0.45"/>
               <circle cx="400" cy="400" r="330" stroke-width="1.1" stroke-opacity="0.5" stroke-dasharray="3 14"/>
               <circle cx="400" cy="400" r="375" stroke-width="0.8" stroke-opacity="0.3" stroke-dasharray="1 18"/>
-            </g>
-            <!-- Пересекающиеся орбиты (вращаются против часовой) -->
-            <g class="ring-ccw" stroke="#ffffff">
+            </g></svg>
+          <svg class="chaos-layer ring-ccw" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#ffffff">
               <ellipse cx="400" cy="400" rx="380" ry="155" transform="rotate(28 400 400)" stroke-width="1.3" stroke-opacity="0.7"/>
               <ellipse cx="400" cy="400" rx="355" ry="135" transform="rotate(28 400 400)" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="6 10"/>
               <circle cx="400" cy="400" r="295" stroke-width="1.1" stroke-opacity="0.55" stroke-dasharray="6 16"/>
-            </g>
-            <!-- Каркасная сфера Земля (как в Chaotic Good) — выступает за края стопки карточек -->
-            <g class="core-mesh" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.1">
+            </g></svg>
+          <svg class="chaos-layer core-mesh" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.1">
               <circle cx="400" cy="400" r="255" stroke-width="1.3" stroke-opacity="0.75"/>
               <ellipse cx="400" cy="400" rx="255" ry="85"/>
               <ellipse cx="400" cy="400" rx="255" ry="175"/>
@@ -1126,9 +1113,8 @@
               <ellipse cx="400" cy="400" rx="32" ry="255" stroke-dasharray="4 8"/>
               <line x1="95" y1="400" x2="705" y2="400" stroke-opacity="0.5" stroke-dasharray="4 8"/>
               <line x1="400" y1="95" x2="400" y2="705" stroke-opacity="0.5" stroke-dasharray="4 8"/>
-            </g>
-            <!-- Светящиеся узлы и частицы на орбитах -->
-            <g class="chaos-nodes" fill="#ffffff">
+            </g></svg>
+          <svg class="chaos-layer chaos-nodes" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="#ffffff">
               <circle cx="400" cy="145" r="3.2" fill-opacity="0.95"/><circle cx="400" cy="655" r="3.2" fill-opacity="0.95"/>
               <circle cx="145" cy="400" r="3.2" fill-opacity="0.95"/><circle cx="655" cy="400" r="3.2" fill-opacity="0.95"/>
               <circle cx="220" cy="220" r="2.8" fill-opacity="0.85"/><circle cx="580" cy="580" r="2.8" fill-opacity="0.85"/>
@@ -1138,12 +1124,12 @@
               <circle cx="285" cy="115" r="2.2" fill-opacity="0.75"/><circle cx="515" cy="685" r="2.2" fill-opacity="0.75"/>
               <circle cx="530" cy="125" r="2.2" fill-opacity="0.75"/><circle cx="270" cy="675" r="2.2" fill-opacity="0.75"/>
               <circle cx="85" cy="435" r="2" fill-opacity="0.7"/><circle cx="715" cy="365" r="2" fill-opacity="0.7"/>
-            </g>
-          </svg>
+            </g></svg>
         </div>
 
         <div class="showcase-stage" id="showcaseStage" title="Нажмите, чтобы переключить работу">
-          <div class="showcase-card" data-pos="0" data-index="0" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
+          <div class="showcase-card" data-pos="0" data-index="0">
+          <img class="card-bg" src="img/lummb-poster-this-feelings.jpg" alt="" draggable="false" decoding="async" style="object-position:center top">
             <div class="sc-top">
               <span class="sc-tag">01 / ПОСТЕР</span>
             </div>
@@ -1153,7 +1139,8 @@
             </div>
           </div>
 
-          <div class="showcase-card" data-pos="1" data-index="1" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
+          <div class="showcase-card" data-pos="1" data-index="1">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png" alt="" draggable="false" loading="lazy" decoding="async">
             <div class="sc-top">
               <span class="sc-tag">02 / АЙДЕНТИКА</span>
             </div>
@@ -1163,7 +1150,8 @@
             </div>
           </div>
 
-          <div class="showcase-card" data-pos="2" data-index="2" style="background-image:url('img/balcony.jpg')">
+          <div class="showcase-card" data-pos="2" data-index="2">
+          <img class="card-bg" src="img/balcony.jpg" alt="" draggable="false" loading="lazy" decoding="async">
             <div class="sc-top">
               <span class="sc-tag">03 / ВИЗУАЛ</span>
             </div>
@@ -1173,7 +1161,8 @@
             </div>
           </div>
 
-          <div class="showcase-card" data-pos="3" data-index="3" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+          <div class="showcase-card" data-pos="3" data-index="3">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png" alt="" draggable="false" loading="lazy" decoding="async">
             <div class="sc-top">
               <span class="sc-tag">04 / БРЕНДИНГ</span>
             </div>
@@ -1183,7 +1172,8 @@
             </div>
           </div>
 
-          <div class="showcase-card" data-pos="4" data-index="4" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+          <div class="showcase-card" data-pos="4" data-index="4">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png" alt="" draggable="false" loading="lazy" decoding="async">
             <div class="sc-top">
               <span class="sc-tag">05 / AI CONCEPT</span>
             </div>
@@ -1193,7 +1183,8 @@
             </div>
           </div>
 
-          <div class="showcase-card" data-pos="5" data-index="5" style="background-image:url('img/cyberx-community-2.png')">
+          <div class="showcase-card" data-pos="5" data-index="5">
+          <img class="card-bg" src="img/cyberx-community-2.png" alt="" draggable="false" loading="lazy" decoding="async">
             <div class="sc-top">
               <span class="sc-tag">06 / ESPORTS SMM</span>
             </div>
@@ -1299,49 +1290,57 @@
     <div class="carousel-wrap">
       <button class="carousel-arrow" id="portfolioPrev" aria-label="Предыдущий проект">‹</button>
       <div class="flat-grid reveal" id="portfolioTrack">
-        <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png')">
+        <a class="flat-card" href="https://www.behance.net/gallery/224381599/podnebese-nastojaschego-mgu-(nastojaschee-podnebese)" target="_blank" rel="noopener">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/c1d2e7224381599.Y3JvcCwxMDIyLDc5OSwxODksNTYx.png" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">BRANDING</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Поднебесье Настоящего&nbsp;МГУ</h3>
           <div class="cat">Айдентика и медиа-упаковка • Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png')">
+        <a class="flat-card" href="https://www.behance.net/gallery/222469923/shumgrant-centr-socialnogo-proektirovanija" target="_blank" rel="noopener">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/36d45c222469923.Y3JvcCwxNDAwLDEwOTUsMCwxMzYx.png" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">IDENTITY</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>ШумГрант&nbsp;| Центр социального проектирования</h3>
           <div class="cat">Брендинг и визуальная система • Behance</div>
         </a>
-        <a class="flat-card" href="#portfolio" onclick="event.preventDefault(); openCatModal('smm');" style="background-image:url('img/cyberx-community-2.png')">
+        <a class="flat-card" href="#portfolio" onclick="event.preventDefault(); openCatModal('smm');">
+          <img class="card-bg" src="img/cyberx-community-2.png" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">ESPORTS SMM</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>CyberX Community</h3>
           <div class="cat">Ивент-промо и SMM-карточки</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener" style="background-image:url('img/lummb-poster-this-feelings.jpg'); background-position:center top;">
+        <a class="flat-card" href="https://www.behance.net/gallery/161409101/LUMMB-POSTER-This-feelings" target="_blank" rel="noopener">
+          <img class="card-bg" src="img/lummb-poster-this-feelings.jpg" alt="" draggable="false" loading="lazy" decoding="async" style="object-position:center top">
           <span class="flat-badge">POSTER ART</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>LUMMB POSTER&nbsp;| This feelings</h3>
           <div class="cat">Постер-дизайн и типографика • Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg')">
+        <a class="flat-card" href="https://www.behance.net/gallery/161789105/i-hate-being-here-there-and-anyone-else" target="_blank" rel="noopener">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/c5cde9161789105.63cab63529c4d.jpg" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">VISUAL ART</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>i hate being here, there and&nbsp;wherever else</h3>
           <div class="cat">Арт-дирекшн и графика • Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener" style="background-image:url('img/balcony.jpg')">
+        <a class="flat-card" href="https://www.behance.net/gallery/217430181/Balcony-lummb" target="_blank" rel="noopener">
+          <img class="card-bg" src="img/balcony.jpg" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">RETRO &amp; PHOTO</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Balcony</h3>
           <div class="cat">Визуальная концепция и ретушь • Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener" style="background-image:url('img/midjourney-post.jpg')">
+        <a class="flat-card" href="https://www.behance.net/gallery/222475823/primer-oformlenija-posta-s-ispolzovaniem-MidJourney" target="_blank" rel="noopener">
+          <img class="card-bg" src="img/midjourney-post.jpg" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">GEN AI + SMM</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Оформление промо-поста с&nbsp;MidJourney</h3>
           <div class="cat">AI-дизайн и коммерческий SMM • Behance</div>
         </a>
-        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener" style="background-image:url('https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png')">
+        <a class="flat-card" href="https://www.behance.net/gallery/251893725/serija-plaktov-(koncepcija)" target="_blank" rel="noopener">
+          <img class="card-bg" src="https://mir-s3-cdn-cf.behance.net/projects/404/fc7f88251893725.Y3JvcCw3NTEsNTg3LDMyOSw5MjA.png" alt="" draggable="false" loading="lazy" decoding="async">
           <span class="flat-badge">AI CONCEPT</span>
           <div class="flat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></div>
           <h3>Серия концептуальных плакатов</h3>
@@ -1634,9 +1633,6 @@
     </div>
   </div>
 
-  <!-- ПОДКЛЮЧЕНИЕ БИБЛИОТЕКИ THREE.JS ДЛЯ SECRET-ОКНА -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
   <script>
     /* ================= АУДИО ДВИЖОК ================= */
     let audioCtx = null;
@@ -1928,15 +1924,30 @@
         sRenderer.render(sScene, sCamera);
     }
 
+    let threePromise = null;
+    function loadThree(){
+      if (window.THREE) return Promise.resolve();
+      return threePromise || (threePromise = new Promise((resolve, reject) => {
+        const sc = document.createElement('script');
+        sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        sc.onload = resolve;
+        sc.onerror = () => { threePromise = null; reject(new Error('three.js load failed')); };
+        document.head.appendChild(sc);
+      }));
+    }
+
     function openSecret(){ 
       secretOverlay.classList.add('open'); 
       document.body.classList.add('vibes-open'); 
-      initSecret3D();
-      // Пересчитываем размеры на случай, если окно меняло размеры, пока экран был закрыт
-      onSecretResize();
-      if (secret3dRafId === null && secret3dInitialized) {
-        animateSecret3D();
-      }
+      loadThree().then(() => {
+        if (!secretOverlay.classList.contains('open')) return;
+        initSecret3D();
+        // Пересчитываем размеры на случай, если окно меняло размеры, пока экран был закрыт
+        onSecretResize();
+        if (secret3dRafId === null && secret3dInitialized) {
+          animateSecret3D();
+        }
+      }).catch(() => {});
     }
     
     function closeSecret(){ 
@@ -2014,6 +2025,7 @@
     const showcaseNextBtn = document.getElementById('showcaseNextBtn');
     let activeShowcaseIdx = 0;
     let showcaseTimer = null;
+    let heroInView = true;
 
     function updateShowcaseDeck(newIdx) {
       const total = showcaseCards.length;
@@ -2033,7 +2045,7 @@
       if (showcaseTimer) clearInterval(showcaseTimer);
       if (window.innerWidth <= 900) return;
       showcaseTimer = setInterval(() => {
-        if (window.innerWidth > 900) updateShowcaseDeck(activeShowcaseIdx + 1);
+        if (heroInView && !document.hidden && window.innerWidth > 900) updateShowcaseDeck(activeShowcaseIdx + 1);
       }, 5000);
     }
 
@@ -2073,6 +2085,10 @@
 
     if (heroSection && heroAurora && !prefersReducedMotion && hasFinePointer){
       let targetMX = 0, targetMY = 0, curMX = 0, curMY = 0, rafId = null;
+      let heroRect = null;
+      const invalidateRect = () => { heroRect = null; };
+      window.addEventListener('scroll', invalidateRect, { passive: true });
+      window.addEventListener('resize', invalidateRect);
       
       function tickAurora(){
         curMX += (targetMX - curMX) * 0.08;
@@ -2089,7 +2105,7 @@
       }
       
       heroSection.addEventListener('mousemove', (e) => {
-        const r = heroSection.getBoundingClientRect();
+        const r = heroRect || (heroRect = heroSection.getBoundingClientRect());
         const relX = (e.clientX - r.left) / r.width - 0.5;
         const relY = (e.clientY - r.top) / r.height - 0.5;
         targetMX = relX * 45;
@@ -2465,6 +2481,15 @@
     }, { rootMargin: "-40% 0px -40% 0px", threshold: 0 });
 
     Object.values(sections).forEach(s => observer.observe(s));
+
+    const pauseObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('is-offscreen', !entry.isIntersecting);
+        if (entry.target.id === 'hero') heroInView = entry.isIntersecting;
+      });
+    }, { rootMargin: '120px 0px' });
+    pauseObserver.observe(sections.hero);
+    pauseObserver.observe(sections.contacts);
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
